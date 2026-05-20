@@ -59,6 +59,139 @@
   padding: 7px 10px; background: rgba(251,191,36,.08);
   border: 1px solid rgba(251,191,36,.35); border-radius: 6px;
 }
+
+/* ─── Disorder browser: sidebar + detail ─── */
+.dxbrowser {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 20px 0;
+  min-height: 600px;
+}
+.dxbside {
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border-dim);
+  padding-right: 14px;
+  max-height: 80vh;
+  overflow: hidden;
+}
+.dxbfilter {
+  width: 100%;
+  background: #0a1322;
+  color: #e2e8f0;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color .12s;
+}
+.dxbfilter:focus { border-color: var(--teal); }
+.dxbfilter::placeholder { color: #64748b; }
+.dxblist {
+  overflow-y: auto;
+  padding-right: 4px;
+  flex: 1;
+}
+.dxbgroup { margin-bottom: 10px; }
+.dxbgroup-h {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--text-dim); padding: 4px 8px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.02);
+  border-radius: 5px;
+  margin-bottom: 3px;
+}
+.dxbitem {
+  display: block; width: 100%; text-align: left;
+  background: transparent; color: #cbd5e1;
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-size: 12px; line-height: 1.35;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s;
+  margin-bottom: 2px;
+}
+.dxbitem:hover { background: rgba(255,255,255,.04); color: #f1f5f9; }
+.dxbitem.active {
+  background: rgba(13,148,136,.12);
+  border-color: rgba(13,148,136,.45);
+  border-left-color: var(--teal-light);
+  color: #f8fafc; font-weight: 600;
+}
+.dxbitem .dxbi-gene {
+  display: block; font-size: 10px; color: #64748b;
+  margin-top: 1px;
+  font-family: 'JetBrains Mono', Menlo, monospace;
+}
+.dxbitem.hide { display: none; }
+.dxbmain {
+  overflow-y: auto;
+  max-height: 80vh;
+  padding-right: 6px;
+}
+.dxd-empty {
+  color: var(--text-dim); font-size: 13px;
+  padding: 80px 20px; text-align: center;
+}
+.dxd-head {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px; margin-bottom: 14px;
+}
+.dxd-name { font-size: 19px; font-weight: 700; color: #f1f5f9; }
+.dxd-tag {
+  font-size: 10px; padding: 3px 9px;
+  border-radius: 14px; font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.dxd-tag.seg { background: rgba(13,148,136,.15); color: var(--teal-light); border: 1px solid var(--teal); }
+.dxd-tag.gene { background: #0a1322; color: #94a3b8; border: 1px solid var(--border); font-family: 'JetBrains Mono', Menlo, monospace; font-weight: 700; }
+.dxd-tag.inh { background: rgba(168,85,247,.12); color: #d8b4fe; border: 1px solid rgba(168,85,247,.4); }
+.dxd-section {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  background: #0a1322;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.dxd-section h5 {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--teal-light);
+  margin-bottom: 8px;
+}
+.dxd-section h5 .dxd-icon { font-size: 13px; }
+.dxd-section p, .dxd-section .dxd-body {
+  font-size: 13px; line-height: 1.65; color: #cbd5e1;
+  margin: 0;
+}
+.dxd-section .dxd-body b { color: #fde68a; }
+.dxd-section .svgdiag-box { margin: 0; }
+.dxd-section .dx-casc { background: transparent; padding: 0; border: none; }
+.dxd-pearl {
+  margin-top: 10px;
+  padding: 8px 11px;
+  background: rgba(251,191,36,.08);
+  border: 1px solid rgba(251,191,36,.35);
+  border-radius: 6px;
+  font-size: 12px; line-height: 1.55;
+  color: #fde68a;
+}
+@media (max-width: 900px) {
+  .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
+  .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
+  .dxbmain { max-height: none; }
+}
 #svg-tip {
   position: fixed; z-index: 9999;
   background: #0d1f38; border: 1px solid #0e7490;
@@ -2336,7 +2469,15 @@
     <div class="diag-src">Brenner Ch. 13 (Figs 13.4–13.9). EABV = effective arterial blood volume. The EABV concept unifies HF, cirrhosis, and nephrotic syndrome under one framework: all are states where the kidney senses a volume deficit it cannot correct because the primary defect is upstream (pump failure, vasodilation, or oncotic pressure loss).</div>
   </div>
 
-  <div class="dz-grid">
+  <div class="dxbrowser">
+    <aside class="dxbside">
+      <input type="search" class="dxbfilter" id="dxbfilter" placeholder="Filter disorders…" autocomplete="off">
+      <div class="dxblist" id="dxblist"></div>
+    </aside>
+    <main class="dxbmain" id="dxbmain"></main>
+  </div>
+
+  <div class="dz-grid" style="display:none">
 
     <!-- PCT diseases -->
     <div class="dzcard" style="--dcol:var(--pct)">
@@ -2975,6 +3116,7 @@ function showSeg(id){
 const DIAG_TP={
   loh_tdlh:{name:'Thin Descending Limb (tDLH) — the water valve',body:'High AQP1 water permeability, near-zero Na⁺/K⁺-ATPase, low NaCl permeability. Passive H₂O exit into the hyperosmolar medullary interstitium concentrates tubular fluid (Na⁺ rises ~4× by the bend, purely from water removal). No transporter to mutate — but AQP1 loss collapses the countercurrent system (max urine ~450 mOsm/kg).'},
   loh_talh:{name:'Thin Ascending Limb (tALH) — passive NaCl exit',body:'Water-impermeable (no AQP). NaCl exits passively down the concentration gradient established by the descending limb, with no ATP cost. This passive separation of NaCl from water is the single-effect step that the countercurrent multiplier amplifies along the corticomedullary axis.'},
+  pendrin: {name:'Pendrin (SLC26A4) — β-IC apical Cl⁻/HCO₃⁻ exchanger',body:'Apical in β-intercalated cells; partners with NDCBE for electroneutral NaCl reabsorption (no K⁺ secretion penalty). Aldosterone- and AngII-induced. LOF → Pendred syndrome: sensorineural deafness + euthyroid goiter (pendrin also handles iodide in thyroid + cochlea); renal phenotype only emerges under severe NaCl restriction.'},
   napi2a:  {name:'NaPi-IIa (SLC34A1) — Na⁺/Phosphate Cotransporter',body:'Electrogenic (3 Na⁺:1 HPO₄²⁻). Apical PCT S1/S2. PTH→cAMP→internalization (endocytosis). FGF23 also suppresses via FGFR1c/Klotho. Mutations: SLC34A1 LOF→NPHLOP2 (nephrolithiasis/osteoporosis). Clinical pearl: FGF23-driven hypophosphatemia (XLH, TIO) is treated with burosumab (anti-FGF23 mAb).'},
   ncc:     {name:'NCC (SLC12A3) — Thiazide-sensitive Na⁺/Cl⁻ Cotransporter',body:'Electroneutral 1 Na⁺:1 Cl⁻. Regulated entirely by phosphorylation: WNK4→SPAK/OSR1→pNCC. WNK4 is Cl⁻-inhibited — [Cl⁻]ᵢ encodes plasma K⁺ signal. GOF→FHHt (HTN + hyperkalemia). LOF→Gitelman (hypoK alkalosis + hypoMg + hypocalciuria). Thiazides (HCTZ, chlorthalidone, metolazone) block the Cl⁻ pocket.'},
   kir4151: {name:'KIR4.1/5.1 (KCNJ10/16) — Basolateral K⁺ Sensor',body:'Heteromeric inward-rectifier K⁺ channel. Sets basolateral Vm. High plasma [K⁺]→depolarises membrane→[Cl⁻]ᵢ rises→WNK4 off→NCC off→more Na⁺ to ENaC→K⁺ wasted. KCNJ10 LOF→EAST/SeSAME syndrome: epilepsy, ataxia, sensorineural deafness, tubulopathy (Gitelman biochemistry + CNS).'},
@@ -3067,6 +3209,8 @@ const DIAG_DD={
        L:[{t:'K⁺',c:'#fde68a',i:0}],R:[]},
       {key:'aqp2',    lbl:'AQP2',    sub:'AQP2',        c:'#3b82f6',
        L:[{t:'H₂O',c:'#93c5fd',i:1}],R:[{t:'H₂O',c:'#93c5fd',i:0}]},
+      {key:'pendrin', lbl:'Pendrin', sub:'SLC26A4 (β-IC)',c:'#a855f7',
+       L:[{t:'Cl⁻',c:'#a7f3d0',i:1},{t:'HCO₃⁻',c:'#93c5fd',i:0}],R:[{t:'Cl⁻',c:'#a7f3d0',i:0},{t:'HCO₃⁻',c:'#93c5fd',i:1}]},
     ],
     bsl:[
       {key:'nakatp_cd',lbl:'Na/K-ATPase',sub:'ATP1A1', c:'#f97316',
@@ -3184,51 +3328,230 @@ function renderSeg(segId,opts){
   return sv;
 }
 
-/* ── Disorder pathophysiology: marked segment SVG + mechanism cascade ── */
-const DX_DATA={
-  bartter:{seg:'tal',mark:{key:'nkcc2',mode:'LOF'},
-    def:'NKCC2 loss of function — lifelong "furosemide" effect',
-    chain:['↓ TAL NaCl reabsorption → volume loss → <b>RAAS ↑↑</b>',
-           'Lumen-positive PD collapses → ↓ paracellular Ca²⁺/Mg²⁺',
-           '↑ distal Na⁺ delivery → ENaC ↑ → K⁺ &amp; H⁺ secretion ↑'],
-    labs:'Hypokalemic metabolic alkalosis · normal/low BP · <b>hypercalciuria</b> ± nephrocalcinosis',
-    hint:'Bartter II (ROMK) shows transient neonatal hyperkalemia first.'},
-  gitelman:{seg:'dct',mark:{key:'ncc',mode:'LOF'},
-    def:'NCC loss of function — lifelong "thiazide" effect',
+/* ── Disorder browser: all 17 disorders, full 5-category data ── */
+const DX_FULL={
+  proxrta:{name:'Proximal RTA (type II)',gene:'SLC4A4 (NBCe1)',segLbl:'PCT',inherit:'AR',
+    seg:'pct',mark:{key:'nahco3',mode:'LOF'},
+    info:'Defective basolateral Na⁺/HCO₃⁻ co-transport in the proximal tubule causes HCO₃⁻ wasting until plasma HCO₃⁻ drops below a new lower threshold (~15 mmol/L), then steady state. Multi-organ phenotype with ocular abnormalities (band keratopathy, cataracts, glaucoma) and short stature.',
+    def:'NBCe1 (SLC4A4) basolateral Na⁺/HCO₃⁻ co-transport loss of function',
+    chain:['↓ basolateral HCO₃⁻ exit → ↑ [HCO₃⁻]ᵢ → ↑ pHᵢ',
+           '↑ pHᵢ inhibits apical NHE3 → ↓ PCT HCO₃⁻ reabsorption',
+           'Urinary HCO₃⁻ wasting until plasma HCO₃⁻ drops → new low steady state',
+           '↑ distal Na⁺ delivery → ENaC → K⁺ secretion → hypokalemia (worse on alkali therapy)'],
+    labs:'Hyperchloremic (non-AG) metabolic acidosis · variable urine pH · urinary FE-HCO₃⁻ &gt; 15% on HCO₃⁻ loading · hypokalemia',
+    workup:'Serum: non-anion-gap metabolic acidosis, hypokalemia. Urine pH ≤5.5 at steady state (can acidify when severely acidemic) but FE-HCO₃⁻ &gt;15% on a NaHCO₃ load. Ocular exam (band keratopathy, glaucoma, cataracts). Growth assessment. Genetic SLC4A4. Distinguish from distal RTA (urine pH &gt;5.5 always) and type IV (hyperkalemia + low aldo).',
+    tx:'<b>High-dose alkali</b> 10–15 mEq/kg/day potassium citrate (combines K⁺ replacement with bicarbonate). Sodium-based alkali worsens hypokalemia and is poorly tolerated. Vitamin D + phosphate if rickets. Avoid thiazides (worsen hypokalemia). Ophthalmology + growth follow-up.',
+    pearl:'Pure proximal RTA is rare in isolation outside SLC4A4; consider Fanconi syndrome causes (cystinosis, Dent, drugs — tenofovir, ifosfamide, valproate) when other PCT solutes are also wasted.'},
+
+  dent:{name:'Dent disease',gene:'CLCN5 (Dent-1) · OCRL (Dent-2)',segLbl:'PCT',inherit:'X-linked recessive',
+    seg:'pct',mark:{key:'napi2a',mode:'LOF'},
+    info:'X-linked endolysosomal acidification defect in proximal tubule cells. The downstream phenotype is Fanconi-like: LMW proteinuria, hypercalciuria, nephrocalcinosis, kidney stones, and progression to CKD. Dent-2 (OCRL) has mild Lowe-syndrome features (cataracts, mild intellectual disability).',
+    def:'Endosomal Cl⁻/H⁺ exchanger (CLCN5) loss → defective acidification → failed megalin/cubilin recycling',
+    chain:['Defective endolysosomal acidification in PCT cells',
+           'Megalin/cubilin receptors not recycled → LMW proteins not endocytosed → LMW proteinuria',
+           'Secondary loss of NaPi-IIa, TRPV5/V6 trafficking → hypophosphatemia + hypercalciuria',
+           'Hypercalciuria → nephrocalcinosis + stones → progressive CKD'],
+    labs:'LMW proteinuria (β₂-microglobulin, retinol-binding protein) · hypercalciuria · ± hypophosphatemia · nephrocalcinosis',
+    workup:'Urine: LMW proteinuria (β2M, RBP) — pathognomonic; 24-h urine Ca²⁺ (hypercalciuria); urinalysis (mild glycosuria, aminoaciduria possible). Imaging: renal ultrasound for nephrocalcinosis/stones. Slit lamp (cataracts in Dent-2). Genetic: CLCN5 first (Dent-1, ~60%), then OCRL (Dent-2). Family history (X-linked — males affected, female carriers may have mild features).',
+    tx:'<b>Thiazides</b> for hypercalciuria (volume contraction → ↑ proximal Ca reabsorption). Citrate supplementation for stone risk. ACE-i / ARB for proteinuria + nephroprotection. High fluid intake. BP control. Monitor eGFR. No specific therapy for the underlying defect — symptomatic management throughout life. Renal transplant if ESKD (does not recur).',
+    pearl:'Suspect in a boy with hypercalciuria, nephrocalcinosis, and LMW proteinuria — order β₂-microglobulin before assuming idiopathic stones.'},
+
+  bartter:{name:'Bartter syndrome (I–V)',gene:'SLC12A1 · KCNJ1 · CLCNKB · BSND · CASR',segLbl:'TAL',inherit:'AR (V is AD)',
+    seg:'tal',mark:{key:'nkcc2',mode:'LOF'},
+    info:'A family of salt-wasting tubulopathies that biochemically mimic chronic loop-diuretic use. Antenatal types I (NKCC2) and II (ROMK) present with polyhydramnios, prematurity, and severe neonatal salt wasting. Type III (CLC-Kb) is milder with later onset; type IV (barttin) adds sensorineural deafness; type V (activating CaSR) is AD and Bartter-like with hypocalcemia.',
+    def:'TAL NaCl reabsorption loss — "lifelong furosemide" phenotype',
+    chain:['↓ NKCC2 function (or upstream/downstream component) → ↓ TAL NaCl reabsorption → volume loss → <b>RAAS ↑↑</b>',
+           'Lumen-positive PD collapses → ↓ paracellular Ca²⁺/Mg²⁺ → <b>hypercalciuria</b>',
+           '↑ distal Na⁺ delivery → ENaC ↑ → K⁺ &amp; H⁺ secretion ↑',
+           '↑ COX-2 / PGE₂ → polyuria + amplifies salt wasting (NSAID-responsive)'],
+    labs:'Hypokalemic metabolic alkalosis · normal/low BP · <b>hypercalciuria</b> ± nephrocalcinosis · ↑ renin/aldo · type II shows transient neonatal hyperkalemia',
+    workup:'Confirm hypokalemic metabolic alkalosis with HIGH urinary K⁺, normal BP, and hypercalciuria (urine Ca/Cr &gt;0.2). Rule out diuretic abuse (urine diuretic screen) and surreptitious vomiting (urine Cl⁻ — high in Bartter/diuretic, low in vomiting). Renal ultrasound for nephrocalcinosis. Audiology if Bartter IV suspected. Genetic panel: SLC12A1 (I), KCNJ1 (II), CLCNKB (III), BSND (IV), CASR (V).',
+    tx:'<b>K⁺ + Mg²⁺ supplementation</b> (PO often inadequate; high doses needed). <b>NSAIDs</b> (indomethacin) blunt PGE₂-driven salt wasting — esp. antenatal forms. Potassium-sparing diuretics (amiloride, spironolactone) reduce K⁺ wasting. <b>ACE-i / ARB</b> reduce RAAS-driven K⁺ secretion (use with caution — orthostatic hypotension). Aggressive salt + water intake. Multidisciplinary care; growth/development monitoring in pediatric forms.',
+    pearl:'High urine Cl⁻ + low BP + hypokalemic alkalosis is the classic Bartter/Gitelman signature; hypercalciuria separates Bartter from Gitelman.'},
+
+  fhhnc:{name:'FHHNC',gene:'CLDN16 · CLDN19',segLbl:'TAL',inherit:'AR',
+    seg:'tal',mark:{key:'claudin1619',mode:'LOF'},
+    info:'Familial hypomagnesemia with hypercalciuria and nephrocalcinosis — loss of the paracellular Mg²⁺/Ca²⁺ pore in the TAL. Progressive CKD by adolescence. CLDN19 form has ocular abnormalities (severe myopia, nystagmus, macular coloboma).',
+    def:'Paracellular Mg²⁺/Ca²⁺ pore (claudin-16/19) loss of function in TAL',
+    chain:['Paracellular Mg²⁺/Ca²⁺ pore lost → no recovery despite lumen-positive PD',
+           '<b>Hypomagnesemia</b> + <b>hypercalciuria</b> with normal/low serum Ca²⁺',
+           'Hypercalciuria → nephrocalcinosis + stones → progressive interstitial damage',
+           'CKD progression by adolescence / young adulthood (50% ESKD by 30 y/o)'],
+    labs:'Hypomagnesemia · hypercalciuria · normal or low serum Ca²⁺ · bilateral nephrocalcinosis · progressive CKD',
+    workup:'Serum Mg²⁺ persistently low; 24-h urine Ca²⁺ high (Ca/Cr &gt;0.2). Renal ultrasound: <b>bilateral medullary nephrocalcinosis</b>. Ophtho exam for CLDN19 features. Genetic CLDN16/CLDN19. Family history. Distinguish from Gitelman: FHHNC has HYPERcalciuria, Gitelman has HYPOcalciuria.',
+    tx:'Oral Mg²⁺ (limited efficacy — the leak is upstream of intestinal absorption). <b>Thiazides</b> reduce hypercalciuria via volume contraction. Citrate for stone prevention. Aggressive BP control + ACE-i for nephroprotection. Monitor eGFR. <b>Renal transplant if ESKD — does not recur</b> (defect is intrinsic to native nephron tight junctions).',
+    pearl:'Distinct from Gitelman: FHHNC has HYPERcalciuria → nephrocalcinosis → CKD. Gitelman is HYPOcalciuric and rarely affects GFR.'},
+
+  adtkd:{name:'ADTKD-UMOD',gene:'UMOD',segLbl:'TAL',inherit:'AD',
+    seg:'tal',mark:{key:'nkcc2',mode:'LOF'},
+    info:'Autosomal dominant tubulointerstitial kidney disease caused by misfolded uromodulin accumulating in TAL endoplasmic reticulum → cell stress → slow interstitial fibrosis. Hyperuricemia and early-onset gout precede the CKD by years. Bland urinalysis, no proteinuria, normal-sized kidneys.',
+    def:'Misfolded uromodulin (UMOD) → ER stress in TAL → impaired NKCC2 trafficking → slow tubular injury',
+    chain:['Mutant UMOD misfolds → trapped in TAL endoplasmic reticulum',
+           'ER stress → impaired NKCC2/ROMK trafficking → mild tubular dysfunction',
+           '↓ FE-urate (proximal compensation) → <b>hyperuricemia + early gout</b>',
+           'Progressive interstitial fibrosis over decades → slow CKD → ESKD typically 40–70 y/o'],
+    labs:'Hyperuricemia · low FE-urate · bland urine sediment · minimal/no proteinuria · normal kidney size · AD family history of gout + CKD',
+    workup:'Family history (AD inheritance — gout + CKD across generations is the key clue). Serum uric acid high; <b>FE-urate &lt;5%</b> (inappropriately low for the serum level). Urinalysis bland — no/minimal proteinuria, no hematuria. Renal US: normal-sized kidneys, no cysts. Genetic UMOD. Distinguish from gouty nephropathy (rare and reverse causality).',
+    tx:'Allopurinol or febuxostat for gout — start early, before CKD. <b>Avoid loop diuretics</b> (raise serum urate). BP control with ACE-i / ARB. Monitor eGFR. Genetic counseling for family. Renal transplant when ESKD — does not recur. No disease-modifying therapy at present (chaperone-based therapies in trials).',
+    pearl:'Family history of gout + CKD with bland urine = ADTKD until proven otherwise. Send genetic UMOD before assuming primary gouty nephropathy.'},
+
+  gitelman:{name:'Gitelman syndrome',gene:'SLC12A3 (NCC)',segLbl:'DCT',inherit:'AR',
+    seg:'dct',mark:{key:'ncc',mode:'LOF'},
+    info:'The "chronic thiazide" phenotype — NCC loss of function in the DCT causes a lifelong mild salt-wasting state with hypokalemic alkalosis, hypomagnesemia, hypocalciuria, and normal-to-low BP. Adolescent/adult presentation with fatigue, cramps, occasional tetany.',
+    def:'NCC (SLC12A3) loss of function — lifelong "thiazide" effect on DCT',
     chain:['↓ DCT NaCl reabsorption → mild volume loss → RAAS ↑',
-           'DCT remodels → TRPV5 ↑ → <b>hypocalciuria</b>; TRPM6 ↓ → hypoMg',
-           '↑ distal Na⁺ delivery → ENaC ↑ → K⁺ &amp; H⁺ loss'],
-    labs:'Hypokalemic alkalosis · low BP · <b>HYPOcalciuria</b> · hypomagnesemia',
-    hint:'Hypocalciuria is the lab that separates it from Bartter.'},
-  liddle:{seg:'cd',mark:{key:'enac',mode:'GOF'},
-    def:'ENaC PPxY mutation → NEDD4-2 cannot ubiquitinate → channel stuck on membrane',
+           'DCT remodels → ↑ TRPV5 (paradoxical <b>hypocalciuria</b>); ↓ TRPM6 → <b>hypomagnesemia</b>',
+           '↑ distal Na⁺ delivery to ENaC → K⁺ &amp; H⁺ secretion ↑',
+           'Hypokalemic metabolic alkalosis · normal/low BP · normal eGFR'],
+    labs:'Hypokalemic alkalosis · low BP · <b>HYPOcalciuria</b> · <b>hypomagnesemia</b> · normal-to-low Cl⁻',
+    workup:'Serum: hypokalemia, alkalosis, hypomagnesemia. 24-h urine Ca²⁺ low (Ca/Cr &lt;0.07 in adults = highly specific for Gitelman vs Bartter). Urine Cl⁻ high (rules out vomiting). Diuretic screen negative (rules out thiazide use). Genetic SLC12A3. Renal US normal (no nephrocalcinosis vs Bartter).',
+    tx:'<b>Oral K⁺ + Mg²⁺</b> high-dose, lifelong. Mg-rich foods. <b>K⁺-sparing diuretics</b> (amiloride, spironolactone) reduce K⁺ losses. ACE-i / ARB with caution (orthostatic). Liberal salt intake. Magnesium oxide poorly absorbed → use Mg chloride, lactate, or aspartate. Generally normal life expectancy if electrolytes well controlled.',
+    pearl:'Hypocalciuria + hypomagnesemia = Gitelman; hypercalciuria + normal Mg = Bartter. Send urine Ca/Cr ratio to discriminate within 5 minutes.'},
+
+  fhht:{name:'FHHt / Gordon syndrome',gene:'WNK1 · WNK4 · CUL3 · KLHL3',segLbl:'DCT',inherit:'AD (CUL3 commonest)',
+    seg:'dct',mark:{key:'ncc',mode:'GOF'},
+    info:'Familial hyperkalemic hypertension (a.k.a. Gordon syndrome, pseudohypoaldosteronism type II) — the mirror image of Gitelman. WNK kinase activation (or failed degradation via CUL3/KLHL3) drives NCC over-phosphorylation, causing volume expansion, hypertension, hyperkalemia, and hyperchloremic metabolic acidosis. Exquisitely thiazide-responsive.',
+    def:'WNK kinases ↑ → SPAK/OSR1 → NCC over-phosphorylated (effective GOF)',
+    chain:['CUL3/KLHL3 mutations → failure to degrade WNK4 → WNK4 ↑ (or WNK1/WNK4 GOF)',
+           '↑ SPAK/OSR1 phosphorylation of NCC → ↑ DCT NaCl reabsorption',
+           '↑ volume → <b>HTN</b>; ↓ Na⁺ to ENaC → ↓ K⁺/H⁺ secretion → hyperK + acidosis',
+           'Hypercalciuria; renin &amp; aldosterone suppressed despite hyperkalemia'],
+    labs:'<b>HTN + HYPERkalemia + hyperchloremic (non-AG) acidosis</b> · hypercalciuria · low renin/aldo · thiazide-responsive',
+    workup:'Confirm HTN with persistent hyperkalemia and non-AG acidosis. Renin and aldosterone both suppressed (distinguishes from PHA-I which has high aldo, and from primary hyperaldo which has low K⁺). Urine Ca²⁺ high. Family history (AD). Genetic CUL3/KLHL3 (most common) then WNK1/WNK4. Rule out CKD-associated hyperkalemia and adrenal disease.',
+    tx:'<b>Low-dose thiazide</b> (HCTZ 12.5–25 mg) — disease and drug have the same target; rapid normalization of K⁺, BP, and acidosis. Low-salt diet. Avoid K⁺ supplements and K⁺-sparing diuretics. ACE-i useful adjunct for HTN. Cure-grade response to thiazide is itself diagnostic.',
+    pearl:'HTN + hyperkalemia + non-AG acidosis with suppressed aldo = FHHt; thiazide flips the labs in days. Mirror image of Gitelman.'},
+
+  east:{name:'EAST / SeSAME syndrome',gene:'KCNJ10 (KIR4.1)',segLbl:'DCT',inherit:'AR',
+    seg:'dct',mark:{key:'kir4151',mode:'LOF'},
+    info:'<b>E</b>pilepsy, <b>A</b>taxia, <b>S</b>ensorineural deafness, <b>T</b>ubulopathy. KIR4.1 (basolateral K⁺ channel in DCT and glia) loss of function gives a Gitelman-like biochemistry plus CNS/ear features because the same channel sets membrane potential in both renal tubular cells and glia/cochlear cells.',
+    def:'KIR4.1 (KCNJ10) basolateral K⁺ channel loss of function in DCT (and glia/cochlea)',
+    chain:['DCT KIR4.1 LOF → basolateral membrane depolarized → ↓ Cl⁻ exit via CLC-Kb',
+           '↑ [Cl⁻]ᵢ → WNK4 inhibited → ↓ NCC phosphorylation → Gitelman-like phenotype',
+           'Glial KIR4.1 LOF → impaired K⁺ buffering → epilepsy + ataxia',
+           'Cochlear hair-cell KIR4.1 LOF → sensorineural deafness'],
+    labs:'Gitelman-like biochemistry (hypoK alkalosis + hypoMg + hypocalciuria) <b>+</b> epilepsy + ataxia + sensorineural deafness',
+    workup:'Same renal labs as Gitelman (hypoK alkalosis, hypoMg, hypocalciuria). Neurologic exam (cerebellar ataxia from infancy). Seizure history; EEG. Pure-tone audiometry (sensorineural hearing loss). MRI brain. Genetic KCNJ10. Distinguish from Gitelman by the neurologic features (KCNJ10 should be in the panel when CNS signs are present).',
+    tx:'<b>K⁺ + Mg²⁺ supplementation</b> as in Gitelman. <b>Antiepileptics</b> per seizure type (valproate often used). Physical therapy + ataxia rehab. Hearing aids / cochlear implants. Multidisciplinary care (nephrology + neurology + ENT). Normal life expectancy with management.',
+    pearl:'A child with "Gitelman labs" plus seizures or ataxia → send KCNJ10. Renal phenotype alone misses the diagnosis.'},
+
+  liddle:{name:'Liddle syndrome',gene:'SCNN1A / B / G (ENaC)',segLbl:'CNT/CCD',inherit:'AD',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'PPxY-motif mutation in any ENaC subunit prevents NEDD4-2 from ubiquitinating the channel — ENaC stays on the apical membrane indefinitely. The result is aldosterone-independent Na⁺ retention, early hypertension, hypokalemic alkalosis, and characteristically <b>suppressed renin AND aldosterone</b>. Family history of stroke or early HTN.',
+    def:'ENaC PPxY mutation → NEDD4-2 cannot ubiquitinate → channel "stuck on" the membrane',
     chain:['Constitutive Na⁺ reabsorption — aldosterone-independent',
-           'Volume expansion → HTN; renin &amp; aldosterone <b>SUPPRESSED</b>',
-           '↑ lumen-negative PD → K⁺ &amp; H⁺ secretion ↑'],
-    labs:'Early HTN · hypokalemic alkalosis · <b>suppressed renin AND aldosterone</b>',
-    hint:'Treat with amiloride (blocks the channel) — NOT spironolactone; the defect is downstream of MR.'},
-  fhht:{seg:'dct',mark:{key:'ncc',mode:'GOF'},
-    def:'WNK1/WNK4 ↑ (or CUL3/KLHL3 fail to degrade WNK) → SPAK/OSR1 → NCC over-phosphorylated',
-    chain:['↑ DCT NaCl reabsorption → volume expansion → <b>HTN</b>',
-           '↓ Na⁺ to ENaC → ↓ K⁺ &amp; H⁺ secretion → hyperK + acidosis',
-           'Hypercalciuria; renin &amp; aldosterone suppressed'],
-    labs:'HTN · <b>HYPERkalemia</b> · hyperchloremic (non-AG) acidosis · thiazide-responsive',
-    hint:'Mirror image of Gitelman — same target (NCC), opposite direction.'},
-  ame:{seg:'cd',mark:{key:'enac',mode:'GOF'},
-    def:'11β-HSD2 loss → cortisol not converted to cortisone → cortisol illicitly activates MR',
-    chain:['MR over-activation → SGK1 → ENaC stabilised (overactive; lesion is upstream)',
-           'Na⁺ retention → severe HTN; renin <b>and</b> aldosterone suppressed',
-           '↑ K⁺ &amp; H⁺ secretion'],
-    labs:'Severe early HTN · hypokalemic alkalosis · low renin &amp; aldosterone · ↑ urinary cortisol:cortisone',
-    hint:'Spironolactone works here — MR is the active culprit (contrast Liddle). Liquorice phenocopies.'},
-  pha1:{seg:'cd',mark:{key:'enac',mode:'LOF'},
-    def:'ENaC loss of function (AR) or MR loss (AD) → aldosterone resistance',
-    chain:['↓ collecting-duct Na⁺ reabsorption → salt wasting → hypovolemia',
-           '↓ lumen-negative PD → ↓ K⁺ &amp; H⁺ secretion',
-           'Aldosterone &amp; renin markedly <b>ELEVATED</b> (end-organ resistance)'],
-    labs:'Neonatal salt-wasting · hypotension · <b>HYPERkalemia</b> · metabolic acidosis · ↑↑ aldosterone',
-    hint:'AR (channel) form: salt + fludrocortisone won’t help — the channel itself is gone.'},
+           'Volume expansion → <b>HTN</b>; renin AND aldosterone <b>SUPPRESSED</b>',
+           '↑ lumen-negative PD → K⁺ &amp; H⁺ secretion ↑',
+           'Hypokalemic metabolic alkalosis · early CV events if untreated'],
+    labs:'<b>Early HTN</b> · hypokalemic metabolic alkalosis · <b>suppressed renin AND aldosterone</b> · AD family history of stroke / early HTN',
+    workup:'Persistent HTN in adolescent/young adult with hypokalemia + alkalosis. Plasma renin AND aldosterone both LOW (distinguishes from primary hyperaldo which has high aldo, and from AME). Family history (AD, often with stroke or early MI in relatives). Urine Na/K low. Genetic SCNN1A/B/G — look for PPxY-disrupting mutations in the C-terminus of β or γ subunit.',
+    tx:'<b>Amiloride</b> (or triamterene) — directly blocks the constitutively active channel. <b>NOT spironolactone</b> — the defect is downstream of the mineralocorticoid receptor. Low-salt diet. K⁺ replacement until amiloride takes effect. Excellent BP control with amiloride alone in most cases. Family screening (cascade genetic testing).',
+    pearl:'Pick amiloride vs spironolactone by the level of the lesion: Liddle is at the channel → amiloride. AME is at MR (cortisol-driven) → spironolactone.'},
+
+  pha1:{name:'PHA type I',gene:'NR3C2 (AD) · SCNN1A/B/G (AR)',segLbl:'CNT/CCD',inherit:'AD (renal) · AR (multi-organ)',
+    seg:'cd',mark:{key:'enac',mode:'LOF'},
+    info:'Pseudohypoaldosteronism type I — aldosterone resistance. The AD form (MR loss) is renal-limited and often milder; the <b>AR form</b> (ENaC channel loss in any subunit) is severe, multi-organ (sweat glands, salivary glands, colon all use ENaC), with neonatal life-threatening salt wasting despite massively elevated aldosterone.',
+    def:'ENaC loss of function (AR) or MR loss (AD) → aldosterone resistance at the collecting duct',
+    chain:['↓ collecting-duct Na⁺ reabsorption → salt wasting → <b>hypovolemia</b>',
+           '↓ lumen-negative PD → ↓ K⁺ &amp; H⁺ secretion → <b>hyperkalemia</b> + acidosis',
+           'Aldosterone &amp; renin markedly <b>ELEVATED</b> (end-organ resistance)',
+           'AR form: multi-organ (sweat, saliva, colon) — failure to thrive, respiratory infections from airway fluid'],
+    labs:'<b>Neonatal salt-wasting</b> · hypotension · <b>HYPERkalemia</b> · metabolic acidosis · <b>↑↑↑ aldosterone &amp; renin</b>',
+    workup:'Neonatal hypovolemia + hyperK + non-AG acidosis + extremely high aldo and renin. Sweat chloride high in AR form (multi-organ). Distinguish from CAH (21-OH-D — has hyperK but virilization/ambiguous genitalia and low cortisol). Genetic NR3C2 (AD) and SCNN1A/B/G (AR). Family history.',
+    tx:'<b>Salt supplementation</b> — high-dose oral NaCl (often 2–8 g/day in infants) — primary therapy in AR form. Fludrocortisone <b>does NOT work</b> in AR (channel itself is gone) but helps the AD (MR) form. K⁺ binders or restrict K⁺ intake. Treat respiratory complications (pseudo-CF picture in AR). Many AD patients improve with age as alternative Na⁺ pathways mature.',
+    pearl:'Hyperkalemia + salt wasting + sky-high aldosterone in a neonate = PHA-I (or CAH — check 17-OH-progesterone). AR form is multi-organ.'},
+
+  pha2:{name:'PHA type II  (= FHHt / Gordon)',gene:'= FHHt',segLbl:'DCT',inherit:'AD',
+    seg:'dct',mark:{key:'ncc',mode:'GOF'},
+    info:'PHA-II is just another name for FHHt / Gordon syndrome, listed here for completeness of the "PHA" nomenclature axis. <b>HTN + hyperkalemia + non-AG acidosis</b> with suppressed renin/aldo — the opposite phenotype to PHA-I. See FHHt for full details.',
+    def:'= FHHt — NCC effective gain of function via WNK/CUL3/KLHL3 axis',
+    chain:['See FHHt for full mechanism cascade',
+           'PHA-II differs from PHA-I in EVERY direction: HTN (not hypotension), suppressed (not elevated) aldosterone'],
+    labs:'HTN · HYPERkalemia · non-AG acidosis · suppressed renin/aldo · thiazide-responsive',
+    workup:'See FHHt. Key discriminator from PHA-I: BP is HIGH in PHA-II / FHHt; LOW in PHA-I. Aldosterone is LOW in PHA-II / FHHt; HIGH in PHA-I.',
+    tx:'See FHHt — low-dose thiazide.',
+    pearl:'PHA-I and PHA-II are mirror images at every axis except hyperkalemia. Check BP first.'},
+
+  ame:{name:'AME — apparent mineralocorticoid excess',gene:'HSD11B2',segLbl:'CNT/CCD',inherit:'AR',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'11β-HSD2 normally converts cortisol → inert cortisone in collecting-duct cells, protecting MR from cortisol (which would otherwise activate it with equal affinity to aldosterone). When 11β-HSD2 is lost (genetic AR, or pharmacologically — liquorice / glycyrrhetinic acid), cortisol illicitly activates MR → ENaC stays up → Na⁺ retention + HTN with <b>suppressed renin AND aldosterone</b>.',
+    def:'11β-HSD2 loss → cortisol illicitly activates MR → downstream ENaC overactivity',
+    chain:['11β-HSD2 lost → cortisol not converted to cortisone in CD cells',
+           'MR over-activation by cortisol → SGK1 → ENaC stabilised on membrane',
+           'Na⁺ retention → severe early HTN; renin AND aldosterone suppressed',
+           '↑ K⁺ &amp; H⁺ secretion → hypoK alkalosis. Liquorice ingestion phenocopies (pharmacologic 11β-HSD2 inhibition).'],
+    labs:'<b>Severe early HTN</b> · hypokalemic metabolic alkalosis · low renin AND aldosterone · <b>↑ urinary cortisol : cortisone ratio</b>',
+    workup:'Suspect in childhood HTN with hypoK alkalosis. Plasma renin and aldosterone both LOW (looks like Liddle on routine labs). Discriminating test: <b>urinary cortisol/cortisone ratio HIGH</b> (or urinary tetrahydrocortisol/tetrahydrocortisone ratio). Genetic HSD11B2. Take a diet history (liquorice, chewing tobacco) — pharmacologic AME is reversible.',
+    tx:'<b>Spironolactone</b> or eplerenone — blocks MR, which IS the active culprit here (contrast Liddle, where the channel itself is the problem). Low-salt diet. Glucocorticoid suppression with dexamethasone is also effective (suppresses ACTH-driven cortisol production). Stop liquorice. Renal transplant cures congenital AME (defect is intrarenal).',
+    pearl:'AME and Liddle look identical on routine labs (HTN + hypoK alkalosis + low renin/aldo). Pick the drug by mechanism: AME → spironolactone (MR is the culprit); Liddle → amiloride (channel is the culprit).'},
+
+  geller:{name:'Geller syndrome',gene:'NR3C2 S810L (MR GOF)',segLbl:'CNT/CCD',inherit:'AD',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'Activating mutation in the mineralocorticoid receptor (S810L) gives MR altered ligand specificity — progesterone (normally a partial MR antagonist) becomes a full <b>agonist</b>. Early-onset HTN with paradoxical worsening in pregnancy. Spironolactone is also an MR agonist on the mutant receptor — <b>contraindicated</b>.',
+    def:'NR3C2 S810L → MR constitutively partially active; progesterone becomes an MR agonist',
+    chain:['MR S810L → constitutive partial activation + altered ligand specificity',
+           'Progesterone activates the mutant MR (normally an antagonist) → severe HTN in pregnancy',
+           'Spironolactone activates the mutant MR (normally an antagonist) → AVOID',
+           'Downstream ENaC overactive → Na⁺ retention + hypokalemic alkalosis · aldosterone suppressed'],
+    labs:'Early HTN (pre-30) · severely <b>worsening in pregnancy</b> · suppressed aldosterone · hypokalemic alkalosis · AD family history',
+    workup:'Family history of early HTN (often AD, sometimes severe pregnancy HTN). Plasma aldosterone suppressed. Pregnancy history (severe HTN that resolves postpartum is a major clue). Genetic NR3C2 looking for S810L. Avoid spironolactone challenge.',
+    tx:'<b>Amiloride or triamterene</b> (ENaC blockade — downstream of the active mutant receptor). <b>AVOID spironolactone and eplerenone</b> (agonists at the mutant MR). Contraception counseling and high-risk obstetrics for affected women. Standard antihypertensives (ACE-i, CCB) per usual indications.',
+    pearl:'Severe pregnancy-onset HTN that vanishes postpartum + AD family history of early HTN → sequence NR3C2 for S810L. Don\'t reach for spironolactone reflexively.'},
+
+  pendred:{name:'Pendred syndrome',gene:'SLC26A4 (pendrin)',segLbl:'CNT/CCD',inherit:'AR',
+    seg:'cd',mark:{key:'pendrin',mode:'LOF'},
+    info:'Sensorineural deafness + euthyroid goiter dominate the phenotype because pendrin is also expressed in the thyroid (iodide efflux into colloid) and cochlea (endolymph homeostasis). Renal phenotype is mild and only appears under severe NaCl restriction (slight hypotension); patients are <b>protected from mineralocorticoid hypertension</b>.',
+    def:'Pendrin (SLC26A4) loss of function — apical β-IC Cl⁻/HCO₃⁻ exchanger',
+    chain:['β-IC pendrin LOF → impaired electroneutral NaCl reabsorption (with NDCBE)',
+           'Renal phenotype mild — only mild salt wasting under restricted intake',
+           'Thyroid pendrin LOF → impaired iodide trafficking → goiter (euthyroid usually)',
+           'Cochlear pendrin LOF → endolymph dysregulation → sensorineural deafness'],
+    labs:'Sensorineural deafness · euthyroid goiter · enlarged vestibular aqueduct on MRI · positive perchlorate discharge test · mild/no renal phenotype',
+    workup:'Pure-tone audiometry (sensorineural hearing loss, variable severity). MRI temporal bone: <b>enlarged vestibular aqueduct</b> (EVA, often bilateral). Thyroid US: goiter. Perchlorate discharge test (legacy — releases organified iodide). Genetic SLC26A4. Renal phenotype not actively pursued unless symptomatic.',
+    tx:'<b>Hearing aids / cochlear implants</b> — the dominant therapeutic concern. Avoid head trauma (vestibular aqueduct vulnerability). Thyroid surveillance ± levothyroxine if hypothyroid develops. Generally no renal therapy needed.',
+    pearl:'A child with sensorineural deafness + goiter on routine TSH → think Pendred (and look for enlarged vestibular aqueduct on MRI). The renal piece is academic in most patients.'},
+
+  cirrhosis:{name:'Cirrhosis / hepatorenal physiology',gene:'(acquired)',segLbl:'whole nephron',inherit:'—',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'Portal hypertension drives splanchnic vasodilation (NO, PGI₂) → effective arterial blood volume falls despite total ECF expansion (ascites, edema). The kidney perceives volume depletion and activates RAAS, SNS, and AVP maximally → avid Na⁺ retention at <b>every nephron segment</b>. ENaC overactivity is highlighted in the diagram as the final common path, but NHE3, NKCC2, and NCC are all up.',
+    def:'Low effective arterial blood volume → maximal RAAS / SNS / AVP → multi-segment Na⁺ retention',
+    chain:['Portal HTN → splanchnic NO/PGI₂ release → arterial underfilling',
+           '↑ RAAS, ↑ SNS, ↑ AVP → activate NHE3 (PCT), NKCC2 (TAL), NCC (DCT), ENaC (CD)',
+           'Avid Na⁺ + H₂O retention despite total ECF expansion → ascites, edema, hyponatremia',
+           'Severe cases: hepatorenal syndrome (HRS-1 acute, HRS-2 chronic) → progressive renal failure'],
+    labs:'<b>FeNa &lt; 1%</b> · urine Na⁺ &lt; 10 mmol/L · ascites / peripheral edema · hyponatremia · normal-low BP · ↑ renin/aldo despite ECF expansion',
+    workup:'Confirm cirrhosis (imaging, liver tests, hepatic synthetic function). Ascitic fluid analysis (SAAG &gt;1.1, rule out SBP). FeNa &lt; 1% (in the absence of diuretics). Distinguish HRS from prerenal azotemia (volume challenge with albumin 1 g/kg) and from intrinsic AKI (sediment, FeUrea on diuretics). Echo to rule out cardiorenal overlap. MELD score for transplant prognosis.',
+    tx:'<b>Spironolactone</b> (first-line for ascites — addresses the dominant aldosterone drive), titrated up to 400 mg/day; commonly paired with furosemide at a 100:40 ratio. Large-volume paracentesis with albumin replacement (8 g per L removed) for tense ascites. <b>Terlipressin + albumin</b> for HRS-1. TIPS for refractory ascites. Liver transplant is the definitive therapy.',
+    pearl:'In cirrhosis, FeNa &lt;1% with ascites + low BP is the "kidney sees you as volume-down" signature. Spironolactone first; loop only as needed; albumin always when pulling large volumes.'},
+
+  heartfailure:{name:'Heart failure',gene:'(acquired)',segLbl:'whole nephron',inherit:'—',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'Reduced cardiac output → baroreceptor unloading → effective arterial blood volume falls → maximal RAAS, SNS, and AVP activation → renal Na⁺ retention at every segment. Total ECF expands (peripheral and pulmonary edema) despite renal avidity for sodium — the classic "kidney avidity vs body congestion" dissociation.',
+    def:'Low cardiac output → ↓ EABV → maximal neurohormonal drive → multi-segment Na⁺ retention',
+    chain:['↓ CO → carotid + aortic baroreceptor unloading + atrial stretch ↓',
+           '↑ RAAS, ↑ SNS, ↑ AVP, ↓ ANP',
+           'Activate NHE3, NKCC2, NCC, ENaC across the nephron → Na⁺ + H₂O retention',
+           'Preload rises (compensatory) but at the cost of pulmonary/peripheral congestion'],
+    labs:'<b>BNP / NT-proBNP elevated</b> · FeNa &lt; 1% (in the absence of diuretics) · hyponatremia (worsening = poor prognosis) · ↑ creatinine on diuretic intensification (cardiorenal)',
+    workup:'BNP/NT-proBNP. Echocardiogram (LVEF, valves, RV function, filling). ECG. Volume exam (JVP, S3, edema, rales, weight trend). Renal function trend (worsening on diuretic intensification = cardiorenal syndrome). Daily weights for diuresis monitoring. Rule out other AKI causes when creatinine rises.',
+    tx:'<b>Loop diuretic</b> (titrate to net negative balance + symptom relief; sequential nephron blockade with thiazide if loop-resistant). <b>MRA</b> (spironolactone/eplerenone) — mortality benefit at HFrEF. <b>SGLT2 inhibitor</b> (dapagliflozin/empagliflozin) — cardiorenal benefit across LVEF spectrum. <b>ACE-i / ARNI</b> + <b>β-blocker</b> = GDMT for HFrEF. Treat underlying cause (revascularization, valve repair, ablation). Device therapy (CRT, ICD) when indicated.',
+    pearl:'Three Na⁺ targets stack in HF: loop (TAL) + MRA (CD) + SGLT2i (PCT). Each blocks a different segment\'s retention pathway and they all have outcomes data.'},
+
+  nephrotic:{name:'Nephrotic syndrome',gene:'(acquired)',segLbl:'CNT/CCD',inherit:'—',
+    seg:'cd',mark:{key:'enac',mode:'GOF'},
+    info:'The "overfill" mechanism — filtered plasminogen is activated to plasmin in tubular lumen by urokinase. Plasmin cleaves the γ-ENaC inhibitory tract, removing the brake on the channel. ENaC becomes <b>constitutively active</b> — Na⁺ retention even with normal volume sensing. This explains Na⁺ avidity in nephrotic patients without "underfill" volume depletion.',
+    def:'Plasmin-mediated γ-ENaC cleavage → constitutive ENaC activity, aldosterone-independent',
+    chain:['Glomerular proteinuria → filtered plasminogen reaches the lumen',
+           'Urokinase (plasminogen activator) cleaves plasminogen → <b>plasmin</b>',
+           'Plasmin cleaves the γ-ENaC inhibitory tract → ENaC <b>constitutively active</b>',
+           'Avid CD Na⁺ retention → ECF expansion → edema, often with normal-to-expanded plasma volume'],
+    labs:'<b>Proteinuria &gt; 3.5 g/day</b> · hypoalbuminemia &lt; 3 g/dL · hyperlipidemia · edema · FeNa often &lt; 1% despite ECF expansion · urinary plasmin / plasminogen detectable',
+    workup:'24-h urine protein (or spot UPCR) &gt;3.5 g/day. Serum albumin, lipids. <b>Kidney biopsy</b> for adults to determine underlying GN (MCD, FSGS, MN, MPGN, diabetic, amyloid, lupus). Workup for secondary causes: HBV/HCV/HIV, SLE serologies, age-appropriate cancer screen for MN, PLA2R antibody (membranous), genetic panel in children with steroid-resistant FSGS. Edema severity assessment.',
+    tx:'<b>Amiloride</b> uniquely effective — blocks the constitutively activated ENaC, bypassing the plasmin mechanism. <b>Loop diuretic</b> often needed alongside, with adequate dose (low serum albumin = high free fraction needed, sometimes IV bolus + drip). <b>ACE-i / ARB</b> for proteinuria + renoprotection. <b>Statin</b> for hyperlipidemia. <b>Treat underlying GN</b> (steroids, calcineurin inhibitors, rituximab, cyclophosphamide as indicated). Salt restriction. Anticoagulation if severe hypoalbuminemia + thrombotic risk.',
+    pearl:'Amiloride is uniquely useful in nephrotic edema (mechanism-matched), while spironolactone underperforms (aldo isn\'t the driver here). Add a loop only after — and treat the GN above all.'},
 };
+
+/* DX_DATA kept as alias for legacy references */
+const DX_DATA=DX_FULL;
 
 function renderDxCascade(dx){
   let h='<div class="dx-casc">';
@@ -3267,29 +3590,111 @@ function _svgPos(tip,e){
 /* Auto-open PCT on first load */
 try{ showSeg('pct'); }catch(e){ console.warn('seg init',e); }
 try{ _attachAllTips(); }catch(e){ console.warn('tips init',e); }
+/* ── Disorder browser: sidebar + detail rendering ───────────────────────── */
+const DX_ORDER=[
+  {group:'PCT',           items:['proxrta','dent']},
+  {group:'TAL',           items:['bartter','fhhnc','adtkd']},
+  {group:'DCT',           items:['gitelman','fhht','east']},
+  {group:'CNT / CCD',     items:['liddle','pha1','pha2','ame','geller','pendred']},
+  {group:'Whole nephron', items:['cirrhosis','heartfailure','nephrotic']},
+];
+
+function renderDxDetail(id){
+  const dx=DX_FULL[id]; if(!dx) return '<div class="dxd-empty">Pick a disorder on the left.</div>';
+  let h='';
+  // Header
+  h+='<div class="dxd-head">';
+  h+=`<div class="dxd-name">${dx.name}</div>`;
+  h+=`<span class="dxd-tag seg">${dx.segLbl}</span>`;
+  h+=`<span class="dxd-tag gene">${dx.gene}</span>`;
+  if(dx.inherit&&dx.inherit!=='—') h+=`<span class="dxd-tag inh">${dx.inherit}</span>`;
+  h+='</div>';
+  // 1. Information
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">📖</span>Information</h5><div class="dxd-body">${dx.info}</div></div>`;
+  // 2. Mechanism (cascade)
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">⚙️</span>Mechanism</h5>${renderDxCascade(dx)}</div>`;
+  // 3. Diagram (marked segment SVG)
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">🔬</span>Diagram</h5><div class="svgdiag-box">${renderSeg(dx.seg,{mark:dx.mark})}</div></div>`;
+  // 4. Investigation
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">🩺</span>Investigation / Workup</h5><div class="dxd-body">${dx.workup}</div></div>`;
+  // 5. Treatment
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">💊</span>Treatment</h5><div class="dxd-body">${dx.tx}</div>`;
+  if(dx.pearl) h+=`<div class="dxd-pearl">💡 ${dx.pearl}</div>`;
+  h+='</div>';
+  return h;
+}
+
+function dxbSelect(id){
+  document.querySelectorAll('.dxbitem').forEach(el=>el.classList.toggle('active',el.getAttribute('data-dx')===id));
+  const main=document.getElementById('dxbmain');
+  if(!main) return;
+  main.innerHTML=renderDxDetail(id);
+  main.scrollTop=0;
+  try{ wireSvgTips(); }catch(e){ console.warn('dxTips',e); }
+  // Observe newly-injected svgdiag-box
+  if(window._segIo){
+    main.querySelectorAll('.svgdiag-box').forEach(b=>{ if(!b._dxObs){ window._segIo.observe(b); b._dxObs=true; } });
+  } else {
+    main.querySelectorAll('.svgdiag-box').forEach(b=>b.classList.add('seen','in-view'));
+  }
+}
+
+function dxbInit(){
+  const list=document.getElementById('dxblist'); if(!list) return;
+  let html='';
+  DX_ORDER.forEach(grp=>{
+    html+=`<div class="dxbgroup"><div class="dxbgroup-h">${grp.group}</div>`;
+    grp.items.forEach(id=>{
+      const dx=DX_FULL[id]; if(!dx) return;
+      html+=`<button class="dxbitem" data-dx="${id}" data-name="${dx.name.toLowerCase()}" data-gene="${(dx.gene||'').toLowerCase()}">`+
+            `<span class="dxbi-name">${dx.name}</span>`+
+            `<span class="dxbi-gene">${dx.gene}</span>`+
+            `</button>`;
+    });
+    html+='</div>';
+  });
+  list.innerHTML=html;
+  list.addEventListener('click',e=>{
+    const btn=e.target.closest('.dxbitem'); if(!btn) return;
+    dxbSelect(btn.getAttribute('data-dx'));
+  });
+  // Filter input
+  const filt=document.getElementById('dxbfilter');
+  if(filt){
+    filt.addEventListener('input',()=>{
+      const q=filt.value.trim().toLowerCase();
+      list.querySelectorAll('.dxbitem').forEach(b=>{
+        const hay=(b.getAttribute('data-name')+' '+b.getAttribute('data-gene'));
+        b.classList.toggle('hide',q&&!hay.includes(q));
+      });
+      // Hide empty groups
+      list.querySelectorAll('.dxbgroup').forEach(g=>{
+        const anyVisible=[...g.querySelectorAll('.dxbitem')].some(b=>!b.classList.contains('hide'));
+        g.style.display=anyVisible?'':'none';
+      });
+    });
+  }
+  // Default selection
+  dxbSelect(DX_ORDER[0].items[0]);
+}
+
 /* Render SVG diagrams */
 ['pct','loh','tal','dct','cd'].forEach(id=>{
   try{ const el=document.getElementById(id+'-svgdiag'); if(el) el.innerHTML=renderSeg(id); }catch(e){ console.warn('diag',id,e); }
 });
-/* Render disorder pathophysiology (marked segment SVG + cascade) */
-Object.keys(DX_DATA).forEach(id=>{
-  try{
-    const el=document.getElementById('dx-'+id); if(!el) return;
-    const dx=DX_DATA[id];
-    el.innerHTML='<div class="svgdiag-box">'+renderSeg(dx.seg,{mark:dx.mark})+'</div>'+renderDxCascade(dx);
-  }catch(e){ console.warn('dx',id,e); }
-});
-try{ wireSvgTips(); }catch(e){ console.warn('svgTips',e); }
-/* Fade-in + flow gated to in-view (IntersectionObserver) */
+/* Fade-in + flow gated to in-view (IntersectionObserver) — set up FIRST so dxbInit can observe new boxes */
 try{
-  const _io=new IntersectionObserver((entries)=>{
+  window._segIo=new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
       if(en.isIntersecting){ en.target.classList.add('seen','in-view'); }
       else { en.target.classList.remove('in-view'); }
     });
   },{threshold:0.12});
-  document.querySelectorAll('.svgdiag-box').forEach(b=>_io.observe(b));
+  document.querySelectorAll('.svgdiag-box').forEach(b=>window._segIo.observe(b));
 }catch(e){ console.warn('io',e); document.querySelectorAll('.svgdiag-box').forEach(b=>b.classList.add('seen','in-view')); }
+/* Build disorder browser */
+try{ dxbInit(); }catch(e){ console.warn('dxbInit',e); }
+try{ wireSvgTips(); }catch(e){ console.warn('svgTips',e); }
 </script>
 </body>
 </html>
