@@ -3276,27 +3276,39 @@ function renderSeg(segId,opts){
   function bx(bxl,by,tp){
     const cx=bxl+_BW/2,cy=by+_BH/2;
     const hit=mk&&tp.key===mk.key;
-    const RX=_BH/2;   // full pill-shape rounded ends
+    const RX=_BH/2;
+    const LT={
+      '#14b8a6':'#a5f3fc', // teal     → light cyan
+      '#22c55e':'#bbf7d0', // green
+      '#a855f7':'#e9d5ff', // purple
+      '#f97316':'#fed7aa', // orange
+      '#3b82f6':'#bfdbfe', // blue
+      '#eab308':'#fef08a', // yellow
+      '#06b6d4':'#a5f3fc', // cyan
+      '#fde68a':'#fef9c3', // already-light yellow (ROMK)
+    };
+    const ltText=c=>LT[(c||'').toLowerCase()]||'#f1f5f9';
     if(hit&&mk.mode==='LOF'){
-      const rc='#ef4444';
-      return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${rc}33" stroke="${rc}" stroke-width="2" stroke-dasharray="4 3" class="tp-r" data-key="${tp.key}" data-c="${rc}"/>`+
-             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${rc}" font-size="11.5" font-weight="700" ${_FS} pointer-events="none" opacity="0.9">${tp.lbl}</text>`+
-             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${rc}" font-size="7.5" opacity="0.6" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
-             `<line x1="${bxl+10}" y1="${by+10}" x2="${bxl+_BW-10}" y2="${by+_BH-10}" stroke="${rc}" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
-             `<line x1="${bxl+_BW-10}" y1="${by+10}" x2="${bxl+10}" y2="${by+_BH-10}" stroke="${rc}" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
+      const rc='#ef4444', rcText='#fecaca';
+      return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${rc}" stroke="${rc}" stroke-width="2" stroke-dasharray="4 3" class="tp-r" data-key="${tp.key}" data-c="${rc}"/>`+
+             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="700" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${rcText}" font-size="7.5" opacity="0.85" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
+             `<line x1="${bxl+10}" y1="${by+10}" x2="${bxl+_BW-10}" y2="${by+_BH-10}" stroke="#ffffff" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
+             `<line x1="${bxl+_BW-10}" y1="${by+10}" x2="${bxl+10}" y2="${by+_BH-10}" stroke="#ffffff" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${rc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">✕ LOSS OF FUNCTION</text>`;
     }
     if(hit&&mk.mode==='GOF'){
-      const gc='#f59e0b';
+      const gc='#f59e0b', gcText='#fef3c7';
       return `<rect x="${bxl-3}" y="${by-3}" width="${_BW+6}" height="${_BH+6}" rx="${RX+3}" fill="none" stroke="${gc}" stroke-width="1.5" opacity="0.55" pointer-events="none"/>`+
-             `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${gc}33" stroke="${gc}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${gc}"/>`+
-             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${gc}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${gc}" font-size="7.5" opacity="0.7" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
+             `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${gc}" stroke="${gc}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${gc}"/>`+
+             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${gcText}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${gcText}" font-size="7.5" opacity="0.85" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${gc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">▲▲ OVERACTIVE</text>`;
     }
-    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}33" stroke="${tp.c}" stroke-width="1.8" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
-           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tp.c}" font-size="11.5" font-weight="700" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tp.c}" font-size="7.5" opacity="0.6" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
+    const tcol=ltText(tp.c);
+    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}" stroke="${tp.c}" stroke-width="1.8" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
+           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tcol}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tcol}" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
   }
   for(let i=0;i<rows;i++){
     const y0=_HDR+i*_ROW,by=y0+(_ROW-_BH)/2;
