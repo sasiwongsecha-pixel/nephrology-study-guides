@@ -3276,26 +3276,27 @@ function renderSeg(segId,opts){
   function bx(bxl,by,tp){
     const cx=bxl+_BW/2,cy=by+_BH/2;
     const hit=mk&&tp.key===mk.key;
+    const TXT='#0a1322';   // dark slate text inside opaque pills
     if(hit&&mk.mode==='LOF'){
       const rc='#ef4444';
-      return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${rc}1f" stroke="${rc}" stroke-width="2" stroke-dasharray="4 3" class="tp-r" data-key="${tp.key}" data-c="${rc}"/>`+
-             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${rc}" font-size="11.5" font-weight="700" ${_FS} pointer-events="none" opacity="0.85">${tp.lbl}</text>`+
-             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${rc}" font-size="7.5" opacity="0.55" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
-             `<line x1="${bxl+8}" y1="${by+8}" x2="${bxl+_BW-8}" y2="${by+_BH-8}" stroke="${rc}" stroke-width="2.5" opacity="0.9" pointer-events="none"/>`+
-             `<line x1="${bxl+_BW-8}" y1="${by+8}" x2="${bxl+8}" y2="${by+_BH-8}" stroke="${rc}" stroke-width="2.5" opacity="0.9" pointer-events="none"/>`+
+      return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${rc}" stroke="${rc}" stroke-width="2" stroke-dasharray="4 3" class="tp-r" data-key="${tp.key}" data-c="${rc}"/>`+
+             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="700" ${_FS} pointer-events="none" opacity="0.95">${tp.lbl}</text>`+
+             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="#ffffff" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
+             `<line x1="${bxl+8}" y1="${by+8}" x2="${bxl+_BW-8}" y2="${by+_BH-8}" stroke="#ffffff" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
+             `<line x1="${bxl+_BW-8}" y1="${by+8}" x2="${bxl+8}" y2="${by+_BH-8}" stroke="#ffffff" stroke-width="2.5" opacity="0.95" pointer-events="none"/>`+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${rc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">✕ LOSS OF FUNCTION</text>`;
     }
     if(hit&&mk.mode==='GOF'){
       const gc='#f59e0b';
       return `<rect x="${bxl-3}" y="${by-3}" width="${_BW+6}" height="${_BH+6}" rx="8" fill="none" stroke="${gc}" stroke-width="1.5" opacity="0.6" pointer-events="none"/>`+
-             `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${gc}26" stroke="${gc}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${gc}"/>`+
-             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${gc}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${gc}" font-size="7.5" opacity="0.7" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
+             `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${gc}" stroke="${gc}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${gc}"/>`+
+             `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${TXT}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+             (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${TXT}" font-size="7.5" opacity="0.7" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${gc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">▲▲ OVERACTIVE</text>`;
     }
-    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${tp.c}14" stroke="${tp.c}" stroke-width="1.5" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
-           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tp.c}" font-size="11.5" font-weight="700" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tp.c}" font-size="7.5" opacity="0.6" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
+    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="6" fill="${tp.c}" stroke="${tp.c}" stroke-width="1.5" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
+           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${TXT}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${TXT}" font-size="7.5" opacity="0.7" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
   }
   for(let i=0;i<rows;i++){
     const y0=_HDR+i*_ROW,by=y0+(_ROW-_BH)/2;
