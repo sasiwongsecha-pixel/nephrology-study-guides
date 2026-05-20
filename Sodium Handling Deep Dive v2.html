@@ -2990,8 +2990,8 @@ const DIAG_TP={
   cldn48:  {name:'Claudin-4/8 — CD Paracellular Cl⁻ Shunt',body:'Functional pair forming a paracellular Cl⁻ pore driven by the lumen-negative PD from ENaC. Claudin-8 also serves as a cation barrier preventing Na⁺ backleak. Aldosterone upregulates claudin-8. Without this shunt, lumen-negative PD is not dissipated→more K⁺ secretion.'},
 };
 
-const _W=800,_BW=116,_BH=58,_APX=134,_BLX=574,_HDR=48,_ROW=96;
-const _AB=_APX-_BW/2,_BB=_BLX-_BW/2,_LX=16,_RX=_W-16,_CA=310,_CB=462;
+const _W=680,_BW=110,_BH=56,_APX=110,_BLX=570,_HDR=44,_ROW=86;
+const _AB=_APX-_BW/2,_BB=_BLX-_BW/2,_LX=8,_RX=_W-8,_CA=_AB+_BW+40,_CB=_BB-40;
 const _FS='font-family="Segoe UI,system-ui,sans-serif"';
 
 const DIAG_DD={
@@ -3159,13 +3159,13 @@ function renderSeg(segId,opts){
     const ap=d.apl[i],bl=d.bsl[i];
     if(ap){
       sv+=bx(_AB,by,ap);
-      ap.L.forEach((it,j)=>{const ay=by+_aOff(j,ap.L.length);sv+=it.i?ar(_LX+4,ay,_AB-6,ay,it.c,it.t,'l'):ar(_AB-6,ay,_LX+4,ay,it.c,it.t,'l');});
+      ap.L.forEach((it,j)=>{const ay=by+_aOff(j,ap.L.length);sv+=it.i?ar(_LX+4,ay,_AB-6,ay,it.c,it.t,'m'):ar(_AB-6,ay,_LX+4,ay,it.c,it.t,'m');});
       ap.R.forEach((it,j)=>{const ay=by+_aOff(j,ap.R.length);sv+=!it.i?ar(_AB+_BW+6,ay,_CA,ay,it.c,it.t,'m'):ar(_CA,ay,_AB+_BW+6,ay,it.c,it.t,'m');});
     }
     if(bl){
       sv+=bx(_BB,by,bl);
       bl.L.forEach((it,j)=>{const ay=by+_aOff(j,bl.L.length);sv+=it.i?ar(_CB,ay,_BB-6,ay,it.c,it.t,'m'):ar(_BB-6,ay,_CB,ay,it.c,it.t,'m');});
-      bl.R.forEach((it,j)=>{const ay=by+_aOff(j,bl.R.length);sv+=!it.i?ar(_BB+_BW+6,ay,_RX-4,ay,it.c,it.t,'r'):ar(_RX-4,ay,_BB+_BW+6,ay,it.c,it.t,'r');});
+      bl.R.forEach((it,j)=>{const ay=by+_aOff(j,bl.R.length);sv+=!it.i?ar(_BB+_BW+6,ay,_RX-4,ay,it.c,it.t,'m'):ar(_RX-4,ay,_BB+_BW+6,ay,it.c,it.t,'m');});
     }
   }
   if(d.para.length>0){
