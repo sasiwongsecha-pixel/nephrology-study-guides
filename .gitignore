@@ -1,0 +1,28 @@
+# ── Backups & autosaves ───────────────────────────────
+*.bak
+*.bak.*
+*~
+*.swp
+*.swo
+
+# ── Local tooling / skill configs ─────────────────────
+.claude/
+.vscode/
+.idea/
+
+# ── Scratch directories (verification, raw assets) ────
+screenshots/
+uploads/
+
+# ── OS junk ───────────────────────────────────────────
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ── Local data exports (not part of the published guides) ──
+cases.json
+cases.txt
+flashcards.json
+mindmap.json
+quiz.json
+study_guide.md
