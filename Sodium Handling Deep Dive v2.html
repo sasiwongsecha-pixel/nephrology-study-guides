@@ -3252,20 +3252,20 @@ function renderSeg(segId,opts){
   cols.forEach(c=>{const id='dm'+c.replace('#','');sv+=`<marker id="${id}" markerWidth="7" markerHeight="5" refX="6.5" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="${c}"/></marker>`;});
   sv+=`</defs>`;
   sv+=`<rect x="0" y="0" width="${_APX}" height="${H}" fill="#060e1c"/>`;
-  sv+=`<rect x="${_APX}" y="0" width="${_BLX-_APX}" height="${H}" fill="#0c1a2e"/>`;
+  sv+=`<rect x="0" y="0" width="${_APX}" height="${H}" fill="rgba(59,130,246,.06)"/>`;
+  sv+=`<rect x="${_APX}" y="0" width="${_BLX-_APX}" height="${H}" fill="rgba(148,163,184,.05)"/>`;
   sv+=`<rect x="${_BLX}" y="0" width="${_W-_BLX}" height="${H}" fill="#060e1c"/>`;
+  sv+=`<rect x="${_BLX}" y="0" width="${_W-_BLX}" height="${H}" fill="rgba(239,68,68,.06)"/>`;
   sv+=`<rect x="0" y="0" width="${_W}" height="${_HDR}" fill="#09111e"/>`;
   sv+=`<line x1="0" y1="${_HDR}" x2="${_W}" y2="${_HDR}" stroke="#1e293b" stroke-width="1"/>`;
-  sv+=`<text x="${_APX/2}" y="17" text-anchor="middle" fill="#334155" font-size="8.5" font-weight="700" letter-spacing="1" ${_FS}>LUMEN</text>`;
-  sv+=`<text x="${(_APX+_BLX)/2}" y="17" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="700" letter-spacing="1" ${_FS}>${d.seg} CELL</text>`;
-  sv+=`<text x="${(_BLX+_W)/2}" y="17" text-anchor="middle" fill="#334155" font-size="8.5" font-weight="700" letter-spacing="1" ${_FS}>BLOOD</text>`;
-  sv+=`<text x="${_APX/2}" y="34" text-anchor="middle" fill="${d.color}" font-size="10" ${_FS}>${d.pd}</text>`;
-  sv+=`<text x="${(_APX+_BLX)/2}" y="34" text-anchor="middle" fill="${d.color}44" font-size="8.5" font-weight="700" letter-spacing="2" ${_FS}>${d.wm}</text>`;
-  sv+=`<text x="${(_BLX+_W)/2}" y="34" text-anchor="middle" fill="#334155" font-size="9" ${_FS}>peritubular</text>`;
-  sv+=`<text x="${_APX}" y="${_HDR-3}" text-anchor="middle" fill="${d.color}55" font-size="7.5" font-weight="700" ${_FS}>APICAL</text>`;
-  sv+=`<text x="${_BLX}" y="${_HDR-3}" text-anchor="middle" fill="${d.color}55" font-size="7.5" font-weight="700" ${_FS}>BASOLATERAL</text>`;
-  sv+=`<line x1="${_APX}" y1="${_HDR}" x2="${_APX}" y2="${H-PH}" stroke="${d.color}" stroke-width="2" opacity="0.55"/>`;
-  sv+=`<line x1="${_BLX}" y1="${_HDR}" x2="${_BLX}" y2="${H-PH}" stroke="${d.color}" stroke-width="2" opacity="0.55"/>`;
+  sv+=`<text x="${_APX/2}" y="17" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="700" letter-spacing="1.5" ${_FS}>LUMEN</text>`;
+  sv+=`<text x="${(_APX+_BLX)/2}" y="17" text-anchor="middle" fill="#cbd5e1" font-size="10" font-weight="700" letter-spacing="1.5" ${_FS}>${d.seg} CELL</text>`;
+  sv+=`<text x="${(_BLX+_W)/2}" y="17" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="700" letter-spacing="1.5" ${_FS}>BLOOD</text>`;
+  sv+=`<text x="${_W/2}" y="32" text-anchor="middle" fill="${d.color}" font-size="9.5" font-weight="700" ${_FS}>${d.pd} · ${d.wm}</text>`;
+  sv+=`<text x="${_APX}" y="${_HDR-3}" text-anchor="middle" fill="#475569" font-size="7.5" font-weight="700" letter-spacing="0.8" ${_FS}>APICAL</text>`;
+  sv+=`<text x="${_BLX}" y="${_HDR-3}" text-anchor="middle" fill="#475569" font-size="7.5" font-weight="700" letter-spacing="0.8" ${_FS}>BASOLATERAL</text>`;
+  sv+=`<line x1="${_APX}" y1="${_HDR}" x2="${_APX}" y2="${H-PH}" stroke="#475569" stroke-width="3"/>`;
+  sv+=`<line x1="${_BLX}" y1="${_HDR}" x2="${_BLX}" y2="${H-PH}" stroke="#475569" stroke-width="3"/>`;
   function ar(x1,y1,x2,y2,col,lbl,ls){
     const mc='dm'+col.replace('#','');
     const lx=ls==='l'?Math.min(x1,x2)-3:(ls==='r'?Math.max(x1,x2)+3:(x1+x2)/2);
@@ -3277,17 +3277,6 @@ function renderSeg(segId,opts){
     const cx=bxl+_BW/2,cy=by+_BH/2;
     const hit=mk&&tp.key===mk.key;
     const RX=_BH/2;
-    const LT={
-      '#14b8a6':'#a5f3fc', // teal     → light cyan
-      '#22c55e':'#bbf7d0', // green
-      '#a855f7':'#e9d5ff', // purple
-      '#f97316':'#fed7aa', // orange
-      '#3b82f6':'#bfdbfe', // blue
-      '#eab308':'#fef08a', // yellow
-      '#06b6d4':'#a5f3fc', // cyan
-      '#fde68a':'#fef9c3', // already-light yellow (ROMK)
-    };
-    const ltText=c=>LT[(c||'').toLowerCase()]||'#f1f5f9';
     if(hit&&mk.mode==='LOF'){
       const rc='#ef4444', rcText='#fecaca';
       return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${rc}" stroke="${rc}" stroke-width="2" stroke-dasharray="4 3" class="tp-r" data-key="${tp.key}" data-c="${rc}"/>`+
@@ -3305,10 +3294,10 @@ function renderSeg(segId,opts){
              (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${gcText}" font-size="7.5" opacity="0.85" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${gc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">▲▲ OVERACTIVE</text>`;
     }
-    const tcol=ltText(tp.c);
-    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}" stroke="${tp.c}" stroke-width="1.8" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
-           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tcol}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tcol}" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
+    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="#0f172a" stroke="${tp.c}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
+           `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}" opacity="0.18" pointer-events="none"/>`+
+           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tp.c}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tp.c}" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
   }
   for(let i=0;i<rows;i++){
     const y0=_HDR+i*_ROW,by=y0+(_ROW-_BH)/2;
