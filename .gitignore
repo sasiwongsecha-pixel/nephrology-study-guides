@@ -20,6 +20,9 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+# ── Session handoff (local working note, not for the repo) ──
+HANDOFF.md
+
 # ── Local data exports (not part of the published guides) ──
 cases.json
 cases.txt
