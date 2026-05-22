@@ -192,6 +192,9 @@
 .dxd-section .dxd-body b { color: #fde68a; }
 .dxd-section .svgdiag-box { margin: 0; }
 .dxd-section .dx-casc { background: transparent; padding: 0; border: none; }
+.dxd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.dxd-grid .dxd-section { margin-bottom: 0; }
+@media (max-width: 1000px){ .dxd-grid { grid-template-columns: 1fr; } }
 .dxd-pearl {
   margin-top: 10px;
   padding: 8px 11px;
@@ -4452,18 +4455,17 @@ function renderDxDetail(id){
   h+=`<span class="dxd-tag gene">${dx.gene}</span>`;
   if(dx.inherit&&dx.inherit!=='—') h+=`<span class="dxd-tag inh">${dx.inherit}</span>`;
   h+='</div>';
-  // 1. Information
-  h+=`<div class="dxd-section"><h5><span class="dxd-icon">📖</span>Information</h5><div class="dxd-body">${dx.info}</div></div>`;
-  // 2. Mechanism (cascade)
-  h+=`<div class="dxd-section"><h5><span class="dxd-icon">⚙️</span>Mechanism</h5>${renderDxCascade(dx)}</div>`;
-  // 3. Diagram (marked segment SVG)
+  // Diagram — full width, on top (the SVG is wide)
   h+=`<div class="dxd-section"><h5><span class="dxd-icon">🔬</span>Diagram</h5><div class="svgdiag-box">${renderSeg(dx.seg,{mark:dx.mark})}</div></div>`;
-  // 4. Investigation
+  // 2-column grid — Information · Mechanism · Investigation · Treatment
+  h+='<div class="dxd-grid">';
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">📖</span>Information</h5><div class="dxd-body">${dx.info}</div></div>`;
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">⚙️</span>Mechanism</h5>${renderDxCascade(dx)}</div>`;
   h+=`<div class="dxd-section"><h5><span class="dxd-icon">🩺</span>Investigation / Workup</h5><div class="dxd-body">${dx.workup}</div></div>`;
-  // 5. Treatment
-  h+=`<div class="dxd-section"><h5><span class="dxd-icon">💊</span>Treatment</h5><div class="dxd-body">${dx.tx}</div>`;
-  if(dx.pearl) h+=`<div class="dxd-pearl">💡 ${dx.pearl}</div>`;
+  h+=`<div class="dxd-section"><h5><span class="dxd-icon">💊</span>Treatment</h5><div class="dxd-body">${dx.tx}</div></div>`;
   h+='</div>';
+  // Pearl — full width, bottom
+  if(dx.pearl) h+=`<div class="dxd-pearl">💡 ${dx.pearl}</div>`;
   return h;
 }
 
