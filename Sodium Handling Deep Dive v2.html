@@ -187,6 +187,90 @@
   font-size: 12px; line-height: 1.55;
   color: #fde68a;
 }
+
+/* ─── TGF cascade — 4-frame macula densa diagram ─── */
+.tgf-branch-toggle { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.tgf-branch-btn {
+  background: #0a1322; color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 6px 14px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.tgf-branch-btn:hover { background: #11203a; color: #cbd5e1; }
+.tgf-branch-btn.active { background: rgba(234,179,8,.15); border-color: #eab308; color: #fde047; }
+
+.tgf-cascade {
+  display: grid; gap: 4px;
+  grid-template-columns: 1fr 18px 1fr 18px 1fr 18px 1fr;
+  align-items: stretch;
+}
+.tgf-frame {
+  position: relative;
+  background: #0a1322;
+  border: 1.5px solid #eab308; border-radius: 10px;
+  padding: 14px 12px 12px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.tgf-cascade.seen .tgf-frame { opacity: 1; transform: none; }
+.tgf-cascade .tgf-frame[data-step="1"] { transition-delay: 0s; }
+.tgf-cascade .tgf-frame[data-step="2"] { transition-delay: .15s; }
+.tgf-cascade .tgf-frame[data-step="3"] { transition-delay: .30s; }
+.tgf-cascade .tgf-frame[data-step="4"] { transition-delay: .45s; }
+.tgf-frame-n {
+  position: absolute; top: -11px; left: 10px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #eab308; color: #0f172a;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.tgf-frame-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  color: #eab308; margin: 0 0 8px; padding-left: 28px;
+}
+.tgf-frame-body { font-size: 11.5px; line-height: 1.55; color: #cbd5e1; }
+.tgf-frame-body b { color: #fde047; }
+.tgf-frame-body small { color: #64748b; font-size: 10px; display: block; margin-top: 6px; }
+.tgf-arrow {
+  align-self: center; display: flex; align-items: center; justify-content: center;
+  color: #475569; font-size: 14px;
+}
+.tgf-arrow::before { content: "▶"; opacity: 0; transition: opacity .4s ease .55s; }
+.tgf-cascade.seen .tgf-arrow::before { opacity: 1; }
+
+.tgf-outcome {
+  margin-top: 14px; padding: 10px 14px;
+  background: rgba(234,179,8,.08);
+  border: 1px solid rgba(234,179,8,.4);
+  border-radius: 8px;
+  font-size: 12.5px; line-height: 1.6; color: #fde68a;
+}
+.tgf-outcome-tag {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.2px;
+  color: #fde047; margin-right: 8px;
+}
+
+/* Low-salt branch — flip to cyan palette (TGF blunted) */
+.tgf-cascade.tgf-low .tgf-frame { border-color: #06b6d4; }
+.tgf-cascade.tgf-low .tgf-frame-n { background: #06b6d4; }
+.tgf-cascade.tgf-low .tgf-frame-title { color: #06b6d4; }
+.tgf-cascade.tgf-low .tgf-frame-body b { color: #67e8f9; }
+.tgf-outcome.tgf-low {
+  background: rgba(6,182,212,.08);
+  border-color: rgba(6,182,212,.4);
+  color: #a5f3fc;
+}
+.tgf-outcome.tgf-low .tgf-outcome-tag { color: #67e8f9; }
+
+@media (max-width: 900px) {
+  .tgf-cascade { grid-template-columns: 1fr; gap: 14px; }
+  .tgf-arrow { transform: rotate(90deg); justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tgf-frame { opacity: 1; transform: none; transition: none; }
+  .tgf-arrow::before { opacity: 1; }
+}
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -1595,6 +1679,55 @@
 
     </div>
     <div class="diag-src">Brenner Ch. 6 (Fig. 6.9–6.11). Dashed = paracellular. Loop diuretics block NKCC2 → collapse lumen-positive PD → no paracellular Ca²⁺/Mg²⁺ → hypercalciuria (use in hypercalcaemia). Furosemide-resistant Bartter: check CaSR activating mutation (type V).</div>
+  </div>
+
+  <!-- ===== DIAGRAM 5: Macula Densa + TGF Cascade ===== -->
+  <div class="diag-block">
+    <h4>🔬 Diagram 5 · Macula Densa &amp; Tubuloglomerular Feedback — the four-beat loop · Brenner Ch. 6 + 11</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The macula densa sits at the end of the cortical TAL and senses tubular [NaCl]. A single rise in distal NaCl throttles the same nephron's own glomerulus — feedback that protects against distal salt loss. Toggle the branch to see the high-salt vs low-salt response.</p>
+
+    <div class="tgf-branch-toggle">
+      <button class="tgf-branch-btn active" data-branch="high">↑ NaCl · high-salt → TGF activated</button>
+      <button class="tgf-branch-btn" data-branch="low">↓ NaCl · low-salt → renin ↑</button>
+    </div>
+
+    <div class="tgf-cascade" id="tgf-cascade">
+      <div class="tgf-frame" data-step="1">
+        <div class="tgf-frame-n">1</div>
+        <div class="tgf-frame-title">NaCl SENSING</div>
+        <div class="tgf-frame-body">↑ luminal [NaCl] drives apical <b>NKCC2</b> on the MD cell → rising intracellular Cl⁻ <b>depolarizes</b> the cell.<small>Luminal Cl⁻ is the proximate signal · sensitive across a physiologic range</small></div>
+      </div>
+      <div class="tgf-arrow"></div>
+      <div class="tgf-frame" data-step="2">
+        <div class="tgf-frame-n">2</div>
+        <div class="tgf-frame-title">ATP RELEASE → ADENOSINE</div>
+        <div class="tgf-frame-body">Depolarization opens basolateral <b>pannexin-1 / Maxi-anion</b> channels → <b>ATP</b> into JGA interstitium → CD39/CD73 ecto-nucleotidases → <b>adenosine</b>.</div>
+      </div>
+      <div class="tgf-arrow"></div>
+      <div class="tgf-frame" data-step="3">
+        <div class="tgf-frame-n">3</div>
+        <div class="tgf-frame-title">A1 RECEPTOR</div>
+        <div class="tgf-frame-body">Adenosine binds <b>A1 receptors</b> on afferent arteriolar smooth muscle → Gi-coupled → IP₃ → ↑ cytosolic <b>Ca²⁺</b> → myosin light-chain contraction.</div>
+      </div>
+      <div class="tgf-arrow"></div>
+      <div class="tgf-frame" data-step="4">
+        <div class="tgf-frame-n">4</div>
+        <div class="tgf-frame-title">AFFERENT CONSTRICTION</div>
+        <div class="tgf-frame-body">Afferent diameter falls <b>~25%</b> → <b>SNGFR ↓ 40–50%</b> → distal NaCl delivery drops → loop closes. JG-cell <b>renin ↓</b> in parallel.</div>
+      </div>
+    </div>
+
+    <div class="tgf-outcome" id="tgf-outcome">
+      <span class="tgf-outcome-tag">HIGH-SALT BRANCH</span>
+      Net result: SNGFR ↓ · renin ↓ · distal Na⁺ delivery normalized. <b>The feedback loop closes itself.</b>
+    </div>
+
+    <div class="pearl" style="margin-top:10px">
+      <div class="em">⏱️</div>
+      <div class="pt"><b>TGF resetting.</b> Chronic high distal NaCl (high-salt diet, sustained loop diuretic) shifts the TGF curve <b>rightward</b> via <b>nNOS</b> and <b>COX-2/PGE₂</b> in MD cells — restoring SNGFR despite a persistently elevated MD signal. This is partly why chronic furosemide loses potency. But <b>SGLT2-inhibitor renoprotection survives resetting</b>: its substrate — proximal Na⁺ delivery — sits upstream of the MD, so more NaCl keeps reaching the sensor and afferent tone stays corrected.</div>
+    </div>
+
+    <div class="diag-src">Brenner Ch. 6 (macula densa signaling) + Ch. 11 (TGF mediators, JGA). Maximal TGF reduces SNGFR ~40–50% with afferent diameter falling ~25% at peak stimulation. Acute IV furosemide can raise GFR by blocking NKCC2 on the MD itself — disabling the sensor.</div>
   </div>
 
   <div class="pearl">
@@ -3697,6 +3830,30 @@ try{
 /* Build disorder browser */
 try{ dxbInit(); }catch(e){ console.warn('dxbInit',e); }
 try{ wireSvgTips(); }catch(e){ console.warn('svgTips',e); }
+
+/* ── TGF cascade — branch toggle + scroll-in animation ── */
+try{
+  const tgf=document.getElementById('tgf-cascade');
+  const tgfOut=document.getElementById('tgf-outcome');
+  if(tgf&&tgfOut){
+    const TGF_BRANCH={
+      high:{tag:'HIGH-SALT BRANCH',body:'Net result: SNGFR ↓ · renin ↓ · distal Na⁺ delivery normalized. <b>The feedback loop closes itself.</b>'},
+      low:{tag:'LOW-SALT BRANCH',body:'MD-derived <b>nNOS</b> + <b>COX-2/PGE₂</b> blunt TGF → afferent <b>dilates</b> → JG-cell <b>renin ↑</b> → systemic RAAS engaged to defend volume.'}
+    };
+    document.querySelectorAll('.tgf-branch-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const br=btn.getAttribute('data-branch');
+        document.querySelectorAll('.tgf-branch-btn').forEach(b=>b.classList.toggle('active',b===btn));
+        tgf.classList.toggle('tgf-low',br==='low');
+        tgfOut.classList.toggle('tgf-low',br==='low');
+        const d=TGF_BRANCH[br];
+        tgfOut.innerHTML='<span class="tgf-outcome-tag">'+d.tag+'</span> '+d.body;
+      });
+    });
+    if(window._segIo) window._segIo.observe(tgf);
+    else tgf.classList.add('seen');
+  }
+}catch(e){ console.warn('tgf',e); }
 </script>
 </body>
 </html>
