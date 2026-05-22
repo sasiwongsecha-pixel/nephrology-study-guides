@@ -629,6 +629,72 @@
 .lv-verdict { font-size: 12px; font-weight: 800; margin-bottom: 8px; }
 .lv-verdict.ok { color: #86efac; }
 .lv-verdict.no { color: #fca5a5; }
+
+/* ─── SBA quiz drawer ─── */
+#quiz-tab {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  z-index: 60;
+  background: rgba(13,148,136,.92); color: #f0fdfa;
+  border: 1px solid var(--teal); border-bottom: none;
+  border-radius: 9px 9px 0 0;
+  padding: 7px 20px; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  box-shadow: 0 -3px 14px rgba(0,0,0,.4);
+}
+#quiz-tab:hover { background: rgba(13,148,136,1); }
+#quiz-drawer {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 61;
+  background: #0a1322; border-top: 2px solid var(--teal);
+  box-shadow: 0 -10px 40px rgba(0,0,0,.6);
+  transform: translateY(100%); transition: transform .3s ease;
+  max-height: 62vh; overflow-y: auto;
+}
+#quiz-drawer.open { transform: translateY(0); }
+.qz-inner { max-width: 760px; margin: 0 auto; padding: 14px 18px 20px; }
+.qz-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.qz-segtabs { display: flex; gap: 5px; flex-wrap: wrap; }
+.qz-segtab {
+  background: #11203a; color: #94a3b8;
+  border: 1px solid var(--border-dim); border-radius: 14px;
+  padding: 4px 12px; font-size: 11px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+}
+.qz-segtab.active { background: rgba(13,148,136,.2); border-color: var(--teal); color: var(--teal-light); }
+.qz-close {
+  background: none; border: 1px solid var(--border); color: #94a3b8;
+  border-radius: 6px; width: 26px; height: 26px; cursor: pointer;
+  font-size: 14px; font-family: inherit;
+}
+.qz-close:hover { color: #e2e8f0; }
+.qz-meta { font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 8px; }
+.qz-meta b { color: var(--teal-light); }
+.qz-stem { font-size: 13.5px; line-height: 1.6; color: #e2e8f0; margin-bottom: 12px; }
+.qz-opt {
+  display: block; width: 100%; text-align: left;
+  background: #11203a; color: #cbd5e1;
+  border: 1px solid var(--border-dim); border-left: 3px solid var(--border);
+  border-radius: 7px; padding: 9px 12px; margin-bottom: 7px;
+  font-size: 12.5px; line-height: 1.5; cursor: pointer; font-family: inherit;
+  transition: background .12s, border-color .12s;
+}
+.qz-opt:hover { background: #1a2c4a; }
+.qz-opt:disabled { cursor: default; }
+.qz-opt.correct { background: rgba(34,197,94,.16); border-left-color: #22c55e; color: #bbf7d0; }
+.qz-opt.wrong { background: rgba(239,68,68,.16); border-left-color: #ef4444; color: #fecaca; }
+.qz-explain {
+  font-size: 12px; line-height: 1.6; color: #cbd5e1;
+  background: #060e1c; border: 1px solid rgba(13,148,136,.4);
+  border-radius: 7px; padding: 10px 12px; margin: 4px 0 10px;
+}
+.qz-explain b { color: #fde047; }
+.qz-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.qz-navbtn {
+  background: #11203a; color: #cbd5e1; border: 1px solid var(--border);
+  border-radius: 7px; padding: 5px 14px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.qz-navbtn:hover { background: #1a2c4a; }
+.qz-score { font-size: 11.5px; font-weight: 700; color: var(--teal-light); }
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -4877,6 +4943,109 @@ try{
     renderCase();
   }
 }catch(e){ console.warn('lv',e); }
+
+/* ── Segment-locked SBA quiz drawer ── */
+try{
+  const SBA={
+    pct:[
+      {q:'Which transporter is the rate-limiting apical Na⁺ entry step in the early proximal tubule?',o:['NKCC2','NHE3','NCC','ENaC'],c:1,x:'<b>NHE3</b> (SLC9A3) drives apical Na⁺/H⁺ exchange; the basolateral Na⁺/K⁺-ATPase sets the gradient. ~65% of filtered Na⁺ is reclaimed here. (Brenner Ch. 6)'},
+      {q:'A child has glycosuria with normal blood glucose, phosphaturia, aminoaciduria, HCO₃⁻ 15, K⁺ 2.8. Best fit?',o:['Bartter syndrome','Fanconi syndrome / proximal RTA','Liddle syndrome','Gitelman syndrome'],c:1,x:'Generalised PCT dysfunction = <b>Fanconi</b>: glycosuria, phosphaturia, aminoaciduria, type-2 RTA. Causes: Dent disease, cystinosis, tenofovir. (Brenner Ch. 13)'},
+      {q:'SGLT2 inhibitors acutely lower single-nephron GFR mainly by:',o:['Efferent arteriolar dilation','Afferent constriction via tubuloglomerular feedback','Raising plasma oncotic pressure','Mesangial relaxation'],c:1,x:'Blocking proximal Na⁺/glucose reabsorption delivers more NaCl to the macula densa → <b>TGF-mediated afferent vasoconstriction</b> → lower intraglomerular pressure. Basis of renoprotection. (Brenner Ch. 11)'},
+      {q:'Dent disease is distinguished from other Fanconi causes by:',o:['Hyperkalemia','Low-molecular-weight proteinuria + nephrocalcinosis (CLCN5)','Glycosuria alone','Alkaline urine'],c:1,x:'Dent disease — X-linked <b>CLCN5</b> (or OCRL): endolysosomal defect → LMW proteinuria, hypercalciuria, nephrocalcinosis, CKD. (Brenner Ch. 13)'},
+      {q:'Reclaimed HCO₃⁻ exits the PCT cell into blood via:',o:['Apical AE1','Basolateral NBCe1 (1 Na⁺ : 3 HCO₃⁻)','Pendrin','Apical NHE3'],c:1,x:'<b>NBCe1</b> (SLC4A4) is the electrogenic basolateral exit; its loss causes proximal RTA with ocular abnormalities. (Brenner Ch. 6)'},
+      {q:'Acetazolamide produces a metabolic acidosis because it:',o:['Directly blocks H⁺-ATPase','Inhibits carbonic anhydrase → loss of PCT HCO₃⁻ reclamation','Antagonises aldosterone','Blocks ENaC'],c:1,x:'CA inhibition strands HCO₃⁻ in the lumen → bicarbonaturia → <b>non-anion-gap metabolic acidosis</b>. (Brenner Ch. 6)'},
+      {q:'A patient on tenofovir develops glycosuria with normal glucose, phosphate 2.9, K⁺ 2.9, HCO₃⁻ 18. Mechanism?',o:['NKCC2 toxicity','Mitochondrial injury → broad PCT transporter dysfunction','ENaC gain of function','ROMK loss'],c:1,x:'Tenofovir, ifosfamide and cidofovir are classic <b>mitochondrial PCT toxins</b> → acquired Fanconi syndrome. (Brenner Ch. 13)'},
+      {q:'In chronic metabolic acidosis the PCT generates NEW bicarbonate by:',o:['Running carbonic anhydrase backwards','Glutamine → 2 NH₄⁺ + α-ketoglutarate, whose oxidation yields HCO₃⁻','Reabsorbing HCO₃⁻ via NHE3','Trapping HCO₃⁻ on AQP1'],c:1,x:'<b>Ammoniagenesis</b>: glutaminase yields 2 NH₄⁺; α-ketoglutarate metabolism generates 2 HCO₃⁻ — the main adaptive lever for chronic acid loads. (Brenner Ch. 6, 13)'}
+    ],
+    tal:[
+      {q:'Which apical channel recycles K⁺ to sustain NKCC2 in the thick ascending limb?',o:['Kir4.1','KCC4','ROMK','BK channel'],c:2,x:'<b>ROMK</b> (Kir1.1, KCNJ1) returns K⁺ to the lumen — luminal K⁺ is otherwise limiting. ROMK loss → Bartter type II. (Brenner Ch. 6)'},
+      {q:'Antenatal polyhydramnios, neonatal salt-wasting, hypokalemic alkalosis, hypercalciuria, nephrocalcinosis. Genotype?',o:['SLC12A3 (NCC)','SLC12A1 or KCNJ1 (antenatal Bartter)','SCNN1B','SLC4A4'],c:1,x:'Antenatal Bartter — <b>NKCC2 (type I)</b> or <b>ROMK (type II)</b>. Hypercalciuria + nephrocalcinosis flag the TAL. (Brenner Ch. 13)'},
+      {q:'Loop diuretics raise urinary Ca²⁺ excretion because they:',o:['Suppress PTH','Collapse the lumen-positive PD → loss of the paracellular Ca²⁺/Mg²⁺ driving force','Block TRPV5','Activate the CaSR'],c:1,x:'NKCC2 blockade abolishes the lumen-positive PD from ROMK recycling → paracellular Ca²⁺/Mg²⁺ reabsorption (claudin-16/19) stops → <b>hypercalciuria</b>. (Brenner Ch. 6)'},
+      {q:'Familial hypomagnesemia with hypercalciuria and nephrocalcinosis (FHHNC) is caused by mutation in:',o:['NCC','NKCC2','Claudin-16 or claudin-19','TRPM6'],c:2,x:'<b>CLDN16/CLDN19</b> form the paracellular divalent-cation pore of the TAL. Loss → Mg²⁺ + Ca²⁺ wasting, nephrocalcinosis, progressive CKD. (Brenner Ch. 13)'},
+      {q:'Activating mutations of the calcium-sensing receptor cause a Bartter-like picture because:',o:['NCC closes','High Ca²⁺ signalling at the basolateral CaSR inhibits ROMK and NKCC2','ENaC opens','AQP2 internalises'],c:1,x:'CaSR activation suppresses TAL salt transport → <b>Bartter type V</b>, with autosomal-dominant hypocalcemia. (Brenner Ch. 6)'},
+      {q:'Why is hypokalemia common across TAL salt-wasting disorders?',o:['The PCT hyper-reabsorbs K⁺','↑ distal Na⁺ delivery + secondary hyperaldosteronism → ENaC-driven kaliuresis','ROMK gain of function','Insulin resistance'],c:1,x:'Salt wasting → volume depletion → RAAS → distal Na⁺ delivered to ENaC drives <b>K⁺ secretion</b>. (Brenner Ch. 13)'},
+      {q:'The hallmark acid-base disturbance of chronic loop diuretic use is:',o:['Non-anion-gap acidosis','Hypokalemic metabolic alkalosis','Respiratory alkalosis','High-anion-gap acidosis'],c:1,x:'Volume contraction + secondary hyperaldosteronism + hypokalemia (driving the α-IC H⁺/K⁺-ATPase) → <b>hypokalemic metabolic alkalosis</b>. (Brenner Ch. 13)'},
+      {q:'Bartter type IV (barttin, BSND) is distinguished by association with:',o:['Skeletal dysplasia','Sensorineural deafness','Cataracts','Cardiomyopathy'],c:1,x:'Barttin is the obligate β-subunit of CLC-Ka/Kb, also expressed in the inner ear → Bartter IV carries <b>sensorineural deafness</b>. (Brenner Ch. 13)'}
+    ],
+    dct:[
+      {q:'Under normal conditions WNK4:',o:['Activates NCC directly','Inhibits NCC — loss of this inhibition causes FHHt','Phosphorylates ENaC','Degrades aldosterone'],c:1,x:'WNK4 restrains NCC; gain-of-function (or failed CUL3/KLHL3 degradation) → <b>NCC overactivity</b> → FHHt / Gordon syndrome. (Brenner Ch. 6, 12)'},
+      {q:'A 22-year-old: K⁺ 2.7, HCO₃⁻ 30, Mg²⁺ 1.3, urine Ca:Cr 0.05, normal BP. Diagnosis?',o:['Bartter','Gitelman','Liddle','AME'],c:1,x:'Hypokalemic alkalosis + hypomagnesemia + <b>hypocalciuria</b> + normotension = <b>Gitelman</b> (NCC loss of function). (Brenner Ch. 13)'},
+      {q:'Thiazides can cause hypercalcemia because NCC blockade:',o:['Raises PTH directly','Hyperpolarises the basolateral membrane → opens TRPV5 → ↑ Ca²⁺ reabsorption; volume contraction adds proximal Ca²⁺ reabsorption','Antagonises the CaSR','Induces calcitriol'],c:1,x:'Mirror of the loop effect — thiazides are <b>hypocalciuric</b> and treat idiopathic hypercalciuria / stones. (Brenner Ch. 6)'},
+      {q:'FHHt / Gordon syndrome (pseudohypoaldosteronism type II) features:',o:['Hypokalemia, alkalosis, hypotension','Hyperkalemia, hyperchloremic acidosis, hypertension — thiazide-responsive','Hyperkalemia, alkalosis, hypotension','Hypokalemia, acidosis, hypertension'],c:1,x:'NCC chronically on → volume expansion, <b>HTN, hyperK, non-AG acidosis</b>, hypercalciuria; resolves on low-dose thiazide. (Brenner Ch. 12)'},
+      {q:'The hypomagnesemia of Gitelman syndrome arises mainly from:',o:['NKCC2 loss','Down-regulation of TRPM6 in the DCT secondary to NCC dysfunction','ROMK gain of function','Pendrin loss'],c:1,x:'DCT remodelling with NCC loss reduces apical <b>TRPM6</b>-mediated Mg²⁺ uptake → renal Mg²⁺ wasting. (Brenner Ch. 6, 13)'},
+      {q:'EAST / SeSAME syndrome — gene and the non-renal triad?',o:['NCC; hypocalcemia','KCNJ10 (Kir4.1); epilepsy, ataxia, sensorineural deafness','ENaC; deafness','CLDN16; hypomagnesemia'],c:1,x:'<b>KCNJ10</b> loss → Gitelman-like biochemistry plus Epilepsy, Ataxia, Sensorineural deafness, Tubulopathy. (Brenner Ch. 6, 13)'},
+      {q:'Surreptitious thiazide use can perfectly mimic Gitelman. The best discriminator is:',o:['Serum Mg²⁺','Serum HCO₃⁻','A urine diuretic screen + the time course of the abnormality','Renal biopsy'],c:2,x:'Genetic testing is slow; a <b>urine diuretic screen</b> plus an intermittent (vs lifelong) pattern settles it quickly. (Brenner Ch. 13)'},
+      {q:'The "aldosterone paradox" — Na⁺ avidity without K⁺ wasting in volume depletion — depends on:',o:['ENaC alone','AngII-mediated WNK4 activation of NCC, so Na⁺ is reclaimed as NaCl upstream of the K⁺-secretory ENaC segment','ROMK gain','NHE3 upregulation'],c:1,x:'In hypovolemia AngII switches NCC on → distal Na⁺ arrives as NaCl, sparing K⁺. In hyperkalemia AngII is low → NCC off → Na⁺ reaches ENaC for K⁺ secretion. (Brenner Ch. 12)'}
+    ],
+    cd:[
+      {q:'Apical Na⁺ entry into the collecting-duct principal cell is via:',o:['NCC','NKCC2','ENaC','NHE3'],c:2,x:'<b>ENaC</b> — the amiloride-sensitive, aldosterone-regulated epithelial Na⁺ channel. (Brenner Ch. 6)'},
+      {q:'HTN, K⁺ 2.6, HCO₃⁻ 32, suppressed renin AND aldosterone, with an ELEVATED urinary cortisol:cortisone ratio. Diagnosis?',o:['Liddle syndrome','Apparent mineralocorticoid excess (11β-HSD2 deficiency)','Geller syndrome','Primary aldosteronism'],c:1,x:'11β-HSD2 normally converts cortisol → cortisone; its loss lets cortisol activate MR → an <b>elevated cortisol:cortisone ratio</b>. Liquorice phenocopies it; spironolactone works. (Brenner Ch. 12)'},
+      {q:'Amiloride lowers blood pressure by:',o:['Antagonising the mineralocorticoid receptor','Directly blocking the ENaC pore','Blocking ROMK','Antagonising the V2 receptor'],c:1,x:'Amiloride plugs <b>ENaC</b> directly — so it works in Liddle syndrome, where the lesion is the channel itself. (Brenner Ch. 6)'},
+      {q:'Geller syndrome is distinguished by:',o:['Onset only after age 60','An MR mutation (S810L) that makes progesterone an agonist → severe hypertension in pregnancy','Hypocalcemia','Cushingoid features'],c:1,x:'MR <b>S810L</b> gain-of-function; progesterone — and spironolactone — become MR agonists, so HTN flares in pregnancy. (Brenner Ch. 12)'},
+      {q:'Lithium causes nephrogenic diabetes insipidus mainly by:',o:['Blocking AQP1','Desensitising the V1 receptor','Down-regulating AQP2 and injuring principal cells','Inhibiting NKCC2'],c:2,x:'Lithium enters principal cells via ENaC and <b>downregulates AQP2</b> (GSK3β-dependent); amiloride can blunt this. (Brenner Ch. 14)'},
+      {q:'The main toxicity that limits tolvaptan use in ADPKD is:',o:['Hyperkalemia','Hepatotoxicity','Pancreatitis','Marrow suppression'],c:1,x:'Tolvaptan carries a <b>hepatotoxicity</b> warning; LFT monitoring is mandatory. (Brenner Ch. 14)'},
+      {q:'The autosomal-recessive form of pseudohypoaldosteronism type I is caused by:',o:['NCC gain of function','ENaC loss-of-function — severe neonatal multi-organ salt-wasting refractory to mineralocorticoid','MR gain of function','Pendrin loss'],c:1,x:'AR PHA-I = <b>ENaC LOF</b> (SCNN1A/B/G), multi-organ (sweat, salivary, colon). The AD form is MR LOF — milder. (Brenner Ch. 12)'},
+      {q:'Why does Liddle syndrome fail to respond to spironolactone?',o:['Aldosterone is high','ENaC is constitutively active independent of the mineralocorticoid receptor — only a channel blocker (amiloride) works','ROMK gain of function','Cortisol cross-reactivity'],c:1,x:'The defect is the <b>channel</b>, downstream of MR — MR blockade is futile; amiloride / triamterene are the treatment. (Brenner Ch. 12)'}
+    ]
+  };
+  const QZ_SEGS=[['pct','PCT'],['tal','TAL'],['dct','DCT'],['cd','CNT/CCD']];
+  const qz={seg:'pct',idx:0};
+  const qzAns={}; // key seg+'-'+idx -> picked index
+  const tab=document.createElement('button');
+  tab.id='quiz-tab'; tab.textContent='📝 Quiz this segment';
+  document.body.appendChild(tab);
+  const drawer=document.createElement('div');
+  drawer.id='quiz-drawer'; drawer.innerHTML='<div class="qz-inner" id="qz-inner"></div>';
+  document.body.appendChild(drawer);
+  const inner=document.getElementById('qz-inner');
+  function qzScore(seg){
+    let n=0; SBA[seg].forEach((q,i)=>{ const a=qzAns[seg+'-'+i]; if(a!=null&&a===q.c) n++; });
+    return n;
+  }
+  function renderQuiz(){
+    const set=SBA[qz.seg], q=set[qz.idx], aKey=qz.seg+'-'+qz.idx, picked=qzAns[aKey];
+    let h='<div class="qz-bar"><div class="qz-segtabs">';
+    QZ_SEGS.forEach(s=>{ h+='<button class="qz-segtab'+(s[0]===qz.seg?' active':'')+'" data-seg="'+s[0]+'">'+s[1]+'</button>'; });
+    h+='</div><button class="qz-close" id="qz-close">✕</button></div>';
+    h+='<div class="qz-meta">Question <b>'+(qz.idx+1)+'</b> / '+set.length+'</div>';
+    h+='<div class="qz-stem">'+q.q+'</div>';
+    q.o.forEach((opt,i)=>{
+      let cls='qz-opt';
+      if(picked!=null){
+        if(i===q.c) cls+=' correct';
+        else if(i===picked) cls+=' wrong';
+      }
+      h+='<button class="'+cls+'" data-opt="'+i+'"'+(picked!=null?' disabled':'')+'>'+opt+'</button>';
+    });
+    if(picked!=null) h+='<div class="qz-explain">'+q.x+'</div>';
+    h+='<div class="qz-foot"><button class="qz-navbtn" data-nav="-1">‹ Prev</button>'+
+       '<span class="qz-score">Score · '+qzScore(qz.seg)+' / '+set.length+'</span>'+
+       '<button class="qz-navbtn" data-nav="1">Next ›</button></div>';
+    inner.innerHTML=h;
+  }
+  tab.addEventListener('click',()=>{
+    drawer.classList.add('open');
+    tab.style.display='none';
+    if(['pct','tal','dct','cd'].indexOf(window.activeSeg)>=0){ qz.seg=window.activeSeg; qz.idx=0; }
+    renderQuiz();
+  });
+  inner.addEventListener('click',e=>{
+    if(e.target.id==='qz-close'){ drawer.classList.remove('open'); tab.style.display=''; return; }
+    const seg=e.target.closest('.qz-segtab');
+    if(seg){ qz.seg=seg.getAttribute('data-seg'); qz.idx=0; renderQuiz(); return; }
+    const opt=e.target.closest('.qz-opt');
+    if(opt&&!opt.disabled){
+      qzAns[qz.seg+'-'+qz.idx]=parseInt(opt.getAttribute('data-opt'),10);
+      renderQuiz(); return;
+    }
+    const nav=e.target.closest('.qz-navbtn');
+    if(nav){
+      const set=SBA[qz.seg];
+      qz.idx=(qz.idx+parseInt(nav.getAttribute('data-nav'),10)+set.length)%set.length;
+      renderQuiz(); return;
+    }
+  });
+}catch(e){ console.warn('quiz',e); }
 </script>
 </body>
 </html>
