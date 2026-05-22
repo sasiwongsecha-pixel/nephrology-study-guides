@@ -271,6 +271,67 @@
   .tgf-frame { opacity: 1; transform: none; transition: none; }
   .tgf-arrow::before { opacity: 1; }
 }
+
+/* ─── Vasa recta + medullary washout ─── */
+.vr-toggle { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.vr-btn {
+  background: #0a1322; color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 6px 13px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.vr-btn:hover { background: #11203a; color: #cbd5e1; }
+.vr-btn.active { background: rgba(99,102,241,.15); border-color: #818cf8; color: #c7d2fe; }
+.vr-stage {
+  display: grid; grid-template-columns: 1fr 180px; gap: 20px;
+  align-items: center; background: #060e1c;
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+}
+.vr-hairpin svg { display: block; width: 100%; height: auto; }
+.vr-grad { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.vr-grad-cap {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 1px;
+  color: #64748b;
+}
+.vr-grad-track {
+  height: 240px; width: 70px;
+  background: #0a1322; border: 1px solid var(--border); border-radius: 8px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column-reverse;
+}
+.vr-grad-track::before {
+  content: "cortex 300"; position: absolute; top: 4px; left: 0; right: 0;
+  text-align: center; font-size: 8.5px; color: #64748b; z-index: 2;
+}
+.vr-grad-fill {
+  width: 100%;
+  background: linear-gradient(to top, var(--vr-deep), #11325a);
+  transition: height .55s ease;
+  position: relative;
+}
+.vr-peak {
+  position: absolute; top: 6px; left: 0; right: 0; text-align: center;
+  font-size: 14px; font-weight: 800; color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.7);
+}
+.vr-peak small { display: block; font-size: 8px; font-weight: 600; opacity: .85; }
+.vr-note {
+  margin-top: 14px; padding: 11px 14px;
+  background: rgba(99,102,241,.08); border: 1px solid rgba(129,140,248,.4);
+  border-radius: 8px; font-size: 12.5px; line-height: 1.6; color: #cbd5e1;
+}
+.vr-note b { color: #c7d2fe; }
+.vr-note .vr-note-tag {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px;
+  color: #c7d2fe; margin-right: 8px;
+}
+@media (max-width: 760px) {
+  .vr-stage { grid-template-columns: 1fr; }
+  .vr-grad { flex-direction: row; gap: 14px; }
+  .vr-grad-track { width: 100%; height: 60px; flex-direction: row; }
+  .vr-grad-fill { height: 100% !important; }
+}
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -1488,6 +1549,71 @@
     <div class="pt"><b>Why the loop must be U-shaped.</b> If the descending and ascending limbs ran parallel in the <em>same</em> direction, the osmotic gradient would collapse — each segment's output would immediately dilute the next. The U-shape means the ascending limb always runs <em>against</em> the gradient it helped create, amplifying the "single effect" 4–6× into the full 300→1200 mOsm/kg range. No loop → no concentrating ability — even with normal AVP.</div>
   </div>
   <div class="src" style="font-size:11px;color:#475569;margin-top:8px">Source: Brenner &amp; Rector Ch. 6 + Ch. 10.</div>
+
+  <!-- ===== DIAGRAM 3: Vasa Recta + Medullary Washout ===== -->
+  <div class="diag-block">
+    <h4>🔬 Diagram 3 · Vasa Recta &amp; Medullary Washout — the gradient is fragile · Brenner Ch. 6 + 14</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The countercurrent multiplier <em>builds</em> the medullary gradient; the vasa recta <em>preserve</em> it by countercurrent exchange. Because the gradient is held by sluggish flow and ongoing NaCl/urea deposition, several insults wash it out — each to a different ceiling. Toggle to see how high the urine can concentrate.</p>
+
+    <div class="vr-toggle">
+      <button class="vr-btn active" data-mode="normal">Normal</button>
+      <button class="vr-btn" data-mode="loop">Loop diuretic</button>
+      <button class="vr-btn" data-mode="osmotic">Osmotic diuresis</button>
+      <button class="vr-btn" data-mode="sickle">Sickle cell</button>
+      <button class="vr-btn" data-mode="protein">Low-protein diet</button>
+    </div>
+
+    <div class="vr-stage">
+      <div class="vr-hairpin">
+        <svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="vrTube" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#3b82f6"/>
+              <stop offset="1" stop-color="#ef4444"/>
+            </linearGradient>
+            <marker id="vrAh" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#94a3b8"/></marker>
+          </defs>
+          <!-- interstitial osmolality band -->
+          <rect x="0" y="20" width="320" height="210" fill="url(#vrTube)" opacity="0.06"/>
+          <text x="8" y="34" fill="#64748b" font-size="9" font-family="Segoe UI,sans-serif">CORTEX · 300</text>
+          <text x="8" y="130" fill="#64748b" font-size="9" font-family="Segoe UI,sans-serif">OUTER MED · 600</text>
+          <text x="8" y="222" fill="#64748b" font-size="9" font-family="Segoe UI,sans-serif">PAPILLA · 1200</text>
+          <!-- hairpin tube -->
+          <path d="M120 24 L120 196 Q120 224 152 224 L168 224 Q200 224 200 196 L200 24"
+                fill="none" stroke="url(#vrTube)" stroke-width="20" stroke-linecap="round" opacity="0.85"/>
+          <text x="120" y="16" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif">descending VR</text>
+          <text x="200" y="16" text-anchor="middle" fill="#fca5a5" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif">ascending VR</text>
+          <!-- exchange arrows: descending picks up solute / loses water -->
+          <line x1="108" y1="70" x2="74" y2="70" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#vrAh)"/>
+          <text x="70" y="67" text-anchor="end" fill="#93c5fd" font-size="8.5" font-family="Segoe UI,sans-serif">H₂O out</text>
+          <line x1="78" y1="150" x2="112" y2="150" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#vrAh)"/>
+          <text x="74" y="147" text-anchor="end" fill="#fca5a5" font-size="8.5" font-family="Segoe UI,sans-serif">NaCl·urea in</text>
+          <!-- ascending dumps solute back / regains water -->
+          <line x1="212" y1="150" x2="246" y2="150" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#vrAh)"/>
+          <text x="250" y="147" fill="#fca5a5" font-size="8.5" font-family="Segoe UI,sans-serif">solute back</text>
+          <line x1="246" y1="70" x2="212" y2="70" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#vrAh)"/>
+          <text x="250" y="67" fill="#93c5fd" font-size="8.5" font-family="Segoe UI,sans-serif">H₂O regained</text>
+          <text x="160" y="246" text-anchor="middle" fill="#475569" font-size="8.5" font-style="italic" font-family="Segoe UI,sans-serif">osmolytes trapped · water shunted away</text>
+        </svg>
+      </div>
+      <div class="vr-grad">
+        <div class="vr-grad-cap">URINE CEILING</div>
+        <div class="vr-grad-track">
+          <div class="vr-grad-fill" id="vr-fill" style="--vr-deep:#ef4444;height:100%">
+            <span class="vr-peak" id="vr-peak">1200<small>mOsm/kg</small></span>
+          </div>
+        </div>
+        <div class="vr-grad-cap" style="color:#475569">papilla ↓</div>
+      </div>
+    </div>
+
+    <div class="vr-note" id="vr-note">
+      <span class="vr-note-tag">NORMAL</span>
+      Sluggish vasa recta flow allows near-complete countercurrent exchange — <b>osmolytes (NaCl + urea) are trapped</b> in the medulla and water is shunted away. The full 300→1200 mOsm/kg gradient stands; AVP can concentrate urine to ~1200 mOsm/kg.
+    </div>
+
+    <div class="diag-src">Brenner Ch. 6 (vasa recta, urea recycling) + Ch. 14 (concentration/dilution defects). Vasa recta exchange is <em>passive</em> — it preserves, not generates, the gradient. High medullary blood flow or loss of the NaCl/urea supply collapses it. Urea contributes ~half of inner-medullary osmolality.</div>
+  </div>
 </section>
 
 <!-- =================== TAL =================== -->
@@ -3854,6 +3980,32 @@ try{
     else tgf.classList.add('seen');
   }
 }catch(e){ console.warn('tgf',e); }
+
+/* ── Vasa recta washout — mode toggle ── */
+try{
+  const vrFill=document.getElementById('vr-fill');
+  const vrPeak=document.getElementById('vr-peak');
+  const vrNote=document.getElementById('vr-note');
+  if(vrFill&&vrPeak&&vrNote){
+    const VR_MODES={
+      normal:{peak:1200,deep:'#ef4444',tag:'NORMAL',body:'Sluggish vasa recta flow allows near-complete countercurrent exchange — <b>osmolytes (NaCl + urea) are trapped</b> in the medulla and water is shunted away. The full 300→1200 mOsm/kg gradient stands; AVP can concentrate urine to ~1200 mOsm/kg.'},
+      loop:{peak:200,deep:'#eab308',tag:'LOOP DIURETIC',body:'NKCC2 blockade abolishes the TAL <b>"single effect"</b> — no NaCl is deposited in the interstitium. The gradient collapses; urine osmolality cannot exceed <b>~150–250 mOsm/kg</b>.'},
+      osmotic:{peak:350,deep:'#22c55e',tag:'OSMOTIC DIURESIS',body:'High tubular flow (glucose, mannitol, urea) prevents solute extraction and raises medullary blood flow, washing the gradient out. Urine trends toward iso-osmotic <b>~300–400 mOsm/kg</b>.'},
+      sickle:{peak:350,deep:'#a855f7',tag:'SICKLE CELL',body:'Vaso-occlusion of the vasa recta → ischemic papillary necrosis and loss of countercurrent geometry. <b>Hyposthenuria</b> is among the earliest renal signs of HbSS; ceiling <b>~300–400 mOsm/kg</b>.'},
+      protein:{peak:550,deep:'#3b82f6',tag:'LOW-PROTEIN DIET',body:'Reduced hepatic urea generation lowers the inner-medullary urea contribution (~half of papillary osmolality). Maximal concentrating ability falls to <b>~500–600 mOsm/kg</b>.'}
+    };
+    document.querySelectorAll('.vr-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const m=VR_MODES[btn.getAttribute('data-mode')]; if(!m) return;
+        document.querySelectorAll('.vr-btn').forEach(b=>b.classList.toggle('active',b===btn));
+        vrFill.style.setProperty('--vr-deep',m.deep);
+        vrFill.style.height=Math.round(m.peak/1200*100)+'%';
+        vrPeak.innerHTML=m.peak+'<small>mOsm/kg</small>';
+        vrNote.innerHTML='<span class="vr-note-tag">'+m.tag+'</span> '+m.body;
+      });
+    });
+  }
+}catch(e){ console.warn('vr',e); }
 </script>
 </body>
 </html>
