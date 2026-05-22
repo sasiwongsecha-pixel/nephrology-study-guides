@@ -1215,25 +1215,18 @@
     <div id="hdrNephBar"></div>
     <div class="hdr-neph-pct"><span id="hdrNephPct">0</span>%<small>Na⁺ REABSORBED</small></div>
   </div>
-  <div class="tocrow" id="tocrow">
-    <a class="toc" href="#hero">Overview</a>
-    <a class="toc" href="#pct"><span class="dot pct"></span>PCT</a>
-    <a class="toc" href="#tdlh"><span class="dot thin"></span>tDLH</a>
-    <a class="toc" href="#talh"><span class="dot thin"></span>tALH</a>
-    <a class="toc" href="#ccm"><span class="dot thin"></span>CCM</a>
-    <a class="toc" href="#tal"><span class="dot tal"></span>TAL</a>
-    <a class="toc" href="#dct"><span class="dot dct"></span>DCT</a>
-    <a class="toc" href="#cd"><span class="dot cd"></span>CNT / CCD</a>
-    <a class="toc" href="#hormones">Hormones</a>
-    <a class="toc" href="#dysnatremia">Dysnatremia</a>
-    <a class="toc" href="#acidbase">Acid–Base</a>
-    <a class="toc" href="#compare">Compare</a>
-    <a class="toc" href="#disorders">Disorders</a>
-    <a class="toc go-back" href="nephrology_v3.html">← Main guide</a>
+  <div class="tabbar" id="tabbar">
+    <button class="tabbtn active" data-tab="tour">Overview</button>
+    <button class="tabbtn" data-tab="walk">Nephron Walk</button>
+    <button class="tabbtn" data-tab="reg">Regulation</button>
+    <button class="tabbtn" data-tab="disorders">Disorders</button>
+    <button class="expandbtn" id="expandBtn" title="Show every tab as one long page — restores Ctrl-F search and printing across the whole guide">⤢ Expand all</button>
+    <a class="tabbtn go-back" href="nephrology_v3.html">← Main guide</a>
   </div>
 </nav>
 
 <main>
+<div class="tabpanel active" id="tab-tour">
 
 <!-- =================== HERO =================== -->
 <section id="hero" class="hero">
@@ -1429,6 +1422,8 @@
     By the macula densa, <strong>&gt;90%</strong> of filtered Na⁺ is already reclaimed (Brenner Fig. 6.1) — yet the last 5–10% in DCT/CNT/CCD is where almost all the <em>regulation</em> happens. Click any segment above to explore its transporters interactively.
   </p>
 </section>
+</div><!-- /tab-tour -->
+<div class="tabpanel" id="tab-walk">
 <!-- =================== PCT =================== -->
 <section id="pct" class="segment" data-seg="pct">
   <div class="seg-head">
@@ -2466,6 +2461,105 @@
     <span class="dzc">Nephrogenic DI</span>
   </div>
 </section>
+<!-- =================== COMPARISON TABLE — capstone of the nephron walk =================== -->
+<section id="compare" class="segment">
+  <div class="seg-head">
+    <span class="num-tag">Integration · part II</span>
+    <h2>Side-by-side — all five segments at a glance</h2>
+  </div>
+  <p class="seg-sub">Every segment compared on the dimensions that matter for the boards: how much Na⁺ it handles, how, with what driving force, what its key transporters are, and what fails when it breaks.</p>
+
+  <div class="cmp-wrap">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>% Na⁺ reabsorbed</th>
+          <th>Apical entry</th>
+          <th>Basolateral exit</th>
+          <th>Driving force / PD</th>
+          <th>H₂O perm.</th>
+          <th>Major drug target</th>
+          <th>Disease when broken</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="segc pct">PCT</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--pct)"><i style="width:100%"></i></div><span class="pcttxt">60–70%</span></div></td>
+          <td>NHE3 + Na⁺-glucose/AA cotransporters; paracellular</td>
+          <td>Na⁺/K⁺-ATPase, NBCe1, KCC3/4</td>
+          <td>Early −2 mV → Late +2 mV (Cl⁻ diffusion)</td>
+          <td>High (AQP1)</td>
+          <td>SGLT2-i, acetazolamide, tenapanor</td>
+          <td>Proximal RTA, Fanconi</td>
+        </tr>
+        <tr>
+          <td class="segc thin">tDLH</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--thin)"><i style="width:5%"></i></div><span class="pcttxt">~0%</span></div></td>
+          <td>—</td>
+          <td>—</td>
+          <td>Passive — osmotic equilibration</td>
+          <td><b>High</b> (AQP1)</td>
+          <td>(none direct)</td>
+          <td>Concentrating defect</td>
+        </tr>
+        <tr>
+          <td class="segc thin">tALH</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--thin)"><i style="width:8%"></i></div><span class="pcttxt">passive</span></div></td>
+          <td>Paracellular Na⁺ + CLC-K1 (Cl⁻)</td>
+          <td>CLC-K1 (Cl⁻)</td>
+          <td>Chemical gradient (passive)</td>
+          <td><b>Negligible</b></td>
+          <td>(none direct; loops affect TAL)</td>
+          <td>Nephrogenic DI (CLC-K1 KO)</td>
+        </tr>
+        <tr>
+          <td class="segc tal">TAL</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--tal)"><i style="width:45%"></i></div><span class="pcttxt">25–30%</span></div></td>
+          <td><b>NKCC2</b> + ROMK (K⁺ recycling)</td>
+          <td>Na⁺/K⁺-ATPase, CLC-Kb + barttin, KCC4</td>
+          <td><b>+8 mV</b> lumen-positive (K⁺ recycle)</td>
+          <td>Very low</td>
+          <td><b>Loop diuretics</b> (furosemide)</td>
+          <td>Bartter I–V, FHHNC, UMOD-ADTKD</td>
+        </tr>
+        <tr>
+          <td class="segc dct">DCT</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--dct)"><i style="width:12%"></i></div><span class="pcttxt">~7%</span></div></td>
+          <td><b>NCC</b> (electroneutral 1 Na⁺ : 1 Cl⁻)</td>
+          <td>Na⁺/K⁺-ATPase (densest), CLC-Kb, KIR4.1/5.1</td>
+          <td>Negative lumen, low magnitude</td>
+          <td>Very low</td>
+          <td><b>Thiazides</b></td>
+          <td>Gitelman, FHHt, EAST/SeSAME</td>
+        </tr>
+        <tr>
+          <td class="segc cd">CNT</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--cd)"><i style="width:7%"></i></div><span class="pcttxt">~3–4%</span></div></td>
+          <td><b>ENaC</b> (high capacity)</td>
+          <td>Na⁺/K⁺-ATPase</td>
+          <td>Lumen-negative (Na⁺ entry w/o Cl⁻)</td>
+          <td>Mod. (AQP2)</td>
+          <td>Amiloride, K⁺-sparing</td>
+          <td>Liddle, PHA-I, Geller</td>
+        </tr>
+        <tr>
+          <td class="segc cd">CCD</td>
+          <td><div class="barwrap"><div class="bar" style="--bcol:var(--cd)"><i style="width:3%"></i></div><span class="pcttxt">~1–2%</span></div></td>
+          <td>ENaC (PC); pendrin + NDCBE (β-IC)</td>
+          <td>Na⁺/K⁺-ATPase, CLC-Kb</td>
+          <td>Lumen-negative · IC pair → electroneutral</td>
+          <td>Vasopressin-regulated (AQP2)</td>
+          <td>MRAs (spironolactone, eplerenone, finerenone)</td>
+          <td>AME, Pendred, NDI</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div><!-- /tab-walk -->
+<div class="tabpanel" id="tab-reg">
 
 <!-- =================== HORMONES =================== -->
 <section id="hormones" class="segment">
@@ -3037,104 +3131,10 @@
     <div class="pt"><b>"PUSH-A" — telling the intercalated cells apart.</b> <b>P</b>endrin + basolateral H⁺-ATPase = the <b>β-IC</b>, which <em>pushes HCO₃⁻ out</em> into the urine (base secretion, recruited in alkalosis). <b>A</b>E1 + apical H⁺-ATPase = the <b>α-IC</b>, which secretes acid (recruited in acidosis). Hypokalemia drives the α-IC H⁺/K⁺-ATPase to swap K⁺ back in for H⁺ → <b>paradoxic aciduria</b> — acidic urine even when the patient is alkalotic.</div>
   </div>
 </section>
+</div><!-- /tab-reg -->
+<div class="tabpanel" id="tab-disorders">
 
-<!-- =================== COMPARISON TABLE =================== -->
-<section id="compare" class="segment">
-  <div class="seg-head">
-    <span class="num-tag">Integration · part II</span>
-    <h2>Side-by-side — all five segments at a glance</h2>
-  </div>
-  <p class="seg-sub">Every segment compared on the dimensions that matter for the boards: how much Na⁺ it handles, how, with what driving force, what its key transporters are, and what fails when it breaks.</p>
-
-  <div class="cmp-wrap">
-    <table class="cmp">
-      <thead>
-        <tr>
-          <th>Segment</th>
-          <th>% Na⁺ reabsorbed</th>
-          <th>Apical entry</th>
-          <th>Basolateral exit</th>
-          <th>Driving force / PD</th>
-          <th>H₂O perm.</th>
-          <th>Major drug target</th>
-          <th>Disease when broken</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="segc pct">PCT</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--pct)"><i style="width:100%"></i></div><span class="pcttxt">60–70%</span></div></td>
-          <td>NHE3 + Na⁺-glucose/AA cotransporters; paracellular</td>
-          <td>Na⁺/K⁺-ATPase, NBCe1, KCC3/4</td>
-          <td>Early −2 mV → Late +2 mV (Cl⁻ diffusion)</td>
-          <td>High (AQP1)</td>
-          <td>SGLT2-i, acetazolamide, tenapanor</td>
-          <td>Proximal RTA, Fanconi</td>
-        </tr>
-        <tr>
-          <td class="segc thin">tDLH</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--thin)"><i style="width:5%"></i></div><span class="pcttxt">~0%</span></div></td>
-          <td>—</td>
-          <td>—</td>
-          <td>Passive — osmotic equilibration</td>
-          <td><b>High</b> (AQP1)</td>
-          <td>(none direct)</td>
-          <td>Concentrating defect</td>
-        </tr>
-        <tr>
-          <td class="segc thin">tALH</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--thin)"><i style="width:8%"></i></div><span class="pcttxt">passive</span></div></td>
-          <td>Paracellular Na⁺ + CLC-K1 (Cl⁻)</td>
-          <td>CLC-K1 (Cl⁻)</td>
-          <td>Chemical gradient (passive)</td>
-          <td><b>Negligible</b></td>
-          <td>(none direct; loops affect TAL)</td>
-          <td>Nephrogenic DI (CLC-K1 KO)</td>
-        </tr>
-        <tr>
-          <td class="segc tal">TAL</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--tal)"><i style="width:45%"></i></div><span class="pcttxt">25–30%</span></div></td>
-          <td><b>NKCC2</b> + ROMK (K⁺ recycling)</td>
-          <td>Na⁺/K⁺-ATPase, CLC-Kb + barttin, KCC4</td>
-          <td><b>+8 mV</b> lumen-positive (K⁺ recycle)</td>
-          <td>Very low</td>
-          <td><b>Loop diuretics</b> (furosemide)</td>
-          <td>Bartter I–V, FHHNC, UMOD-ADTKD</td>
-        </tr>
-        <tr>
-          <td class="segc dct">DCT</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--dct)"><i style="width:12%"></i></div><span class="pcttxt">~7%</span></div></td>
-          <td><b>NCC</b> (electroneutral 1 Na⁺ : 1 Cl⁻)</td>
-          <td>Na⁺/K⁺-ATPase (densest), CLC-Kb, KIR4.1/5.1</td>
-          <td>Negative lumen, low magnitude</td>
-          <td>Very low</td>
-          <td><b>Thiazides</b></td>
-          <td>Gitelman, FHHt, EAST/SeSAME</td>
-        </tr>
-        <tr>
-          <td class="segc cd">CNT</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--cd)"><i style="width:7%"></i></div><span class="pcttxt">~3–4%</span></div></td>
-          <td><b>ENaC</b> (high capacity)</td>
-          <td>Na⁺/K⁺-ATPase</td>
-          <td>Lumen-negative (Na⁺ entry w/o Cl⁻)</td>
-          <td>Mod. (AQP2)</td>
-          <td>Amiloride, K⁺-sparing</td>
-          <td>Liddle, PHA-I, Geller</td>
-        </tr>
-        <tr>
-          <td class="segc cd">CCD</td>
-          <td><div class="barwrap"><div class="bar" style="--bcol:var(--cd)"><i style="width:3%"></i></div><span class="pcttxt">~1–2%</span></div></td>
-          <td>ENaC (PC); pendrin + NDCBE (β-IC)</td>
-          <td>Na⁺/K⁺-ATPase, CLC-Kb</td>
-          <td>Lumen-negative · IC pair → electroneutral</td>
-          <td>Vasopressin-regulated (AQP2)</td>
-          <td>MRAs (spironolactone, eplerenone, finerenone)</td>
-          <td>AME, Pendred, NDI</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+<!-- (Comparison table relocated to the end of the Nephron Walk tab) -->
 
 <!-- =================== DISORDERS =================== -->
 <section id="disorders" class="segment">
@@ -3144,6 +3144,13 @@
   </div>
   <p class="seg-sub">Every tubulopathy is, in the end, a defect in one transporter at one segment. Find the segment, you've found the differential. (Source: Brenner Ch. 13 + tubulopathy literature.)</p>
 
+  <div class="dsubtoggle" id="dsubtoggle">
+    <button class="dsubbtn active" data-dsub="browser">📋 Disorder browser</button>
+    <button class="dsubbtn" data-dsub="eabv">⚗️ EABV loop</button>
+    <button class="dsubbtn" data-dsub="drills">🩺 Diagnostic drills</button>
+  </div>
+
+  <div class="dsub" id="dsub-eabv">
   <!-- ===== DIAGRAM 8: EABV Feedback Loop ===== -->
   <div class="diag-block">
     <h4>⚗️ Diagram 15 · Effective Arterial Blood Volume (EABV) Feedback Loop — Brenner Ch. 13</h4>
@@ -3227,7 +3234,9 @@
     </div>
     <div class="diag-src">Brenner Ch. 13 (Figs 13.4–13.9). EABV = effective arterial blood volume. The EABV concept unifies HF, cirrhosis, and nephrotic syndrome under one framework: all are states where the kidney senses a volume deficit it cannot correct because the primary defect is upstream (pump failure, vasodilation, or oncotic pressure loss).</div>
   </div>
+  </div><!-- /dsub-eabv -->
 
+  <div class="dsub active" id="dsub-browser">
   <div class="dxbrowser">
     <aside class="dxbside">
       <input type="search" class="dxbfilter" id="dxbfilter" placeholder="Filter disorders…" autocomplete="off">
@@ -3367,15 +3376,19 @@
     </div>
 
   </div>
+  </div><!-- /dsub-browser -->
 
+  <div class="dsub" id="dsub-drills">
   <!-- ===== Lab-pattern vignettes ===== -->
   <div class="diag-block">
     <h4>🩺 Diagnostic Drills · Spot the broken transporter — Brenner Ch. 12–14</h4>
     <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Read the labs, name the <strong>segment</strong> and the <strong>syndrome</strong>, then reveal. The discriminator — the one value that cracks the case — is flagged in yellow.</p>
     <div id="lv-deck"></div>
   </div>
+  </div><!-- /dsub-drills -->
 
 </section>
+</div><!-- /tab-disorders -->
 
 <div class="footer">
   Made for studying — Brenner &amp; Rector's <em>The Kidney</em>, 12th edition. v2 adds diagrams from Ch. 6 (transport), Ch. 11 (vasoactive molecules), Ch. 12 (aldosterone/MR), Ch. 13 (Na⁺ balance), Ch. 14 (water balance). All transporter abbreviations and disease-gene linkages are textbook-canonical.
@@ -3873,7 +3886,7 @@ function showSeg(id){
       <div style="font-weight:700;color:var(--teal-light);margin-bottom:4px">💊 Drug targets at this segment</div>
       <div style="color:var(--text-muted)">${d.drug}</div>
     </div>
-    <a href="#${anchor}" onclick="document.getElementById('${anchor}').scrollIntoView({behavior:'smooth'});return false" style="display:inline-block;margin-top:12px;font-size:12px;color:${d.color};border:1px solid ${d.color};border-radius:20px;padding:4px 14px;text-decoration:none;font-weight:600;opacity:0.85">View full diagram ↓</a>
+    <a href="#${anchor}" onclick="window.goToSection&&window.goToSection('${anchor}');return false" style="display:inline-block;margin-top:12px;font-size:12px;color:${d.color};border:1px solid ${d.color};border-radius:20px;padding:4px 14px;text-decoration:none;font-weight:600;opacity:0.85">View full diagram ↓</a>
   `;
 }
 
@@ -4594,8 +4607,7 @@ try{
       const lnk=e.target.closest('.dys-dx-link'); if(!lnk) return;
       const id=lnk.getAttribute('data-dx');
       try{ dxbSelect(id); }catch(_){}
-      const dz=document.getElementById('disorders');
-      if(dz) dz.scrollIntoView({behavior:'smooth'});
+      if(window.goToSection) window.goToSection('disorders');
     });
   }
 }catch(e){ console.error('dys',e); }
@@ -4648,8 +4660,7 @@ try{
   if(nephBar){
     nephBar.addEventListener('click',e=>{
       const r=e.target.closest('rect[data-seg]'); if(!r) return;
-      const sec=document.getElementById(r.getAttribute('data-seg'));
-      if(sec) sec.scrollIntoView({behavior:'smooth'});
+      if(window.goToSection) window.goToSection(r.getAttribute('data-seg'));
     });
   }
   const navIo=new IntersectionObserver(entries=>{
@@ -4788,8 +4799,7 @@ try{
       window.SEG_VIEW[d.seg].mark={key:d.key,mode:'LOF'};
       if(window.repaintSeg) window.repaintSeg(d.seg);
     }
-    const sec=document.getElementById(d.seg);
-    if(sec) sec.scrollIntoView({behavior:'smooth'});
+    if(window.goToSection) window.goToSection(d.seg);
   });
 }catch(e){ console.error('drugrail',e); }
 
@@ -5043,6 +5053,98 @@ try{
     }
   });
 }catch(e){ console.error('quiz',e); }
+</script>
+<script>
+/* ===== TAB NAVIGATION — splits the guide into 4 panels (post-v2 restructure) ===== */
+(function(){
+  'use strict';
+  try{
+    var TAB_OF={
+      hero:'tour', journey:'tour',
+      pct:'walk', tdlh:'walk', talh:'walk', ccm:'walk', tal:'walk', dct:'walk', cd:'walk', compare:'walk',
+      hormones:'reg', dysnatremia:'reg', acidbase:'reg',
+      disorders:'disorders'
+    };
+    var TABS=['tour','walk','reg','disorders'];
+    var main=document.querySelector('main');
+    var tabbar=document.getElementById('tabbar');
+    var expandBtn=document.getElementById('expandBtn');
+    var curTab='tour';
+    function panel(t){ return document.getElementById('tab-'+t); }
+    function setExpand(on){
+      main.classList.toggle('expand-all',on);
+      if(expandBtn){
+        expandBtn.classList.toggle('on',on);
+        expandBtn.textContent=on?'⊟ Tabbed view':'⤢ Expand all';
+      }
+    }
+    function showTab(id,opts){
+      opts=opts||{};
+      if(TABS.indexOf(id)<0) id='tour';
+      setExpand(false);
+      TABS.forEach(function(t){
+        var p=panel(t); if(p) p.classList.toggle('active',t===id);
+      });
+      if(tabbar) tabbar.querySelectorAll('.tabbtn').forEach(function(b){
+        b.classList.toggle('active',b.getAttribute('data-tab')===id);
+      });
+      main.classList.toggle('on-disorders',id==='disorders');
+      curTab=id;
+      if(!opts.noScroll) window.scrollTo({top:0,left:0,behavior:'instant'});
+    }
+    window.showTab=showTab;
+
+    /* --- Disorders tab: sub-view toggle (browser / EABV / drills) --- */
+    var DSUBS=['browser','eabv','drills'];
+    function showDsub(id){
+      if(DSUBS.indexOf(id)<0) id='browser';
+      DSUBS.forEach(function(s){
+        var p=document.getElementById('dsub-'+s);
+        if(p) p.classList.toggle('active',s===id);
+      });
+      var dt=document.getElementById('dsubtoggle');
+      if(dt) dt.querySelectorAll('.dsubbtn').forEach(function(b){
+        b.classList.toggle('active',b.getAttribute('data-dsub')===id);
+      });
+    }
+    window.showDsub=showDsub;
+    var dsubtoggle=document.getElementById('dsubtoggle');
+    if(dsubtoggle){
+      dsubtoggle.addEventListener('click',function(e){
+        var b=e.target.closest('.dsubbtn'); if(!b) return;
+        showDsub(b.getAttribute('data-dsub'));
+      });
+    }
+
+    window.goToSection=function(id){
+      var tab=TAB_OF[id];
+      if(tab && !main.classList.contains('expand-all') && curTab!==tab){
+        showTab(tab,{noScroll:true});
+      }
+      if(id==='disorders') showDsub('browser');
+      requestAnimationFrame(function(){
+        var e=document.getElementById(id);
+        if(e) e.scrollIntoView({behavior:'smooth'});
+      });
+    };
+    if(tabbar){
+      tabbar.addEventListener('click',function(e){
+        var b=e.target.closest('.tabbtn'); if(!b) return;
+        var t=b.getAttribute('data-tab'); if(!t) return;
+        e.preventDefault();
+        showTab(t);
+      });
+    }
+    if(expandBtn){
+      expandBtn.addEventListener('click',function(){
+        var on=!main.classList.contains('expand-all');
+        setExpand(on);
+        if(on){ var p=panel(curTab); if(p) p.scrollIntoView({behavior:'instant'}); }
+        else { showTab(curTab); }
+      });
+    }
+  }catch(e){ console.error('tabs',e); }
+})();
 </script>
 </body>
 </html>
