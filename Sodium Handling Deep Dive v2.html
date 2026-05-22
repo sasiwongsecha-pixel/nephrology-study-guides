@@ -507,6 +507,69 @@
 }
 .dr-mech b { color: #fca5a5; }
 @media (max-width: 1240px) { #drugrail { display: none; } }
+
+/* ─── Acid-base integration ─── */
+.ab-states { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.ab-state-btn {
+  background: #0a1322; color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 6px 14px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.ab-state-btn:hover { background: #11203a; color: #cbd5e1; }
+.ab-state-btn.active { background: rgba(13,148,136,.15); border-color: var(--teal); color: var(--teal-light); }
+.ab-map { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.ab-station {
+  background: #0a1322; border: 1px solid var(--border-dim);
+  border-top: 3px solid var(--abc); border-radius: 9px; padding: 11px;
+}
+.ab-station-h {
+  font-size: 12.5px; font-weight: 800; color: var(--abc);
+  margin-bottom: 8px; display: flex; flex-direction: column;
+}
+.ab-station-seg {
+  font-size: 8.5px; font-weight: 600; letter-spacing: .5px;
+  color: #64748b; text-transform: uppercase; margin-top: 1px;
+}
+.ab-tp {
+  background: #060e1c; border: 1px solid var(--border-dim);
+  border-radius: 6px; padding: 6px 8px; margin-bottom: 6px;
+  transition: border-color .25s, background .25s, opacity .25s;
+}
+.ab-tp:last-child { margin-bottom: 0; }
+.ab-tp-row { display: flex; align-items: center; justify-content: space-between; }
+.ab-tp-name { font-size: 11px; font-weight: 700; color: #e2e8f0; }
+.ab-tp-role { font-size: 9.5px; line-height: 1.45; color: #64748b; margin-top: 2px; }
+.ab-tp-delta { font-size: 13px; font-weight: 800; }
+.ab-tp.up { border-color: #22c55e; background: rgba(34,197,94,.10); }
+.ab-tp.up .ab-tp-delta { color: #4ade80; }
+.ab-tp.up .ab-tp-delta::before { content: "▲"; }
+.ab-tp.down { opacity: .45; }
+.ab-tp.down .ab-tp-delta { color: #06b6d4; }
+.ab-tp.down .ab-tp-delta::before { content: "▼"; }
+.ab-note {
+  margin-top: 14px; padding: 11px 14px;
+  background: rgba(13,148,136,.08); border: 1px solid rgba(13,148,136,.4);
+  border-radius: 8px; font-size: 12.5px; line-height: 1.6; color: #cbd5e1;
+}
+.ab-note b { color: var(--teal-light); }
+.ab-note .ab-note-tag { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--teal-light); margin-right: 8px; }
+.abt { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.abt th, .abt td {
+  border: 1px solid var(--border-dim); padding: 7px 9px;
+  text-align: left; vertical-align: top; line-height: 1.45;
+}
+.abt thead th { background: #0a1322; color: #cbd5e1; font-size: 11px; }
+.abt tbody th { background: #060e1c; color: #94a3b8; font-weight: 600; white-space: nowrap; }
+.abt td { color: #cbd5e1; }
+.abt td b { color: #fde047; }
+.abt tbody tr:nth-child(even) td, .abt tbody tr:nth-child(even) th { background: rgba(255,255,255,.015); }
+@media (max-width: 820px) {
+  .ab-map { grid-template-columns: repeat(2,1fr); }
+  .abt { font-size: 10.5px; }
+  .abt th, .abt td { padding: 5px 6px; }
+}
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -1038,6 +1101,7 @@
     <a class="toc" href="#cd"><span class="dot cd"></span>CNT / CCD</a>
     <a class="toc" href="#hormones">Hormones</a>
     <a class="toc" href="#dysnatremia">Dysnatremia</a>
+    <a class="toc" href="#acidbase">Acid–Base</a>
     <a class="toc" href="#compare">Compare</a>
     <a class="toc" href="#disorders">Disorders</a>
     <a class="toc go-back" href="nephrology_v3.html">← Main guide</a>
@@ -2774,6 +2838,78 @@
     <div class="dys-panel" id="dys-hyper"></div>
     <div class="dys-rules" id="dys-rules"></div>
     <div class="diag-src">Brenner Ch. 14 (hypo-/hypernatremia algorithms). Always check TSH + 8 AM cortisol before labelling euvolemic hyponatremia as SIADH. Urine Cl⁻ discriminates saline-responsive (vomiting, remote diuretic) from saline-resistant alkalosis.</div>
+  </div>
+</section>
+
+<!-- =================== ACID-BASE INTEGRATION =================== -->
+<section id="acidbase" class="segment">
+  <div class="seg-head">
+    <span class="num-tag">Integration · part I-c</span>
+    <h2>Acid–Base Integration — the H⁺ map across the nephron</h2>
+  </div>
+  <p class="seg-sub">Na⁺ handling and acid–base handling ride the same transporters — NHE3 secretes an H⁺ for every Na⁺ it reclaims, and the collecting duct's intercalated cells set the final urine pH. <strong>Net acid excretion = titratable acid + NH₄⁺ − HCO₃⁻</strong>, about 1 mEq/kg/day. Toggle a disturbance to see which transporters up- or down-regulate.</p>
+
+  <div class="diag-block">
+    <h4>⚗️ Diagram 9 · The H⁺ Map — four acid–base stations · Brenner Ch. 6</h4>
+    <div class="ab-states">
+      <button class="ab-state-btn active" data-state="baseline">Baseline</button>
+      <button class="ab-state-btn" data-state="acidosis">Metabolic acidosis</button>
+      <button class="ab-state-btn" data-state="alkalosis">Metabolic alkalosis</button>
+      <button class="ab-state-btn" data-state="hypok">Hypokalemia</button>
+    </div>
+    <div class="ab-map">
+      <div class="ab-station" style="--abc:#06b6d4">
+        <div class="ab-station-h">PCT<span class="ab-station-seg">reclaim + generate HCO₃⁻</span></div>
+        <div class="ab-tp" data-tp="nhe3"><div class="ab-tp-row"><span class="ab-tp-name">NHE3</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Apical H⁺ secretion → reclaims ~80% of filtered HCO₃⁻</div></div>
+        <div class="ab-tp" data-tp="nbce1"><div class="ab-tp-row"><span class="ab-tp-name">NBCe1</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Basolateral 1 Na⁺ : 3 HCO₃⁻ exit to blood</div></div>
+        <div class="ab-tp" data-tp="gln"><div class="ab-tp-row"><span class="ab-tp-name">Ammoniagenesis</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Glutamine → 2 NH₄⁺ + 2 HCO₃⁻ — generates <em>new</em> bicarbonate</div></div>
+      </div>
+      <div class="ab-station" style="--abc:#eab308">
+        <div class="ab-station-h">TAL<span class="ab-station-seg">NH₄⁺ recycling</span></div>
+        <div class="ab-tp" data-tp="nkcc2nh4"><div class="ab-tp-row"><span class="ab-tp-name">NKCC2 · K⁺ site</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">NH₄⁺ substitutes for K⁺ → accumulates in the medulla → traps secreted H⁺ as NH₄⁺ in the collecting duct</div></div>
+      </div>
+      <div class="ab-station" style="--abc:#f97316">
+        <div class="ab-station-h">α-IC<span class="ab-station-seg">acid secretion</span></div>
+        <div class="ab-tp" data-tp="hatpase"><div class="ab-tp-row"><span class="ab-tp-name">H⁺-ATPase</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Apical V-ATPase — electrogenic H⁺ secretion into the lumen</div></div>
+        <div class="ab-tp" data-tp="hkatpase"><div class="ab-tp-row"><span class="ab-tp-name">H⁺/K⁺-ATPase</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Secretes H⁺, reclaims K⁺ — recruited in K⁺ depletion</div></div>
+        <div class="ab-tp" data-tp="ae1"><div class="ab-tp-row"><span class="ab-tp-name">AE1</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Basolateral Cl⁻/HCO₃⁻ exchange — returns HCO₃⁻ to blood</div></div>
+      </div>
+      <div class="ab-station" style="--abc:#a855f7">
+        <div class="ab-station-h">β-IC<span class="ab-station-seg">base secretion</span></div>
+        <div class="ab-tp" data-tp="pendrin"><div class="ab-tp-row"><span class="ab-tp-name">Pendrin</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Apical Cl⁻/HCO₃⁻ exchange — secretes HCO₃⁻ into the urine</div></div>
+        <div class="ab-tp" data-tp="vatpb"><div class="ab-tp-row"><span class="ab-tp-name">V-ATPase (basolat.)</span><span class="ab-tp-delta"></span></div><div class="ab-tp-role">Basolateral H⁺ pump — the α-IC mirror image</div></div>
+      </div>
+    </div>
+    <div class="ab-note" id="ab-note">
+      <span class="ab-note-tag">BASELINE</span>
+      All four stations at steady state. Net acid excretion (≈ 1 mEq/kg/day) balances the daily dietary acid load. Pick a disturbance above.
+    </div>
+    <div class="diag-src">Brenner Ch. 6 (intercalated cells, ammoniagenesis, NH₄⁺ handling). α-IC and β-IC are mirror images — α secretes acid, β secretes base. The PCT NH₄⁺ shuttle and TAL recycling build the medullary NH₃ gradient that lets the collecting duct trap H⁺.</div>
+  </div>
+
+  <div class="diag-block">
+    <h4>📋 Renal Tubular Acidosis — type I vs II vs IV · Brenner Ch. 13</h4>
+    <table class="abt">
+      <thead>
+        <tr><th>Feature</th><th>Type I — distal</th><th>Type II — proximal</th><th>Type IV</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Defect</th><td>α-IC H⁺-ATPase or AE1</td><td>NHE3 / NBCe1 / CA-II</td><td>Aldosterone deficiency or resistance</td></tr>
+        <tr><th>Urine pH</th><td><b>&gt; 5.5</b> always</td><td>Variable; <b>&lt; 5.5</b> once filtered HCO₃⁻ depleted</td><td><b>&lt; 5.5</b> (acid handling intact, NH₄⁺ low)</td></tr>
+        <tr><th>Serum K⁺</th><td>Low (high in voltage-defect variants)</td><td>Low — worsens with HCO₃⁻ therapy</td><td><b>High</b></td></tr>
+        <tr><th>Serum HCO₃⁻</th><td>Often &lt; 10</td><td>Plateau 14–18</td><td>16–22</td></tr>
+        <tr><th>Urinary anion gap</th><td><b>Positive</b> (low NH₄⁺)</td><td>Negative (intact NH₄⁺)</td><td><b>Positive</b> (low NH₄⁺ from hyperK)</td></tr>
+        <tr><th>Fanconi</th><td>No</td><td>Often yes</td><td>No</td></tr>
+        <tr><th>Nephrocalcinosis</th><td><b>Yes</b> — hypocitraturia + alkaline urine</td><td>No</td><td>No</td></tr>
+        <tr><th>Classic cause</th><td>Sjögren, SLE, amphotericin</td><td>Myeloma, tenofovir, ifosfamide, cystinosis</td><td>Diabetes, ACE-i/ARB, MRA, calcineurin inhibitors</td></tr>
+      </tbody>
+    </table>
+    <div class="diag-src">Brenner Ch. 13 (renal tubular acidosis). All three are normal-anion-gap (hyperchloremic) metabolic acidoses. The urinary anion gap estimates NH₄⁺ excretion: a positive UAG means the kidney is failing to excrete NH₄⁺ (types I and IV).</div>
+  </div>
+
+  <div class="pearl">
+    <div class="em">💡</div>
+    <div class="pt"><b>"PUSH-A" — telling the intercalated cells apart.</b> <b>P</b>endrin + basolateral H⁺-ATPase = the <b>β-IC</b>, which <em>pushes HCO₃⁻ out</em> into the urine (base secretion, recruited in alkalosis). <b>A</b>E1 + apical H⁺-ATPase = the <b>α-IC</b>, which secretes acid (recruited in acidosis). Hypokalemia drives the α-IC H⁺/K⁺-ATPase to swap K⁺ back in for H⁺ → <b>paradoxic aciduria</b> — acidic urine even when the patient is alkalotic.</div>
   </div>
 </section>
 
@@ -4526,6 +4662,38 @@ try{
     if(sec) sec.scrollIntoView({behavior:'smooth'});
   });
 }catch(e){ console.warn('drugrail',e); }
+
+/* ── Acid-base H⁺ map — disturbance toggle ── */
+try{
+  const AB_STATES={
+    baseline:{up:[],down:[],tag:'BASELINE',note:'All four stations at steady state. Net acid excretion (≈ 1 mEq/kg/day) balances the daily dietary acid load. Pick a disturbance above.'},
+    acidosis:{up:['nhe3','nbce1','gln','nkcc2nh4','hatpase','ae1'],down:['pendrin','vatpb'],tag:'METABOLIC ACIDOSIS',
+      note:'The whole acid-excreting axis is upregulated — PCT glutaminase + NHE3 + NBCe1, TAL NH₄⁺ recycling, and the α-IC H⁺-ATPase. β-IC pendrin is suppressed. Urine pH falls and <b>NH₄⁺ excretion climbs</b> — the main adaptive lever for chronic acid loads.'},
+    alkalosis:{up:['pendrin','vatpb'],down:['hatpase','gln','ae1'],tag:'METABOLIC ALKALOSIS',
+      note:'The β-IC takes over — apical <b>pendrin</b> secretes HCO₃⁻ into the urine, basolateral V-ATPase reclaims H⁺. α-IC acid secretion is dialled down. Pendrin loss (Pendred) blunts this → alkalosis resistance.'},
+    hypok:{up:['hkatpase','gln','nhe3'],down:[],tag:'HYPOKALEMIA',
+      note:'K⁺ depletion drives the α-IC <b>H⁺/K⁺-ATPase</b> to reclaim K⁺ in exchange for H⁺ → <b>paradoxic aciduria</b> (acidic urine despite alkalosis). It also stimulates PCT ammoniagenesis — relevant to hyperammonemia in cirrhosis with hypokalemia.'}
+  };
+  const abNote=document.getElementById('ab-note');
+  function setAB(name){
+    const s=AB_STATES[name]; if(!s) return;
+    document.querySelectorAll('.ab-tp').forEach(tp=>{
+      const k=tp.getAttribute('data-tp');
+      tp.classList.toggle('up',s.up.indexOf(k)>=0);
+      tp.classList.toggle('down',s.down.indexOf(k)>=0);
+    });
+    abNote.innerHTML='<span class="ab-note-tag">'+s.tag+'</span> '+s.note;
+  }
+  if(abNote){
+    document.querySelectorAll('.ab-state-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.ab-state-btn').forEach(b=>b.classList.toggle('active',b===btn));
+        setAB(btn.getAttribute('data-state'));
+      });
+    });
+    setAB('baseline');
+  }
+}catch(e){ console.warn('ab',e); }
 </script>
 </body>
 </html>
