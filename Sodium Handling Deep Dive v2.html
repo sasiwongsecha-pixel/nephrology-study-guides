@@ -390,6 +390,24 @@
   border-radius: 8px; font-size: 11.5px; line-height: 1.7; color: #94a3b8;
 }
 .dys-rules b { color: var(--teal-light); }
+
+/* ─── Header progress nephron ─── */
+.hdr-neph {
+  display: flex; align-items: center; gap: 8px;
+  padding-right: 12px; border-right: 1px solid var(--border);
+}
+.hdr-neph svg { display: block; width: 188px; height: 30px; }
+.hdr-neph svg rect { cursor: pointer; transition: opacity .3s ease; }
+.hdr-neph-pct {
+  font-size: 13px; font-weight: 800; color: var(--teal-light);
+  white-space: nowrap; line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+.hdr-neph-pct small {
+  display: block; font-size: 7.5px; font-weight: 600;
+  color: var(--text-dim); letter-spacing: .6px;
+}
+@media (max-width: 1150px) { .hdr-neph { display: none; } }
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -906,6 +924,10 @@
 
 <nav class="topnav">
   <div class="brand">Sodium Deep Dive <small>v2 · Ch. 6, 11, 12, 13, 14</small></div>
+  <div class="hdr-neph" id="hdrNeph" title="Cumulative filtered Na⁺ reabsorbed by this point in the nephron">
+    <div id="hdrNephBar"></div>
+    <div class="hdr-neph-pct"><span id="hdrNephPct">0</span>%<small>Na⁺ REABSORBED</small></div>
+  </div>
   <div class="tocrow" id="tocrow">
     <a class="toc" href="#hero">Overview</a>
     <a class="toc" href="#pct"><span class="dot pct"></span>PCT</a>
@@ -4169,6 +4191,70 @@ try{
     });
   }
 }catch(e){ console.warn('dys',e); }
+
+/* ── Header progress nephron + scroll-spy (surfaces window.activeSeg) ── */
+window.activeSeg='pct';
+try{
+  const NEPHRON_BAR=[
+    {seg:'pct', lbl:'PCT', w:65, cum:65, c:'#06b6d4'},
+    {seg:'tdlh',lbl:'',    w:6,  cum:65, c:'#475569'},
+    {seg:'talh',lbl:'',    w:6,  cum:65, c:'#475569'},
+    {seg:'tal', lbl:'TAL', w:25, cum:90, c:'#eab308'},
+    {seg:'dct', lbl:'DCT', w:8,  cum:95, c:'#a855f7'},
+    {seg:'cd',  lbl:'CD',  w:8,  cum:99, c:'#f97316'}
+  ];
+  const NEPH_TOTAL=NEPHRON_BAR.reduce((s,x)=>s+x.w,0);
+  function sectionToBar(id){
+    if(id==='ccm') return 'tal';
+    if(['pct','tdlh','talh','tal','dct','cd'].indexOf(id)>=0) return id;
+    if(id==='hero'||id==='journey') return 'pre';
+    return 'post';
+  }
+  function renderNephBar(active){
+    let idx=NEPHRON_BAR.findIndex(s=>s.seg===active);
+    if(active==='pre') idx=-1;
+    if(active==='post') idx=NEPHRON_BAR.length;
+    let x=0,sv='<svg viewBox="0 0 '+NEPH_TOTAL+' 30" xmlns="http://www.w3.org/2000/svg">';
+    NEPHRON_BAR.forEach((s,i)=>{
+      const op=i===idx?1:(i<idx?0.55:0.18);
+      sv+='<rect data-seg="'+s.seg+'" x="'+(x+0.4)+'" y="15" width="'+(s.w-0.8)+'" height="11" rx="2" fill="'+s.c+'" opacity="'+op+'"/>';
+      if(i===idx){
+        const cx=x+s.w/2;
+        sv+='<path d="M'+(cx-3)+' 11 L'+(cx+3)+' 11 L'+cx+' 14 Z" fill="#e2e8f0"/>';
+      }
+      if(s.lbl&&s.w>=20)
+        sv+='<text x="'+(x+s.w/2)+'" y="23.6" text-anchor="middle" font-size="6.4" font-weight="800" fill="#0f172a" font-family="Segoe UI,sans-serif" pointer-events="none">'+s.lbl+'</text>';
+      x+=s.w;
+    });
+    return sv+'</svg>';
+  }
+  const nephBar=document.getElementById('hdrNephBar');
+  const nephPct=document.getElementById('hdrNephPct');
+  function updateNeph(barSeg){
+    if(!nephBar) return;
+    nephBar.innerHTML=renderNephBar(barSeg);
+    const s=NEPHRON_BAR.find(x=>x.seg===barSeg);
+    nephPct.textContent=barSeg==='pre'?'0':(barSeg==='post'?'99':(s?s.cum:'0'));
+  }
+  updateNeph('pre');
+  if(nephBar){
+    nephBar.addEventListener('click',e=>{
+      const r=e.target.closest('rect[data-seg]'); if(!r) return;
+      const sec=document.getElementById(r.getAttribute('data-seg'));
+      if(sec) sec.scrollIntoView({behavior:'smooth'});
+    });
+  }
+  const navIo=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        window.activeSeg=en.target.id;
+        updateNeph(sectionToBar(en.target.id));
+        document.dispatchEvent(new CustomEvent('segchange',{detail:en.target.id}));
+      }
+    });
+  },{rootMargin:'-22% 0px -72% 0px',threshold:0});
+  document.querySelectorAll('section[id]').forEach(s=>navIo.observe(s));
+}catch(e){ console.warn('neph',e); }
 </script>
 </body>
 </html>
