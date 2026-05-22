@@ -470,6 +470,43 @@
   .ae-stat-row { grid-template-columns: 1fr; }
   .ae-tps { grid-template-columns: repeat(2,1fr); }
 }
+
+/* ─── Diuretic sticky sidebar ─── */
+#drugrail {
+  position: fixed; right: 14px; top: 96px; z-index: 40; width: 190px;
+  background: rgba(10,19,34,.96); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px;
+  backdrop-filter: blur(8px); box-shadow: 0 8px 30px rgba(0,0,0,.5);
+}
+#drugrail .dr-h {
+  font-size: 10px; font-weight: 800; letter-spacing: 1.1px;
+  color: #94a3b8; margin-bottom: 8px;
+}
+.dr-neph { display: flex; gap: 3px; margin-bottom: 10px; }
+.dr-neph-seg {
+  flex: 1; height: 9px; border-radius: 3px; opacity: .22;
+  transition: opacity .25s, box-shadow .25s;
+}
+.dr-neph-seg.on { opacity: 1; box-shadow: 0 0 7px currentColor; }
+.dr-chip {
+  display: block; width: 100%; text-align: left;
+  background: #11203a; color: #cbd5e1;
+  border: 1px solid var(--border-dim); border-radius: 7px;
+  padding: 6px 9px; margin-bottom: 5px;
+  font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.dr-chip:hover { background: #1a2c4a; }
+.dr-chip.active { background: rgba(239,68,68,.16); border-color: #ef4444; color: #fca5a5; }
+.dr-chip small { display: block; font-size: 8.5px; color: #64748b; font-weight: 500; margin-top: 1px; }
+.dr-chip.active small { color: #fca5a5; opacity: .8; }
+.dr-mech {
+  margin-top: 8px; padding: 8px 9px;
+  font-size: 10.5px; line-height: 1.5; color: #94a3b8;
+  background: #060e1c; border-radius: 6px; min-height: 46px;
+}
+.dr-mech b { color: #fca5a5; }
+@media (max-width: 1240px) { #drugrail { display: none; } }
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -4361,34 +4398,34 @@ try{
   document.querySelectorAll('section[id]').forEach(s=>navIo.observe(s));
 }catch(e){ console.warn('neph',e); }
 
-/* ── Hide-the-labels study mode (5 segment diagrams) ── */
+/* ── Segment-diagram view state — shared by hide-mode + diuretic sidebar ── */
 try{
-  const HIDE_SEGS=['pct','loh','tal','dct','cd'];
-  const hideState={};
-  HIDE_SEGS.forEach(id=>{ hideState[id]={on:false,revealed:new Set()}; });
+  const SEG_IDS=['pct','loh','tal','dct','cd'];
+  window.SEG_VIEW={};
+  SEG_IDS.forEach(id=>{ window.SEG_VIEW[id]={hide:false,revealed:new Set(),mark:null}; });
   function addHideToggle(box,id){
-    const st=hideState[id];
+    const st=window.SEG_VIEW[id];
     const btn=document.createElement('button');
-    btn.className='hide-toggle'+(st.on?' on':'');
-    btn.textContent=st.on?'👁 Show labels':'👁 Hide labels';
-    btn.addEventListener('click',()=>{ st.on=!st.on; st.revealed.clear(); paintHideSeg(id); });
+    btn.className='hide-toggle'+(st.hide?' on':'');
+    btn.textContent=st.hide?'👁 Show labels':'👁 Hide labels';
+    btn.addEventListener('click',()=>{ st.hide=!st.hide; st.revealed.clear(); window.repaintSeg(id); });
     box.appendChild(btn);
   }
-  function paintHideSeg(id){
+  window.repaintSeg=function(id){
     const box=document.getElementById(id+'-svgdiag'); if(!box) return;
-    const st=hideState[id];
-    box.innerHTML=renderSeg(id,{hide:st.on,revealed:st.revealed});
+    const st=window.SEG_VIEW[id];
+    box.innerHTML=renderSeg(id,{hide:st.hide,revealed:st.revealed,mark:st.mark});
     addHideToggle(box,id);
     try{ wireSvgTips(); }catch(_){}
-  }
-  HIDE_SEGS.forEach(id=>{
+  };
+  SEG_IDS.forEach(id=>{
     const box=document.getElementById(id+'-svgdiag'); if(!box) return;
     addHideToggle(box,id);
     box.addEventListener('click',e=>{
-      const st=hideState[id]; if(!st.on) return;
+      const st=window.SEG_VIEW[id]; if(!st.hide) return;
       const r=e.target.closest('rect.tp-r[data-key]'); if(!r) return;
       st.revealed.add(r.getAttribute('data-key'));
-      paintHideSeg(id);
+      window.repaintSeg(id);
     });
   });
 }catch(e){ console.warn('hide',e); }
@@ -4430,6 +4467,65 @@ try{
     setAE('baseline');
   }
 }catch(e){ console.warn('ae',e); }
+
+/* ── Diuretic sticky sidebar ── */
+try{
+  const DRUGS=[
+    {id:'acz',  name:'Acetazolamide', cls:'carbonic anhydrase inhibitor', seg:'pct', key:'nhe3',  mech:'Blocks carbonic anhydrase → ↓ HCO₃⁻ reclamation; <b>NHE3</b> loses its H⁺ supply. Metabolic acidosis.'},
+    {id:'sglt2',name:'SGLT2-i',       cls:'gliflozin',                    seg:'pct', key:'sglt2', mech:'Blocks <b>SGLT2</b> Na⁺-glucose cotransport → glycosuria + mild natriuresis + TGF activation.'},
+    {id:'loop', name:'Loop diuretic', cls:'furosemide, bumetanide…',      seg:'tal', key:'nkcc2', mech:'Blocks <b>NKCC2</b> → most efficacious natriuresis; collapses the medullary gradient; hypercalciuria.'},
+    {id:'thz',  name:'Thiazide',      cls:'HCTZ, chlorthalidone…',        seg:'dct', key:'ncc',   mech:'Blocks <b>NCC</b> → modest natriuresis; ↑ distal Ca²⁺ reabsorption → hypocalciuria.'},
+    {id:'amil', name:'Amiloride',     cls:'K⁺-sparing',                   seg:'cd',  key:'enac',  mech:'Directly plugs the <b>ENaC</b> pore → K⁺-sparing natriuresis. First-line in Liddle.'},
+    {id:'mra',  name:'MRA (spiro)',   cls:'aldosterone antagonist',       seg:'cd',  key:'enac',  mech:'Blocks the mineralocorticoid receptor → ↓ <b>ENaC</b> transcription. Works in AME, not Liddle.'},
+    {id:'tlv',  name:'Tolvaptan',     cls:'vaptan (V2 antagonist)',       seg:'cd',  key:'aqp2',  mech:'V2-receptor antagonist → ↓ <b>AQP2</b> insertion → aquaresis (free water, not Na⁺).'}
+  ];
+  const RAIL_SEGS=[['pct','PCT','#06b6d4'],['loh','LoH','#64748b'],['tal','TAL','#eab308'],['dct','DCT','#a855f7'],['cd','CD','#f97316']];
+  const rail=document.createElement('aside');
+  rail.id='drugrail';
+  let h='<div class="dr-h">💊 WHERE DOES IT HIT?</div><div class="dr-neph">';
+  RAIL_SEGS.forEach(s=>{ h+='<div class="dr-neph-seg" data-seg="'+s[0]+'" style="background:'+s[2]+';color:'+s[2]+'" title="'+s[1]+'"></div>'; });
+  h+='</div>';
+  DRUGS.forEach(d=>{ h+='<button class="dr-chip" data-drug="'+d.id+'">'+d.name+'<small>'+d.cls+'</small></button>'; });
+  h+='<div class="dr-mech" id="dr-mech">Click a drug to mark its target transporter on the matching segment diagram.</div>';
+  rail.innerHTML=h;
+  document.body.appendChild(rail);
+
+  function railHighlight(segId){
+    let railSeg=segId;
+    if(segId==='tdlh'||segId==='talh'||segId==='ccm') railSeg='loh';
+    rail.querySelectorAll('.dr-neph-seg').forEach(el=>el.classList.toggle('on',el.getAttribute('data-seg')===railSeg));
+  }
+  railHighlight(window.activeSeg||'pct');
+  document.addEventListener('segchange',e=>railHighlight(e.detail));
+
+  let activeDrug=null;
+  rail.addEventListener('click',e=>{
+    const chip=e.target.closest('.dr-chip'); if(!chip) return;
+    const d=DRUGS.find(x=>x.id===chip.getAttribute('data-drug')); if(!d) return;
+    const same=activeDrug===d.id;
+    // clear every segment mark
+    if(window.SEG_VIEW){
+      Object.keys(window.SEG_VIEW).forEach(s=>{
+        if(window.SEG_VIEW[s].mark){ window.SEG_VIEW[s].mark=null; if(window.repaintSeg) window.repaintSeg(s); }
+      });
+    }
+    rail.querySelectorAll('.dr-chip').forEach(c=>c.classList.remove('active'));
+    if(same){
+      activeDrug=null;
+      document.getElementById('dr-mech').innerHTML='Click a drug to mark its target transporter on the matching segment diagram.';
+      return;
+    }
+    activeDrug=d.id;
+    chip.classList.add('active');
+    document.getElementById('dr-mech').innerHTML='<b>'+d.name+'</b> · '+d.mech;
+    if(window.SEG_VIEW&&window.SEG_VIEW[d.seg]){
+      window.SEG_VIEW[d.seg].mark={key:d.key,mode:'LOF'};
+      if(window.repaintSeg) window.repaintSeg(d.seg);
+    }
+    const sec=document.getElementById(d.seg);
+    if(sec) sec.scrollIntoView({behavior:'smooth'});
+  });
+}catch(e){ console.warn('drugrail',e); }
 </script>
 </body>
 </html>
