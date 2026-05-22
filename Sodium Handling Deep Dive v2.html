@@ -570,6 +570,65 @@
   .abt { font-size: 10.5px; }
   .abt th, .abt td { padding: 5px 6px; }
 }
+
+/* ─── Lab-pattern vignettes ─── */
+.lv-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.lv-counter { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--teal-light); }
+.lv-nav { display: flex; gap: 6px; }
+.lv-nav-btn {
+  background: #0a1322; color: #94a3b8; border: 1px solid var(--border);
+  border-radius: 7px; padding: 4px 12px; font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: background .12s, color .12s;
+}
+.lv-nav-btn:hover { background: #11203a; color: #cbd5e1; }
+.lv-scenario {
+  font-size: 13px; line-height: 1.6; color: #e2e8f0;
+  background: #0a1322; border-left: 3px solid var(--teal);
+  border-radius: 6px; padding: 10px 13px; margin-bottom: 12px;
+}
+.lv-labs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.lv-lab {
+  background: #060e1c; border: 1px solid var(--border-dim);
+  border-radius: 5px; padding: 4px 8px; font-size: 10.5px;
+  color: #64748b; font-family: 'JetBrains Mono', Menlo, monospace;
+}
+.lv-lab b { color: #e2e8f0; font-weight: 700; }
+.lv-lab.flag { border-color: #eab308; background: rgba(234,179,8,.08); }
+.lv-lab.flag b { color: #fde047; }
+.lv-q { font-size: 11px; font-weight: 700; color: #94a3b8; margin: 10px 0 6px; }
+.lv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lv-chip {
+  background: #11203a; color: #cbd5e1;
+  border: 1px solid var(--border-dim); border-radius: 16px;
+  padding: 5px 12px; font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.lv-chip:hover { background: #1a2c4a; }
+.lv-chip.sel { background: rgba(13,148,136,.18); border-color: var(--teal); color: var(--teal-light); }
+.lv-chip.correct { background: rgba(34,197,94,.2); border-color: #22c55e; color: #86efac; }
+.lv-chip.wrong { background: rgba(239,68,68,.2); border-color: #ef4444; color: #fca5a5; }
+.lv-chip.miss { border-color: #22c55e; border-style: dashed; color: #86efac; }
+.lv-reveal-btn {
+  margin-top: 14px; background: rgba(13,148,136,.15); color: var(--teal-light);
+  border: 1px solid var(--teal); border-radius: 8px;
+  padding: 7px 18px; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .12s;
+}
+.lv-reveal-btn:hover { background: rgba(13,148,136,.28); }
+.lv-reveal-btn:disabled { opacity: .4; cursor: not-allowed; }
+.lv-result { margin-top: 14px; }
+.lv-disc {
+  font-size: 12px; font-weight: 700; color: #fde047;
+  background: rgba(234,179,8,.1); border: 1px solid rgba(234,179,8,.4);
+  border-radius: 7px; padding: 8px 12px; margin-bottom: 10px;
+}
+.lv-disc small { display: block; font-size: 9px; letter-spacing: 1px; color: #a16207; font-weight: 800; margin-bottom: 2px; }
+.lv-explain { font-size: 12.5px; line-height: 1.65; color: #cbd5e1; }
+.lv-explain b { color: #fde047; }
+.lv-verdict { font-size: 12px; font-weight: 800; margin-bottom: 8px; }
+.lv-verdict.ok { color: #86efac; }
+.lv-verdict.no { color: #fca5a5; }
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -3242,6 +3301,14 @@
     </div>
 
   </div>
+
+  <!-- ===== Lab-pattern vignettes ===== -->
+  <div class="diag-block">
+    <h4>🩺 Diagnostic Drills · Spot the broken transporter — Brenner Ch. 12–14</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Read the labs, name the <strong>segment</strong> and the <strong>syndrome</strong>, then reveal. The discriminator — the one value that cracks the case — is flagged in yellow.</p>
+    <div id="lv-deck"></div>
+  </div>
+
 </section>
 
 <div class="footer">
@@ -4694,6 +4761,122 @@ try{
     setAB('baseline');
   }
 }catch(e){ console.warn('ab',e); }
+
+/* ── Lab-pattern vignettes — diagnostic drills ── */
+try{
+  const LV_SEGS=[['pct','PCT'],['tal','TAL'],['dct','DCT'],['cd','CNT/CCD'],['sys','Systemic']];
+  const LV_SYN=[['vomiting','Vomiting'],['bartter','Bartter'],['gitelman','Gitelman'],['fhht','FHHt'],['liddle','Liddle'],['ame','AME'],['geller','Geller'],['cirrhosis','Cirrhosis']];
+  const VIGNETTES=[
+    {scenario:'26 F, chronic vomiting from anorexia nervosa, progressive weakness. BP 92/58.',
+     labs:[['Na','138'],['K','2.6'],['Cl','88'],['HCO₃','36'],['Mg','1.9'],['U-Na','30'],['U-Cl','8',1],['U-Osm','540']],
+     seg:'sys',syn:'vomiting',dxKey:null,
+     disc:'Urine Cl⁻ 8 mmol/L — saline-responsive',
+     explain:'Hypokalemic metabolic alkalosis that <b>mimics</b> Bartter/Gitelman. The tell is <b>urine Cl⁻ &lt; 20</b>: Bartter and Gitelman waste Cl⁻ at the tubule, so their urine Cl⁻ stays &gt; 20 even when volume-deplete. A low urine Cl⁻ points to a saline-responsive cause — vomiting, remote diuretic, or post-hypercapnia. Check urine Cl⁻ before sending a genetic panel.'},
+    {scenario:'19 M, antenatal polyhydramnios, lifelong polyuria, nephrocalcinosis on ultrasound. Normal BP.',
+     labs:[['K','2.8'],['Cl','92'],['HCO₃','31'],['Ca','9.6'],['U-Na','95'],['U-Ca:Cr','0.35',1],['U-Osm','280']],
+     seg:'tal',syn:'bartter',dxKey:'bartter',
+     disc:'U-Ca:Cr 0.35 — hypercalciuria',
+     explain:'Antenatal salt-wasting with hypokalemic alkalosis and isosthenuria. The discriminator is <b>hypercalciuria</b> (urine Ca:Cr &gt; 0.2) with nephrocalcinosis — the TAL lesion collapses the lumen-positive PD, so paracellular Ca²⁺ is lost into the urine.'},
+    {scenario:'24 F, episodic muscle cramps and carpopedal spasm, fatigue. Normal BP.',
+     labs:[['K','2.9'],['HCO₃','30'],['Mg','1.2',1],['Ca','9.4'],['U-Ca:Cr','0.04',1],['U-Osm','380']],
+     seg:'dct',syn:'gitelman',dxKey:'gitelman',
+     disc:'U-Ca:Cr 0.04 — hypocalciuria + low Mg²⁺',
+     explain:'Hypokalemic alkalosis with <b>hypocalciuria</b> and <b>hypomagnesemia</b>, normal BP — the chronic-thiazide phenotype. The hypocalciuria (U-Ca:Cr &lt; 0.07) is exactly what separates Gitelman from the hypercalciuric Bartter.'},
+    {scenario:'22 M, hypertension since childhood, family history of early HTN; hyperkalemia worsened after an ACE inhibitor was started.',
+     labs:[['K','5.8',1],['Cl','112',1],['HCO₃','18'],['BP','150/96'],['Renin','low'],['Aldo','low']],
+     seg:'dct',syn:'fhht',dxKey:'fhht',
+     disc:'HTN + hyperkalemia + non-AG acidosis',
+     explain:'The mirror image of Gitelman — <b>hypertension, hyperkalemia, hyperchloremic non-anion-gap acidosis</b>, suppressed renin and aldosterone. WNK overactivity keeps NCC chronically on. It resolves dramatically on a low-dose thiazide — diagnostic in itself.'},
+    {scenario:'28 F, severe hypertension since adolescence, K 2.7 on no diuretic. Autosomal-dominant family history of early stroke.',
+     labs:[['K','2.7'],['HCO₃','30'],['BP','168/104'],['Renin','low',1],['Aldo','low',1]],
+     seg:'cd',syn:'liddle',dxKey:'liddle',
+     disc:'Renin AND aldosterone both suppressed',
+     explain:'Early HTN with hypokalemic alkalosis and — the discriminator — <b>both renin and aldosterone suppressed</b>. ENaC is constitutively on (PPxY mutation). Amiloride works; spironolactone does not, because the defect is downstream of the mineralocorticoid receptor.'},
+    {scenario:'30 M, resistant hypertension, K 2.8. Serum cortisol normal; chronic heavy liquorice consumption.',
+     labs:[['K','2.8'],['HCO₃','32'],['BP','170/108'],['Renin','low'],['Aldo','low'],['Cortisol:cortisone','high',1]],
+     seg:'cd',syn:'ame',dxKey:'ame',
+     disc:'↑ urinary cortisol : cortisone ratio',
+     explain:'On routine labs this looks identical to Liddle (HTN, hypoK alkalosis, low renin/aldo). The discriminator is the <b>elevated urinary cortisol : cortisone ratio</b> — 11β-HSD2 is absent or inhibited, so cortisol illicitly activates MR. Spironolactone works here. Liquorice phenocopies it.'},
+    {scenario:'33 F, 18 weeks pregnant, severe hypertension that escalated sharply after spironolactone was started for presumed primary aldosteronism.',
+     labs:[['K','2.9'],['HCO₃','30'],['BP','176/112'],['Renin','low'],['Aldo','low']],
+     seg:'cd',syn:'geller',dxKey:'geller',
+     disc:'HTN worsens in pregnancy & on spironolactone',
+     explain:'Early HTN that <b>worsens in pregnancy</b> and paradoxically <b>worsens on spironolactone</b> — the MR S810L mutation makes progesterone, and spironolactone itself, into MR agonists. Use amiloride; avoid MR antagonists.'},
+    {scenario:'56 M, decompensated alcoholic cirrhosis with tense ascites and peripheral edema; oliguric, no diuretic for a week.',
+     labs:[['Na','128'],['K','4.0'],['Cr','1.6'],['U-Na','8',1],['U-Osm','620']],
+     seg:'sys',syn:'cirrhosis',dxKey:'cirrhosis',
+     disc:'Urine Na⁺ 8 mmol/L with hypervolemia',
+     explain:'Dilutional hyponatremia with avid Na⁺ retention — <b>urine Na⁺ &lt; 10</b> despite a grossly expanded total ECF (ascites, edema). Splanchnic vasodilation drops the effective arterial blood volume → maximal RAAS / SNS / AVP. Not a tubule channelopathy — a whole-body EABV problem.'}
+  ];
+  const lvState=VIGNETTES.map(()=>({seg:null,syn:null,revealed:false}));
+  let lvIdx=0;
+  const deck=document.getElementById('lv-deck');
+  function renderCase(){
+    const v=VIGNETTES[lvIdx],st=lvState[lvIdx];
+    let h='<div class="lv-head"><span class="lv-counter">CASE '+(lvIdx+1)+' / '+VIGNETTES.length+'</span>'+
+          '<span class="lv-nav"><button class="lv-nav-btn" data-nav="-1">‹ Prev</button>'+
+          '<button class="lv-nav-btn" data-nav="1">Next ›</button></span></div>';
+    h+='<div class="lv-scenario">'+v.scenario+'</div><div class="lv-labs">';
+    v.labs.forEach(l=>{ h+='<div class="lv-lab'+(l[2]&&st.revealed?' flag':'')+'">'+l[0]+' <b>'+l[1]+'</b></div>'; });
+    h+='</div>';
+    h+='<div class="lv-q">Which segment?</div><div class="lv-chips">';
+    LV_SEGS.forEach(s=>{
+      let cls='lv-chip';
+      if(st.revealed){
+        if(s[0]===v.seg) cls+=(st.seg===s[0]?' correct':' miss');
+        else if(st.seg===s[0]) cls+=' wrong';
+      } else if(st.seg===s[0]) cls+=' sel';
+      h+='<button class="'+cls+'" data-grp="seg" data-val="'+s[0]+'">'+s[1]+'</button>';
+    });
+    h+='</div><div class="lv-q">Which syndrome?</div><div class="lv-chips">';
+    LV_SYN.forEach(s=>{
+      let cls='lv-chip';
+      if(st.revealed){
+        if(s[0]===v.syn) cls+=(st.syn===s[0]?' correct':' miss');
+        else if(st.syn===s[0]) cls+=' wrong';
+      } else if(st.syn===s[0]) cls+=' sel';
+      h+='<button class="'+cls+'" data-grp="syn" data-val="'+s[0]+'">'+s[1]+'</button>';
+    });
+    h+='</div>';
+    if(!st.revealed){
+      h+='<button class="lv-reveal-btn" id="lv-reveal"'+((st.seg&&st.syn)?'':' disabled')+'>Reveal answer</button>';
+    } else {
+      const segOk=st.seg===v.seg,synOk=st.syn===v.syn;
+      h+='<div class="lv-result"><div class="lv-verdict '+(segOk&&synOk?'ok':'no')+'">'+
+         (segOk&&synOk?'✓ Both correct':(segOk||synOk?'~ Partly correct':'✗ Review this one'))+'</div>'+
+         '<div class="lv-disc"><small>DISCRIMINATOR</small>'+v.disc+'</div>'+
+         '<div class="lv-explain">'+v.explain+'</div>';
+      if(v.dxKey&&typeof DX_FULL!=='undefined'&&DX_FULL[v.dxKey]){
+        const dx=DX_FULL[v.dxKey];
+        h+='<div class="svgdiag-box" style="margin-top:12px">'+renderSeg(dx.seg,{mark:dx.mark})+'</div>';
+      }
+      h+='</div>';
+    }
+    deck.innerHTML=h;
+    if(st.revealed){
+      try{ wireSvgTips(); }catch(_){}
+      const box=deck.querySelector('.svgdiag-box');
+      if(box){ if(window._segIo) window._segIo.observe(box); else box.classList.add('seen','in-view'); }
+    }
+  }
+  if(deck){
+    deck.addEventListener('click',e=>{
+      const nav=e.target.closest('.lv-nav-btn');
+      if(nav){ lvIdx=(lvIdx+parseInt(nav.getAttribute('data-nav'),10)+VIGNETTES.length)%VIGNETTES.length; renderCase(); return; }
+      const chip=e.target.closest('.lv-chip');
+      if(chip){
+        const st=lvState[lvIdx]; if(st.revealed) return;
+        st[chip.getAttribute('data-grp')]=chip.getAttribute('data-val');
+        renderCase(); return;
+      }
+      if(e.target.id==='lv-reveal'){
+        const st=lvState[lvIdx];
+        if(st.seg&&st.syn){ st.revealed=true; renderCase(); }
+      }
+    });
+    renderCase();
+  }
+}catch(e){ console.warn('lv',e); }
 </script>
 </body>
 </html>
