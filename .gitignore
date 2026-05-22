@@ -13,6 +13,7 @@
 # ── Scratch directories (verification, raw assets) ────
 screenshots/
 uploads/
+agent_outputs/
 
 # ── OS junk ───────────────────────────────────────────
 Thumbs.db
