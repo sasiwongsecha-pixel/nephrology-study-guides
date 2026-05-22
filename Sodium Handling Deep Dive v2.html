@@ -3058,6 +3058,36 @@
     <div class="dys-rules" id="dys-rules"></div>
     <div class="diag-src">Brenner Ch. 14 (hypo-/hypernatremia algorithms). Always check TSH + 8 AM cortisol before labelling euvolemic hyponatremia as SIADH. Urine Cl⁻ discriminates saline-responsive (vomiting, remote diuretic) from saline-resistant alkalosis.</div>
   </div>
+
+  <div class="diag-block">
+    <h4>📋 Correcting the dysnatremias — rate limits &amp; safety · Brenner Ch. 14</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The tree above names the problem. Treatment is governed less by the starting [Na⁺] than by <strong>how fast you are allowed to move it</strong> — the brain adapts to a chronic dysnatremia, and un-adapting it too quickly is what injures.</p>
+    <table class="abt">
+      <thead>
+        <tr><th>Dimension</th><th>Hyponatremia (Na⁺ &lt; 135)</th><th>Hypernatremia (Na⁺ &gt; 145)</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Safe rate / 24 h</th><td><b>≤ 8 mEq/L</b> — <b>≤ 6 mEq/L</b> if high ODS risk</td><td><b>≤ 10 mEq/L</b> (≈ 0.5 mEq/L/h)</td></tr>
+        <tr><th>When faster is allowed</th><td>Acute onset &lt; 48 h (marathon, MDMA, post-op): brain not yet adapted, ODS risk low</td><td>Acute onset &lt; 48 h: cerebral-edema risk low — may correct within 24 h</td></tr>
+        <tr><th>Severe-symptom rescue</th><td>Seizure / coma: 3% saline to raise Na⁺ <b>4–6 mEq/L</b> quickly — reverses herniation, still inside the 24 h budget</td><td>Restore circulation with isotonic saline first if hypovolemic; address the water deficit second</td></tr>
+        <tr><th>Replacement fluid</th><td><b>3% saline</b> (513 mEq/L): 100–150 mL IV over 10 min, repeat ×1–2 until symptoms abate</td><td>Free water — orally if able, else D5W or 0.45% saline IV; replace the deficit <b>plus</b> ongoing losses</td></tr>
+        <tr><th>Bedside formula</th><td>Adrogué–Madias: ΔNa⁺ per L infused = (infusate [Na⁺ + K⁺] − serum Na⁺) ÷ (TBW + 1)</td><td>Free-water deficit = TBW × (serum Na⁺ ÷ 140 − 1); TBW ≈ 0.5–0.6 × kg</td></tr>
+        <tr><th>The catastrophe</th><td>Overcorrection → <b>osmotic demyelination syndrome</b></td><td>Over-rapid correction → <b>cerebral edema</b>, seizures</td></tr>
+        <tr><th>Re-check serum Na⁺</th><td>Every 2–4 h while actively correcting</td><td>Every 4–6 h</td></tr>
+      </tbody>
+    </table>
+    <div class="diag-src">Brenner Ch. 14 (treatment of hypo- and hypernatremia). Replacing K⁺ also raises serum Na⁺ — K⁺ enters cells and Na⁺ leaves — so count administered K⁺ toward the correction budget; it sits in the Adrogué–Madias numerator.</div>
+  </div>
+
+  <div class="pearl">
+    <div class="em">💡</div>
+    <div class="pt"><b>Osmotic demyelination strikes the adapted brain corrected too fast.</b> Risk stacks with serum Na⁺ <b>≤ 105</b>, hypokalemia, alcohol-use disorder, malnutrition, and advanced liver disease. The course is <em>biphasic</em> — the patient first improves as Na⁺ rises, then 2–6 days later develops dysarthria, dysphagia and quadriparesis (pontine) or behavioural change (extrapontine). MRI lags the clinical picture by days: govern the <em>rate</em>, never wait for imaging.</div>
+  </div>
+
+  <div class="pearl">
+    <div class="em">💡</div>
+    <div class="pt"><b>The DDAVP clamp.</b> The moment the ADH stimulus is removed — volume repleted, hydrocortisone given for adrenal insufficiency, the offending thiazide stopped — ADH switches off and a brisk water diuresis <em>overshoots</em> the Na⁺. Pre-empt it: give desmopressin <b>1–2 µg every 6–8 h</b> to hold free-water excretion fixed, then raise Na⁺ in a controlled way with 3% saline. Already overcorrected? <b>Re-lower</b> with D5W (± DDAVP) back under the 24 h limit — relowering itself prevents ODS.</div>
+  </div>
 </section>
 
 <!-- =================== ACID-BASE INTEGRATION =================== -->
@@ -3129,6 +3159,35 @@
   <div class="pearl">
     <div class="em">💡</div>
     <div class="pt"><b>"PUSH-A" — telling the intercalated cells apart.</b> <b>P</b>endrin + basolateral H⁺-ATPase = the <b>β-IC</b>, which <em>pushes HCO₃⁻ out</em> into the urine (base secretion, recruited in alkalosis). <b>A</b>E1 + apical H⁺-ATPase = the <b>α-IC</b>, which secretes acid (recruited in acidosis). Hypokalemia drives the α-IC H⁺/K⁺-ATPase to swap K⁺ back in for H⁺ → <b>paradoxic aciduria</b> — acidic urine even when the patient is alkalotic.</div>
+  </div>
+</section>
+
+<!-- =================== DIURETIC RESISTANCE =================== -->
+<section id="diuretic-resistance" class="segment">
+  <div class="seg-head">
+    <span class="num-tag">Integration · part III</span>
+    <h2>Diuretic resistance — why the loop stops working</h2>
+  </div>
+  <p class="seg-sub">A loop diuretic is the most potent natriuretic available — and the nephron has <strong>three separate ways</strong> to blunt it. Resistance is rarely "the drug failed"; it is the kidney adapting. Match the mechanism to the fix.</p>
+
+  <div class="diag-block">
+    <h4>📋 Three mechanisms of diuretic resistance · Brenner Ch. 13</h4>
+    <table class="abt">
+      <thead>
+        <tr><th>Mechanism</th><th>What happens</th><th>How to beat it</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Braking phenomenon<br><span style="font-weight:400;color:#64748b">acute · dose-to-dose</span></th><td>As each loop dose wears off, the kidney avidly retains Na⁺ — <b>post-diuretic rebound</b>, driven by the volume loss → RAAS + SNS. Over 24 h, net Na⁺ balance can fall to zero if dietary Na⁺ is high.</td><td>Restrict dietary Na⁺; dose 2–3×/day or by continuous infusion to keep drug above threshold — <b>frequency beats a bigger single dose</b>.</td></tr>
+        <tr><th>Distal nephron remodeling<br><span style="font-weight:400;color:#64748b">chronic · structural</span></th><td>Months of high NaCl delivery hypertrophies the DCT and collecting duct — <b>NCC and ENaC upregulate</b>, so the distal segments reclaim the Na⁺ the loop dumped.</td><td><b>Sequential nephron blockade</b> — add a thiazide / metolazone (blocks NCC) ± an MRA or amiloride (blocks ENaC).</td></tr>
+        <tr><th>Pharmacokinetic failure<br><span style="font-weight:400;color:#64748b">drug never reaches target</span></th><td>Loop diuretics act from <em>inside the lumen</em>, secreted there by proximal-tubule OAT. <b>CKD:</b> uraemic anions compete for OAT. <b>Nephrotic:</b> filtered albumin binds drug in the lumen. <b>HF / gut-wall edema:</b> slow, erratic oral absorption.</td><td>Raise the dose to clear the secretory threshold; switch to <b>torsemide or bumetanide</b> (reliable oral bioavailability); give IV when gut edema blunts absorption.</td></tr>
+      </tbody>
+    </table>
+    <div class="diag-src">Brenner Ch. 13 (diuretic use and resistance in edematous states). The loop diuretic dose–response is sigmoidal — a sub-threshold dose does nothing at all — so the first fix is always a dose that clears the threshold, then enough frequency to outlast post-diuretic rebound.</div>
+  </div>
+
+  <div class="pearl">
+    <div class="em">💡</div>
+    <div class="pt"><b>Sequential nephron blockade.</b> A loop diuretic floods the distal nephron with NaCl; given months, the DCT hypertrophies and quietly reabsorbs it back. Adding <b>metolazone (or a thiazide) ~30 min before the loop dose</b> blocks that escape route at NCC — the combination is <em>synergistic, not additive</em>, and can unleash brisk diuresis with steep K⁺ and volume loss. Monitor electrolytes closely: it is a potent rescue, not a maintenance regimen.</div>
   </div>
 </section>
 </div><!-- /tab-reg -->
