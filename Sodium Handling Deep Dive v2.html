@@ -25,6 +25,20 @@
   opacity: 0;
   transform: translateY(16px);
   transition: opacity .6s ease, transform .6s ease;
+  position: relative;
+}
+.hide-toggle {
+  position: absolute; top: 8px; right: 8px; z-index: 5;
+  background: rgba(15,23,42,.85); color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 3px 11px; font-size: 10px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.hide-toggle:hover { background: rgba(15,23,42,.97); color: #cbd5e1; }
+.hide-toggle.on {
+  background: rgba(13,148,136,.2); color: var(--teal-light);
+  border-color: var(--teal);
 }
 .svgdiag-box.seen { opacity: 1; transform: none; }
 .svgdiag-box svg { display: block; width: 100%; height: auto; }
@@ -3602,6 +3616,8 @@ function _aOff(idx,cnt){ return cnt===1?_BH/2:_BH*(idx+1)/(cnt+1); }
 function renderSeg(segId,opts){
   const d=DIAG_DD[segId]; if(!d) return '';
   const mk=(opts&&opts.mark)||null;
+  const hide=!!(opts&&opts.hide);
+  const revealed=(opts&&opts.revealed)||null;
   const rows=Math.max(d.apl.length,d.bsl.length);
   const PH=d.para.length>0?14+d.para.length*22+10:0;
   const H=_HDR+rows*_ROW+PH;
@@ -3655,10 +3671,13 @@ function renderSeg(segId,opts){
              (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${gcText}" font-size="7.5" opacity="0.85" ${_FS} pointer-events="none">${tp.sub}</text>`:'')+
              `<text x="${cx}" y="${by+_BH+12}" text-anchor="middle" fill="${gc}" font-size="8" font-weight="700" letter-spacing="0.5" ${_FS} pointer-events="none">▲▲ OVERACTIVE</text>`;
     }
-    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="#0f172a" stroke="${tp.c}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${tp.c}"/>`+
-           `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}" opacity="0.18" pointer-events="none"/>`+
-           `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tp.c}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
-           (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tp.c}" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'');
+    const shown=!hide||(revealed&&revealed.has(tp.key));
+    return `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="#0f172a" stroke="${tp.c}" stroke-width="2.5" class="tp-r" data-key="${tp.key}" data-c="${tp.c}" style="cursor:${hide?'pointer':'default'}"/>`+
+           `<rect x="${bxl}" y="${by}" width="${_BW}" height="${_BH}" rx="${RX}" fill="${tp.c}" opacity="${shown?0.18:0.07}" pointer-events="none"/>`+
+           (shown
+             ? `<text x="${cx}" y="${cy+(tp.sub?-5:4)}" text-anchor="middle" fill="${tp.c}" font-size="11.5" font-weight="800" ${_FS} pointer-events="none">${tp.lbl}</text>`+
+               (tp.sub?`<text x="${cx}" y="${cy+9}" text-anchor="middle" fill="${tp.c}" font-size="7.5" opacity="0.75" ${_FS} pointer-events="none">${tp.sub}</text>`:'')
+             : `<text x="${cx}" y="${cy+5}" text-anchor="middle" fill="${tp.c}" font-size="17" font-weight="800" ${_FS} pointer-events="none">?</text>`);
   }
   for(let i=0;i<rows;i++){
     const y0=_HDR+i*_ROW,by=y0+(_ROW-_BH)/2;
@@ -4255,6 +4274,38 @@ try{
   },{rootMargin:'-22% 0px -72% 0px',threshold:0});
   document.querySelectorAll('section[id]').forEach(s=>navIo.observe(s));
 }catch(e){ console.warn('neph',e); }
+
+/* ── Hide-the-labels study mode (5 segment diagrams) ── */
+try{
+  const HIDE_SEGS=['pct','loh','tal','dct','cd'];
+  const hideState={};
+  HIDE_SEGS.forEach(id=>{ hideState[id]={on:false,revealed:new Set()}; });
+  function addHideToggle(box,id){
+    const st=hideState[id];
+    const btn=document.createElement('button');
+    btn.className='hide-toggle'+(st.on?' on':'');
+    btn.textContent=st.on?'👁 Show labels':'👁 Hide labels';
+    btn.addEventListener('click',()=>{ st.on=!st.on; st.revealed.clear(); paintHideSeg(id); });
+    box.appendChild(btn);
+  }
+  function paintHideSeg(id){
+    const box=document.getElementById(id+'-svgdiag'); if(!box) return;
+    const st=hideState[id];
+    box.innerHTML=renderSeg(id,{hide:st.on,revealed:st.revealed});
+    addHideToggle(box,id);
+    try{ wireSvgTips(); }catch(_){}
+  }
+  HIDE_SEGS.forEach(id=>{
+    const box=document.getElementById(id+'-svgdiag'); if(!box) return;
+    addHideToggle(box,id);
+    box.addEventListener('click',e=>{
+      const st=hideState[id]; if(!st.on) return;
+      const r=e.target.closest('rect.tp-r[data-key]'); if(!r) return;
+      st.revealed.add(r.getAttribute('data-key'));
+      paintHideSeg(id);
+    });
+  });
+}catch(e){ console.warn('hide',e); }
 </script>
 </body>
 </html>
