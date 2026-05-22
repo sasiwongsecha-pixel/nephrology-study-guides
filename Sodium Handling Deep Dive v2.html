@@ -4359,8 +4359,8 @@ function _svgPos(tip,e){
 }
 
 /* Auto-open PCT on first load */
-try{ showSeg('pct'); }catch(e){ console.warn('seg init',e); }
-try{ _attachAllTips(); }catch(e){ console.warn('tips init',e); }
+try{ showSeg('pct'); }catch(e){ console.error('seg init',e); }
+try{ _attachAllTips(); }catch(e){ console.error('tips init',e); }
 /* ── Disorder browser: sidebar + detail rendering ───────────────────────── */
 const DX_ORDER=[
   {group:'PCT',           items:['proxrta','dent']},
@@ -4401,7 +4401,7 @@ function dxbSelect(id){
   if(!main) return;
   main.innerHTML=renderDxDetail(id);
   main.scrollTop=0;
-  try{ wireSvgTips(); }catch(e){ console.warn('dxTips',e); }
+  try{ wireSvgTips(); }catch(e){ console.error('dxTips',e); }
   // Observe newly-injected svgdiag-box
   if(window._segIo){
     main.querySelectorAll('.svgdiag-box').forEach(b=>{ if(!b._dxObs){ window._segIo.observe(b); b._dxObs=true; } });
@@ -4451,7 +4451,7 @@ function dxbInit(){
 
 /* Render SVG diagrams */
 ['pct','loh','tal','dct','cd'].forEach(id=>{
-  try{ const el=document.getElementById(id+'-svgdiag'); if(el) el.innerHTML=renderSeg(id); }catch(e){ console.warn('diag',id,e); }
+  try{ const el=document.getElementById(id+'-svgdiag'); if(el) el.innerHTML=renderSeg(id); }catch(e){ console.error('diag',id,e); }
 });
 /* Fade-in + flow gated to in-view (IntersectionObserver) — set up FIRST so dxbInit can observe new boxes */
 try{
@@ -4462,10 +4462,10 @@ try{
     });
   },{threshold:0.12});
   document.querySelectorAll('.svgdiag-box').forEach(b=>window._segIo.observe(b));
-}catch(e){ console.warn('io',e); document.querySelectorAll('.svgdiag-box').forEach(b=>b.classList.add('seen','in-view')); }
+}catch(e){ console.error('io',e); document.querySelectorAll('.svgdiag-box').forEach(b=>b.classList.add('seen','in-view')); }
 /* Build disorder browser */
-try{ dxbInit(); }catch(e){ console.warn('dxbInit',e); }
-try{ wireSvgTips(); }catch(e){ console.warn('svgTips',e); }
+try{ dxbInit(); }catch(e){ console.error('dxbInit',e); }
+try{ wireSvgTips(); }catch(e){ console.error('svgTips',e); }
 
 /* ── TGF cascade — branch toggle + scroll-in animation ── */
 try{
@@ -4489,7 +4489,7 @@ try{
     if(window._segIo) window._segIo.observe(tgf);
     else tgf.classList.add('seen');
   }
-}catch(e){ console.warn('tgf',e); }
+}catch(e){ console.error('tgf',e); }
 
 /* ── Vasa recta washout — mode toggle ── */
 try{
@@ -4515,7 +4515,7 @@ try{
       });
     });
   }
-}catch(e){ console.warn('vr',e); }
+}catch(e){ console.error('vr',e); }
 
 /* ── Dysnatremia decision tree ── */
 try{
@@ -4598,7 +4598,7 @@ try{
       if(dz) dz.scrollIntoView({behavior:'smooth'});
     });
   }
-}catch(e){ console.warn('dys',e); }
+}catch(e){ console.error('dys',e); }
 
 /* ── Header progress nephron + scroll-spy (surfaces window.activeSeg) ── */
 window.activeSeg='pct';
@@ -4662,7 +4662,7 @@ try{
     });
   },{rootMargin:'-22% 0px -72% 0px',threshold:0});
   document.querySelectorAll('section[id]').forEach(s=>navIo.observe(s));
-}catch(e){ console.warn('neph',e); }
+}catch(e){ console.error('neph',e); }
 
 /* ── Segment-diagram view state — shared by hide-mode + diuretic sidebar ── */
 try{
@@ -4694,7 +4694,7 @@ try{
       window.repaintSeg(id);
     });
   });
-}catch(e){ console.warn('hide',e); }
+}catch(e){ console.error('hide',e); }
 
 /* ── Aldosterone escape panel ── */
 try{
@@ -4732,7 +4732,7 @@ try{
     });
     setAE('baseline');
   }
-}catch(e){ console.warn('ae',e); }
+}catch(e){ console.error('ae',e); }
 
 /* ── Diuretic sticky sidebar ── */
 try{
@@ -4791,7 +4791,7 @@ try{
     const sec=document.getElementById(d.seg);
     if(sec) sec.scrollIntoView({behavior:'smooth'});
   });
-}catch(e){ console.warn('drugrail',e); }
+}catch(e){ console.error('drugrail',e); }
 
 /* ── Acid-base H⁺ map — disturbance toggle ── */
 try{
@@ -4823,7 +4823,7 @@ try{
     });
     setAB('baseline');
   }
-}catch(e){ console.warn('ab',e); }
+}catch(e){ console.error('ab',e); }
 
 /* ── Lab-pattern vignettes — diagnostic drills ── */
 try{
@@ -4939,7 +4939,7 @@ try{
     });
     renderCase();
   }
-}catch(e){ console.warn('lv',e); }
+}catch(e){ console.error('lv',e); }
 
 /* ── Segment-locked SBA quiz drawer ── */
 try{
@@ -5042,7 +5042,7 @@ try{
       renderQuiz(); return;
     }
   });
-}catch(e){ console.warn('quiz',e); }
+}catch(e){ console.error('quiz',e); }
 </script>
 </body>
 </html>
