@@ -422,6 +422,54 @@
   color: var(--text-dim); letter-spacing: .6px;
 }
 @media (max-width: 1150px) { .hdr-neph { display: none; } }
+
+/* ─── Aldosterone escape panel ─── */
+.ae-steps { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.ae-step {
+  background: #0a1322; color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 6px 14px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.ae-step:hover { background: #11203a; color: #cbd5e1; }
+.ae-step.active { background: rgba(168,85,247,.15); border-color: #a855f7; color: #d8b4fe; }
+.ae-panel {
+  background: #060e1c; border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+}
+.ae-stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
+.ae-stat {
+  background: #0a1322; border: 1px solid var(--border-dim);
+  border-radius: 8px; padding: 9px 12px; text-align: center;
+}
+.ae-stat-l { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #64748b; margin-bottom: 4px; }
+.ae-stat-v { font-size: 14px; font-weight: 800; color: #e2e8f0; transition: color .3s; }
+.ae-stat-v.warn { color: #fca5a5; }
+.ae-stat-v.ok { color: #86efac; }
+.ae-tps { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.ae-tp {
+  background: #0a1322; border: 1px solid var(--border-dim);
+  border-radius: 8px; padding: 9px 6px; text-align: center;
+}
+.ae-tp-name { font-size: 11px; font-weight: 700; color: #cbd5e1; }
+.ae-tp-sub { font-size: 8.5px; color: #64748b; margin-top: 1px; }
+.ae-tp-arrow { font-size: 16px; font-weight: 800; margin-top: 4px; transition: color .3s; }
+.ae-arrow-up2 { color: #f97316; }
+.ae-arrow-up1 { color: #fbbf24; }
+.ae-arrow-down { color: #06b6d4; }
+.ae-arrow-eq { color: #475569; }
+.ae-note {
+  margin-top: 14px; padding: 11px 14px;
+  background: rgba(168,85,247,.08); border: 1px solid rgba(168,85,247,.4);
+  border-radius: 8px; font-size: 12.5px; line-height: 1.6; color: #e9d5ff;
+}
+.ae-note b { color: #f0abfc; }
+.ae-note .ae-note-tag { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #d8b4fe; margin-right: 8px; }
+@media (max-width: 680px) {
+  .ae-stat-row { grid-template-columns: 1fr; }
+  .ae-tps { grid-template-columns: repeat(2,1fr); }
+}
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -2532,6 +2580,44 @@
     </div>
   </div>
 
+  <!-- ===== DIAGRAM 6b: Aldosterone Escape ===== -->
+  <div class="diag-block">
+    <h4>🔬 Diagram 6b · Aldosterone Escape &amp; Pressure Natriuresis — why primary aldo gives HTN <em>without</em> edema · Brenner Ch. 12–13</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Sustained aldosterone should, on paper, expand ECF without limit. It doesn't — after a few days the kidney <em>escapes</em>. Step through the phases to see how Na⁺ balance is restored at the cost of a higher blood pressure.</p>
+
+    <div class="ae-steps">
+      <button class="ae-step active" data-state="baseline">Baseline</button>
+      <button class="ae-step" data-state="acute">Aldo ON · day 1–2</button>
+      <button class="ae-step" data-state="escape">Escape · day 3–5+</button>
+    </div>
+
+    <div class="ae-panel">
+      <div class="ae-stat-row">
+        <div class="ae-stat"><div class="ae-stat-l">ECF VOLUME</div><div class="ae-stat-v" id="ae-ecf">normal</div></div>
+        <div class="ae-stat"><div class="ae-stat-l">BLOOD PRESSURE</div><div class="ae-stat-v" id="ae-bp">120 / 80</div></div>
+        <div class="ae-stat"><div class="ae-stat-l">Na⁺ BALANCE</div><div class="ae-stat-v" id="ae-bal">in = out</div></div>
+      </div>
+      <div class="ae-tps">
+        <div class="ae-tp"><div class="ae-tp-name">ENaC</div><div class="ae-tp-sub">CD principal cell</div><div class="ae-tp-arrow" id="ae-enac">—</div></div>
+        <div class="ae-tp"><div class="ae-tp-name">NHE3</div><div class="ae-tp-sub">PCT apical</div><div class="ae-tp-arrow" id="ae-nhe3">—</div></div>
+        <div class="ae-tp"><div class="ae-tp-name">NCC</div><div class="ae-tp-sub">DCT apical</div><div class="ae-tp-arrow" id="ae-ncc">—</div></div>
+        <div class="ae-tp"><div class="ae-tp-name">ANP</div><div class="ae-tp-sub">atrial natriuretic</div><div class="ae-tp-arrow" id="ae-anp">—</div></div>
+      </div>
+    </div>
+
+    <div class="ae-note" id="ae-note">
+      <span class="ae-note-tag">BASELINE</span>
+      Steady state — aldosterone normal, ENaC activity matched to Na⁺ intake, Na⁺ in = Na⁺ out. Click <b>Aldo ON</b> to start mineralocorticoid loading.
+    </div>
+
+    <div class="pearl" style="margin-top:10px">
+      <div class="em">💡</div>
+      <div class="pt"><b>Why heart failure floods but Conn's doesn't.</b> Escape needs renal perfusion pressure to <em>rise</em> so pressure natriuresis can engage. In primary aldosteronism the arterial tree is full → pressure rises → escape works → HTN, no edema. In heart failure the effective arterial blood volume is <em>low</em> → perfusion pressure never rises → pressure natriuresis can't engage → <b>escape fails</b> → aldosterone keeps retaining Na⁺ → edema. Same hormone, opposite whole-body result.</div>
+    </div>
+
+    <div class="diag-src">Brenner Ch. 12 (aldosterone escape) + Ch. 13 (pressure natriuresis, edematous disorders). Escape becomes hemodynamically significant at <b>day 3–5</b>; acute aldosterone gives ~24–48 h of antinatriuresis first. K⁺ secretion does <em>not</em> escape — kaliuresis and hypokalemia persist throughout.</div>
+  </div>
+
   <!-- ===== DIAGRAM 7: AVP / AQP2 Insertion ===== -->
   <div class="horm-sub">
     <div class="horm-sub-h">Diagram 7 · AVP / AQP2 Signaling — Brenner Ch. 14</div>
@@ -4306,6 +4392,44 @@ try{
     });
   });
 }catch(e){ console.warn('hide',e); }
+
+/* ── Aldosterone escape panel ── */
+try{
+  const AE_STATES={
+    baseline:{ecf:['normal',''],bp:['120 / 80',''],bal:['in = out','ok'],
+      tp:{enac:'eq',nhe3:'eq',ncc:'eq',anp:'eq'},
+      tag:'BASELINE',note:'Steady state — aldosterone normal, ENaC activity matched to Na⁺ intake, Na⁺ in = Na⁺ out. Click <b>Aldo ON</b> to start mineralocorticoid loading.'},
+    acute:{ecf:['↑ ≈ +1.5 L','warn'],bp:['138 / 86','warn'],bal:['OUT &lt; IN — retaining','warn'],
+      tp:{enac:'up2',nhe3:'eq',ncc:'eq',anp:'up1'},
+      tag:'ALDO ON · DAY 1–2',note:'Aldosterone → SGK1 → phospho-NEDD4-2 → <b>ENaC stabilised</b> on the apical membrane. Na⁺ is retained (out &lt; in), ECF expands ~1.5 L, BP climbs. This antinatriuretic phase lasts only ~24–48 h.'},
+    escape:{ecf:['↑ plateaued','warn'],bp:['150 / 92','warn'],bal:['in = out (restored)','ok'],
+      tp:{enac:'up2',nhe3:'down',ncc:'down',anp:'up2'},
+      tag:'ESCAPE · DAY 3–5+',note:'ECF expansion raises <b>renal interstitial pressure</b> → NHE3 retracts from the PCT brush border and NCC is dephosphorylated; <b>ANP</b> + uroguanylin rise and close ENaC. Na⁺ excretion climbs back to match intake — <b>the escape</b>. ECF plateaus but BP stays high: HTN without edema. K⁺ secretion does <b>not</b> escape — hypokalemia persists.'}
+  };
+  const AE_ARROW={eq:['—','ae-arrow-eq'],up1:['↑','ae-arrow-up1'],up2:['↑↑','ae-arrow-up2'],down:['↓','ae-arrow-down']};
+  const aeEcf=document.getElementById('ae-ecf'),aeBp=document.getElementById('ae-bp'),
+        aeBal=document.getElementById('ae-bal'),aeNote=document.getElementById('ae-note');
+  function setAE(name){
+    const s=AE_STATES[name]; if(!s) return;
+    aeEcf.textContent=s.ecf[0]; aeEcf.className='ae-stat-v'+(s.ecf[1]?' '+s.ecf[1]:'');
+    aeBp.textContent=s.bp[0]; aeBp.className='ae-stat-v'+(s.bp[1]?' '+s.bp[1]:'');
+    aeBal.innerHTML=s.bal[0]; aeBal.className='ae-stat-v'+(s.bal[1]?' '+s.bal[1]:'');
+    ['enac','nhe3','ncc','anp'].forEach(k=>{
+      const el=document.getElementById('ae-'+k),a=AE_ARROW[s.tp[k]];
+      el.textContent=a[0]; el.className='ae-tp-arrow '+a[1];
+    });
+    aeNote.innerHTML='<span class="ae-note-tag">'+s.tag+'</span> '+s.note;
+  }
+  if(aeEcf){
+    document.querySelectorAll('.ae-step').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.ae-step').forEach(b=>b.classList.toggle('active',b===btn));
+        setAE(btn.getAttribute('data-state'));
+      });
+    });
+    setAE('baseline');
+  }
+}catch(e){ console.warn('ae',e); }
 </script>
 </body>
 </html>
