@@ -332,6 +332,64 @@
   .vr-grad-track { width: 100%; height: 60px; flex-direction: row; }
   .vr-grad-fill { height: 100% !important; }
 }
+
+/* ─── Dysnatremia decision tree ─── */
+.dys-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.dys-tab {
+  background: #0a1322; color: #94a3b8;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 7px 16px; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.dys-tab:hover { background: #11203a; color: #cbd5e1; }
+.dys-tab.active { background: rgba(13,148,136,.15); border-color: var(--teal); color: var(--teal-light); }
+.dys-panel { display: none; }
+.dys-panel.active { display: block; }
+.dys-node { margin: 2px 0; }
+.dys-q {
+  display: inline-block;
+  background: rgba(13,148,136,.12); border: 1px solid var(--teal);
+  color: var(--teal-light); font-weight: 700; font-size: 12px;
+  padding: 6px 12px; border-radius: 7px;
+}
+.dys-branches {
+  margin-left: 16px; padding-left: 16px;
+  border-left: 2px solid var(--border);
+}
+.dys-branch { margin: 10px 0 12px; position: relative; }
+.dys-branch::before {
+  content: ""; position: absolute; left: -16px; top: 13px;
+  width: 12px; height: 2px; background: var(--border);
+}
+.dys-branch-lbl {
+  font-size: 11.5px; font-weight: 600; color: #e2e8f0;
+  background: #11203a; border: 1px solid var(--border-dim);
+  border-radius: 5px; padding: 4px 10px;
+  display: inline-block; margin-bottom: 6px;
+}
+.dys-leaf {
+  background: #0a1322;
+  border: 1px solid rgba(234,179,8,.35); border-left: 3px solid #eab308;
+  border-radius: 7px; padding: 9px 12px; margin-top: 4px; max-width: 600px;
+}
+.dys-leaf-name { font-size: 12.5px; font-weight: 700; color: #fde047; margin-bottom: 3px; }
+.dys-leaf-detail { font-size: 11.5px; line-height: 1.55; color: #94a3b8; }
+.dys-leaf-detail b { color: #cbd5e1; }
+.dys-leaf-links { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.dys-dx-link {
+  font-size: 10.5px; font-weight: 600;
+  background: rgba(13,148,136,.12); border: 1px solid var(--teal);
+  color: var(--teal-light); border-radius: 14px; padding: 3px 10px;
+  cursor: pointer; font-family: inherit; transition: background .12s;
+}
+.dys-dx-link:hover { background: rgba(13,148,136,.28); }
+.dys-rules {
+  margin-top: 16px; padding: 11px 14px;
+  background: rgba(13,148,136,.07); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 11.5px; line-height: 1.7; color: #94a3b8;
+}
+.dys-rules b { color: var(--teal-light); }
 @media (max-width: 900px) {
   .dxbrowser { grid-template-columns: 1fr; min-height: auto; }
   .dxbside { max-height: 240px; border-right: none; border-bottom: 1px solid var(--border-dim); padding-right: 0; padding-bottom: 12px; }
@@ -858,6 +916,7 @@
     <a class="toc" href="#dct"><span class="dot dct"></span>DCT</a>
     <a class="toc" href="#cd"><span class="dot cd"></span>CNT / CCD</a>
     <a class="toc" href="#hormones">Hormones</a>
+    <a class="toc" href="#dysnatremia">Dysnatremia</a>
     <a class="toc" href="#compare">Compare</a>
     <a class="toc" href="#disorders">Disorders</a>
     <a class="toc go-back" href="nephrology_v3.html">← Main guide</a>
@@ -2538,6 +2597,27 @@
 
 </section>
 
+<!-- =================== DYSNATREMIA DDx =================== -->
+<section id="dysnatremia" class="segment">
+  <div class="seg-head">
+    <span class="num-tag">Integration · part I-b</span>
+    <h2>Dysnatremia — the bedside decision tree</h2>
+  </div>
+  <p class="seg-sub">Sodium handling sets the table; <strong>water handling sets the [Na⁺]</strong>. A dysnatremia is almost always a water problem. Walk the algorithm: serum osmolality → volume status → urine osmolality / urine Na⁺ → the named syndrome. Leaves that map to a tubulopathy in the Disorders browser are clickable.</p>
+
+  <div class="diag-block">
+    <h4>🩺 Diagram 8 · Hypo-/Hypernatremia Algorithm — Brenner Ch. 14</h4>
+    <div class="dys-tabs">
+      <button class="dys-tab active" data-panel="hypo">Hyponatremia (Na⁺ &lt; 135)</button>
+      <button class="dys-tab" data-panel="hyper">Hypernatremia (Na⁺ &gt; 145)</button>
+    </div>
+    <div class="dys-panel active" id="dys-hypo"></div>
+    <div class="dys-panel" id="dys-hyper"></div>
+    <div class="dys-rules" id="dys-rules"></div>
+    <div class="diag-src">Brenner Ch. 14 (hypo-/hypernatremia algorithms). Always check TSH + 8 AM cortisol before labelling euvolemic hyponatremia as SIADH. Urine Cl⁻ discriminates saline-responsive (vomiting, remote diuretic) from saline-resistant alkalosis.</div>
+  </div>
+</section>
+
 <!-- =================== COMPARISON TABLE =================== -->
 <section id="compare" class="segment">
   <div class="seg-head">
@@ -4006,6 +4086,89 @@ try{
     });
   }
 }catch(e){ console.warn('vr',e); }
+
+/* ── Dysnatremia decision tree ── */
+try{
+  const DYS_TREE={
+    hypo:{q:'① Serum osmolality',branches:[
+      {lbl:'Normal · 280–295',child:{leaf:{name:'Pseudohyponatremia',detail:'Hyperlipidemia or hyperproteinemia (paraproteinemia, IVIG). Measured Na⁺ is low but true osmolality is normal — a lab artifact, not a water problem.'}}},
+      {lbl:'High · >295',child:{leaf:{name:'Translocational hyponatremia',detail:'Hyperglycemia (correct Na⁺ <b>+1.6 per 100 mg/dL</b> glucose above 100; +2.4 if severe), mannitol, or glycine (post-TURP). Osmotically active solute pulls water in and dilutes Na⁺.'}}},
+      {lbl:'Low · <280 → true hypotonic',child:{q:'② Volume status',branches:[
+        {lbl:'Hypovolemic',child:{q:'③ Urine Na⁺',branches:[
+          {lbl:'UNa <20 — extrarenal loss',child:{leaf:{name:'Extrarenal volume loss',detail:'GI losses, third-spacing, burns, pancreatitis, or a <b>remote</b> diuretic (off >24 h). Kidney appropriately conserves Na⁺.'}}},
+          {lbl:'UNa >20 — renal loss',child:{leaf:{name:'Renal salt loss',detail:'Active thiazide (classic in elderly women), cerebral/renal salt wasting, adrenal insufficiency, salt-wasting nephropathy. Check an 8 AM cortisol.'}}}
+        ]}},
+        {lbl:'Euvolemic — check TSH + 8 AM cortisol first',child:{q:'③ Urine osmolality',branches:[
+          {lbl:'Uosm <100 — ADH suppressed',child:{leaf:{name:'Primary polydipsia / low-solute intake',detail:'Psychogenic polydipsia, beer potomania, tea-and-toast diet, or reset osmostat. The <b>only</b> branch where ADH is fully turned off.'}}},
+          {lbl:'Uosm >100 — ADH inappropriately on',child:{leaf:{name:'SIADH and its mimics',detail:'SIADH: euvolemic, Uosm >100, UNa >40, uric acid <4 mg/dL. Mimics — severe hypothyroidism, glucocorticoid deficiency, drug-induced (SSRIs, carbamazepine, cyclophosphamide).'}}}
+        ]}},
+        {lbl:'Hypervolemic',child:{q:'③ Urine Na⁺',branches:[
+          {lbl:'UNa <20 — avid Na⁺ retention',child:{leaf:{name:'Underfill edema (low EABV)',detail:'Total ECF is expanded yet effective arterial blood volume is low → maximal RAAS/SNS/AVP → renal Na⁺ avidity.',dxList:[['cirrhosis','Cirrhosis'],['heartfailure','Heart failure'],['nephrotic','Nephrotic syndrome']]}}},
+          {lbl:'UNa >20 — renal failure',child:{leaf:{name:'AKI / advanced CKD',detail:'Impaired free-water excretion from intrinsic renal failure — the kidney can no longer dilute the urine.'}}}
+        ]}}
+      ]}}
+    ]},
+    hyper:{q:'① Volume status',branches:[
+      {lbl:'Hypovolemic — water loss > Na⁺ loss',child:{q:'② Urine Na⁺',branches:[
+        {lbl:'UNa <20 — extrarenal',child:{leaf:{name:'Extrarenal water loss',detail:'Sweating, osmotic diarrhea, insensible losses. Hypotonic fluid lost; kidney conserves Na⁺.'}}},
+        {lbl:'UNa >20 — renal',child:{leaf:{name:'Osmotic diuresis',detail:'Hyperglycemia, mannitol, or urea (post-AKI diuresis). Solute drags water out faster than Na⁺.'}}}
+      ]}},
+      {lbl:'Euvolemic — pure water loss',child:{q:'② Urine osmolality',branches:[
+        {lbl:'Uosm <300 — dilute → diabetes insipidus',child:{q:'③ Desmopressin (DDAVP) response',branches:[
+          {lbl:'Uosm rises >50% — CENTRAL DI',child:{leaf:{name:'Central diabetes insipidus',detail:'Pituitary surgery, trauma, hypoxic-ischemic injury, lymphocytic hypophysitis, Sheehan. ADH-deficient — responds to desmopressin.'}}},
+          {lbl:'Uosm rises <50% — NEPHROGENIC DI',child:{leaf:{name:'Nephrogenic diabetes insipidus',detail:'<b>Lithium</b> (most common acquired), hypercalcemia, hypokalemia, AVPR2/AQP2 mutations, post-obstructive, sickle cell. Collecting duct cannot respond to ADH.'}}}
+        ]}},
+        {lbl:'Uosm >600 — concentrated',child:{leaf:{name:'Insensible loss / hypodipsia',detail:'Pure water deficit with an intact concentrating axis — fever, low intake, or impaired thirst (hypodipsic hypernatremia, often older patients).'}}}
+      ]}},
+      {lbl:'Hypervolemic — rare, usually iatrogenic',child:{leaf:{name:'Na⁺ overload',detail:'Hypertonic saline or NaHCO₃ resuscitation, primary aldosteronism, Cushing syndrome, or exogenous mineralocorticoid.'}}}
+    ]}
+  };
+  function renderDysNode(node){
+    if(node.leaf){
+      const lf=node.leaf;
+      let h='<div class="dys-leaf"><div class="dys-leaf-name">'+lf.name+'</div><div class="dys-leaf-detail">'+lf.detail+'</div>';
+      if(lf.dxList){
+        h+='<div class="dys-leaf-links">';
+        lf.dxList.forEach(d=>{ h+='<button class="dys-dx-link" data-dx="'+d[0]+'">'+d[1]+' →</button>'; });
+        h+='</div>';
+      }
+      return h+'</div>';
+    }
+    let h='<div class="dys-node"><div class="dys-q">'+node.q+'</div><div class="dys-branches">';
+    node.branches.forEach(br=>{
+      h+='<div class="dys-branch"><div class="dys-branch-lbl">'+br.lbl+'</div>'+renderDysNode(br.child)+'</div>';
+    });
+    return h+'</div></div>';
+  }
+  const hypoEl=document.getElementById('dys-hypo');
+  const hyperEl=document.getElementById('dys-hyper');
+  const rulesEl=document.getElementById('dys-rules');
+  if(hypoEl&&hyperEl){
+    hypoEl.innerHTML=renderDysNode(DYS_TREE.hypo);
+    hyperEl.innerHTML=renderDysNode(DYS_TREE.hyper);
+    rulesEl.innerHTML='<b>Key discriminators —</b> '+
+      '<b>Uosm &lt;100</b>: ADH fully suppressed (primary polydipsia, beer potomania, reset osmostat) — the only such branch. · '+
+      '<b>Euvolemic hypoNa</b>: always check TSH + 8 AM cortisol before diagnosing SIADH. · '+
+      '<b>SIADH</b>: euvolemic, Uosm &gt;100, UNa &gt;40, uric acid &lt;4 mg/dL, FE-urate &gt;12%. · '+
+      '<b>Urine Cl⁻</b>: &lt;20 = saline-responsive (vomiting, remote diuretic); &gt;20 = saline-resistant. · '+
+      '<b>DDAVP test</b>: Uosm rise &gt;50% = central DI; &lt;50% = nephrogenic DI.';
+    document.querySelectorAll('.dys-tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        const p=tab.getAttribute('data-panel');
+        document.querySelectorAll('.dys-tab').forEach(t=>t.classList.toggle('active',t===tab));
+        hypoEl.classList.toggle('active',p==='hypo');
+        hyperEl.classList.toggle('active',p==='hyper');
+      });
+    });
+    document.getElementById('dysnatremia').addEventListener('click',e=>{
+      const lnk=e.target.closest('.dys-dx-link'); if(!lnk) return;
+      const id=lnk.getAttribute('data-dx');
+      try{ dxbSelect(id); }catch(_){}
+      const dz=document.getElementById('disorders');
+      if(dz) dz.scrollIntoView({behavior:'smooth'});
+    });
+  }
+}catch(e){ console.warn('dys',e); }
 </script>
 </body>
 </html>
