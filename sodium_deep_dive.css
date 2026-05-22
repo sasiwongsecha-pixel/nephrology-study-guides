@@ -81,10 +81,13 @@ main.expand-all .dsubtoggle{display:none}
 @media (min-width:900px){
   main.on-disorders:not(.expand-all){padding-bottom:0}
   main:not(.expand-all) #tab-disorders.active #disorders{
-    height:calc(100vh - 64px); padding-top:14px;
+    height:calc(100vh - 64px); padding-top:10px;
     display:flex; flex-direction:column; overflow:hidden;
   }
-  main:not(.expand-all) #tab-disorders.active #disorders .seg-sub{margin-bottom:0}
+  /* locked desktop mode: trim header chrome — hands ~120px back to the detail pane */
+  main:not(.expand-all) #tab-disorders.active #disorders .seg-sub{display:none}
+  main:not(.expand-all) #tab-disorders.active #disorders .seg-head h2{font-size:21px}
+  main:not(.expand-all) #tab-disorders.active #disorders .dsubtoggle{margin:8px 0 10px}
   main:not(.expand-all) #tab-disorders.active .dsub.active{
     flex:1; min-height:0; overflow:hidden;
     display:flex; flex-direction:column;
