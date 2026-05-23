@@ -112,7 +112,10 @@
   overflow-y: auto;
   padding-right: 4px;
   flex: 1;
+  scrollbar-width: none;       /* Firefox: hide the bar, keep wheel-scroll */
+  -ms-overflow-style: none;    /* legacy Edge / IE */
 }
+.dxblist::-webkit-scrollbar { display: none; }  /* Chrome / Safari / modern Edge */
 .dxbgroup { margin-bottom: 10px; }
 .dxbgroup-h {
   font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
