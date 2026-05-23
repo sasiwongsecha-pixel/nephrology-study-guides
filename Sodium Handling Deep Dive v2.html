@@ -127,12 +127,12 @@
 .dxblist::-webkit-scrollbar { display: none; }  /* Chrome / Safari / modern Edge */
 .dxbgroup { margin-bottom: 10px; }
 .dxbgroup-h {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-  color: var(--text-dim); padding: 4px 8px;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--text-dim); padding: 3px 8px;
   text-transform: uppercase;
   background: rgba(255,255,255,.02);
   border-radius: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 .dxbitem {
   display: block; width: 100%; text-align: left;
@@ -140,12 +140,12 @@
   border: 1px solid transparent;
   border-left: 3px solid transparent;
   border-radius: 5px;
-  padding: 7px 10px;
-  font-size: 12px; line-height: 1.35;
+  padding: 5px 10px;
+  font-size: 12px; line-height: 1.3;
   font-family: inherit;
   cursor: pointer;
   transition: background .12s, border-color .12s, color .12s;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 .dxbitem:hover { background: rgba(255,255,255,.04); color: #f1f5f9; }
 .dxbitem.active {
@@ -155,8 +155,8 @@
   color: #f8fafc; font-weight: 600;
 }
 .dxbitem .dxbi-gene {
-  display: block; font-size: 10px; color: #64748b;
-  margin-top: 1px;
+  display: block; font-size: 9.5px; color: #64748b;
+  margin-top: 0;
   font-family: 'JetBrains Mono', Menlo, monospace;
 }
 .dxbitem.hide { display: none; }
@@ -3978,7 +3978,7 @@ const DIAG_TP={
   trpm6:   {name:'TRPM6 — Mg²⁺ Channel/Kinase (DCT)',body:'Only site of regulated active Mg²⁺ reabsorption. Both a channel and a kinase (chanzyme). Regulated by EGF (paracrine), insulin (upregulates). TRPM6 LOF→HSH: hypomagnesemia with secondary hypocalcemia (neonatal seizures). Cetuximab (anti-EGFR) inhibits TRPM6→hypoMg. Thiazides downregulate TRPM6→explain Gitelman hypoMg.'},
   clckb_dct:{name:'CLC-Kb (CLCNKB) — Basolateral Cl⁻ Channel (DCT)',body:'Cl⁻ exits via CLC-Kb, driven by the Vm set by KIR4.1/5.1. This Cl⁻ exit lowers [Cl⁻]ᵢ→activates WNK4→activates NCC. Functional link between K⁺ sensing and NaCl reabsorption. LOF (Bartter III) can phenocopy Gitelman when DCT phenotype predominates.'},
   nakatp_dct:{name:'Na⁺/K⁺-ATPase — DCT (highest density)',body:'DCT has the highest Na/K-ATPase activity per mm of any nephron segment — most metabolically demanding tubular cell. This density sustains the powerful driving force for NCC and the tight transepithelial resistance.'},
-  enac:    {name:'ENaC (αβγ) — Epithelial Na⁺ Channel',body:'Highly-selective amiloride-sensitive Na⁺ channel. Apical in CNT/CCD principal cells. Aldosterone→SGK1→phospho-NEDD4-2→ENaC stabilised. LOF→PHA-I. GOF (PPxY mutation)→Liddle syndrome: HTN, hypoK, alkalosis, suppressed aldo. CNT aggregate Na⁺-reabsorptive capacity is ~10× CCD (per-cell ENaC current is only 2–4× higher — the CNT's longer length and greater cell number give the 10× aggregate; Frindt and Palmer, AJP Renal 2004). Drugs: amiloride, triamterene (direct); spironolactone/eplerenone (upstream MR block).'},
+  enac:    {name:'ENaC (αβγ) — Epithelial Na⁺ Channel',body:'Highly-selective amiloride-sensitive Na⁺ channel. Apical in CNT/CCD principal cells. Aldosterone→SGK1→phospho-NEDD4-2→ENaC stabilised. LOF→PHA-I. GOF (PPxY mutation)→Liddle syndrome: HTN, hypoK, alkalosis, suppressed aldo. CNT aggregate Na⁺-reabsorptive capacity is ~10× CCD (per-cell ENaC current is only 2–4× higher — the CNT\'s longer length and greater cell number give the 10× aggregate; Frindt and Palmer, AJP Renal 2004). Drugs: amiloride, triamterene (direct); spironolactone/eplerenone (upstream MR block).'},
   romk_cd: {name:'ROMK (KCNJ1) — CD Apical K⁺ Channel',body:'Principal-cell K⁺ secretion — the steady-state K⁺ secretory pathway. Driven by lumen-negative PD from ENaC. Flow-independent. Different role from TAL ROMK (which recycles K⁺ to sustain NKCC2).'},
   aqp2:    {name:'AQP2 — Vasopressin-Regulated Water Channel',body:'Apical water channel in principal cells. AVP→V2R→Gs→cAMP→PKA→AQP2 phosphorylation→exocytosis into apical membrane. AQP2 mutations (AR) or V2R mutations (X-linked)→nephrogenic DI. Tolvaptan/conivaptan: V2R antagonists→aquaresis.'},
   nakatp_cd:{name:'Na⁺/K⁺-ATPase — CCD Basolateral Pump',body:'Maintains low intracellular Na⁺ driving ENaC entry. Aldosterone upregulates Na/K-ATPase expression alongside ENaC, amplifying Na⁺-reabsorptive capacity.'},

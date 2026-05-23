@@ -54,7 +54,8 @@ a:hover{text-decoration:underline}
   margin-left:auto;
 }
 .expandbtn:hover{color:var(--teal-light);border-color:var(--teal-light)}
-.expandbtn.on{color:var(--teal-light);border-style:solid;border-color:var(--teal-light);background:var(--teal-dim)}
+.expandbtn.on{color:var(--bg);border-style:solid;border-color:var(--teal-light);background:var(--teal-light);box-shadow:0 0 0 1px var(--teal-light) inset}
+.expandbtn.on:hover{background:var(--teal);border-color:var(--teal)}
 .tabbtn.go-back{color:var(--teal-light);background:transparent;border-color:var(--border-dim)}
 .tabbtn.go-back:hover{background:var(--surface)}
 
@@ -63,7 +64,59 @@ a:hover{text-decoration:underline}
 .tabpanel.active{display:block}
 main.expand-all .tabpanel{display:block}
 main.expand-all .tabpanel + .tabpanel{border-top:1px solid var(--border-dim);margin-top:10px}
-@media print{ .tabpanel{display:block!important} .dsub{display:block!important} .tabbar,.dsubtoggle,.progress{display:none!important} }
+/* ── Print stylesheet (Thread 3 polish): paper-friendly PDF export ── */
+@media print {
+  /* Flip to a light theme via CSS variables — saves ink, easier to read on paper */
+  :root {
+    --bg:#ffffff; --bg2:#f8fafc;
+    --surface:#ffffff; --surface2:#f1f5f9; --surface3:#f8fafc;
+    --text:#0f172a; --text-muted:#475569; --text-dim:#64748b;
+    --border:#cbd5e1; --border-dim:#e5e7eb;
+  }
+  body{ background:#fff; color:#0f172a; font-size:11pt; line-height:1.55; }
+  /* Force every panel + sub-view visible, kill animations */
+  .tabpanel, .dsub{ display:block!important; opacity:1!important; transform:none!important; animation:none!important; }
+  /* Drop the viewport-lock — content flows naturally on paper */
+  main, main.on-disorders{ padding-bottom:24px; }
+  #disorders{ height:auto!important; padding-top:18px; display:block!important; overflow:visible!important; }
+  .dxbside, .dxbmain, .dxblist{ max-height:none!important; overflow:visible!important; }
+  .dxbside::after{ display:none!important; }
+  .dxbrowser{ min-height:0!important; }
+  /* Hide all interactive chrome */
+  .topnav, .tabbar, .dsubtoggle, .progress, .hide-toggle{ display:none!important; }
+  #drugrail, #quiz-drawer, [id^="qz-"]{ display:none!important; }
+  .footer{ display:block!important; margin-top:24px; color:#64748b; }
+  /* Restore the section subtitle that's hidden in locked desktop mode */
+  #disorders .seg-sub{ display:block!important; font-size:11pt!important; color:#475569; margin:6px 0 14px 16px; }
+  /* Page-break hygiene — keep diagrams, cards, table rows intact */
+  .diag-block, .dxd-section, .pearl, .horm, .dzcard, .tcard, section.segment{ page-break-inside: avoid; }
+  .seg-head, h2, h3, h4{ page-break-after: avoid; }
+  table{ page-break-inside: auto; }
+  table tr{ page-break-inside: avoid; }
+  /* Make sure dark-themed inline backgrounds don't render as black blocks */
+  .svgdiag-box, .read, .horm, .tcard, .dzcard, .diag-block, .pearl, .dxd-section, .num, .qstat{
+    background: var(--surface); border-color: var(--border); color: var(--text);
+  }
+  .read p, .read li, .dxd-body, .horm .hd, .dzcard .dzlabs, .pearl .pt{ color:#1e293b; }
+  /* Sensible page geometry */
+  @page{ margin: 1.5cm; size: A4; }
+}
+
+/* ── Thread 1 polish: smooth tab + sub-view transitions ── */
+.tabpanel.active{ animation: tabFadeIn 180ms cubic-bezier(0.16,0.86,0.4,1); }
+@keyframes tabFadeIn{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
+.dsub.active{ animation: dsubFadeIn 150ms cubic-bezier(0.16,0.86,0.4,1); }
+@keyframes dsubFadeIn{ from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none} }
+@media (prefers-reduced-motion: reduce){
+  .tabpanel.active, .dsub.active{ animation: none; }
+}
+
+/* ── Thread 1 polish: visible keyboard-focus rings on interactive controls ── */
+.tabbtn:focus-visible, .dsubbtn:focus-visible, .expandbtn:focus-visible,
+.dxbitem:focus-visible, .dxbfilter:focus-visible{
+  outline: 2px solid var(--teal-light);
+  outline-offset: 2px;
+}
 
 /* Disorders tab — sub-view toggle (Browser / EABV loop / Diagnostic drills) */
 .dsubtoggle{display:flex;margin:16px 0 14px;border:1px solid var(--border);border-radius:9px;overflow:hidden;width:fit-content}
