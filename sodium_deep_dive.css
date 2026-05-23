@@ -81,11 +81,15 @@ main.expand-all .dsubtoggle{display:none}
 @media (min-width:900px){
   main.on-disorders:not(.expand-all){padding-bottom:0}
   main:not(.expand-all) #tab-disorders.active #disorders{
-    height:calc(100vh - 64px); padding-top:10px;
+    height:calc(100vh - var(--navh, 64px)); padding-top:10px;
     display:flex; flex-direction:column; overflow:hidden;
   }
-  /* locked desktop mode: trim header chrome — hands ~120px back to the detail pane */
-  main:not(.expand-all) #tab-disorders.active #disorders .seg-sub{display:none}
+  /* locked desktop mode: shrink (don't hide) the section subtitle — keeps the
+     Brenner citation visible per the brenner-nephrology skill rule */
+  main:not(.expand-all) #tab-disorders.active #disorders .seg-sub{
+    font-size:11px; line-height:1.4; color:var(--text-dim);
+    margin:2px 0 6px 16px; max-width:none;
+  }
   main:not(.expand-all) #tab-disorders.active #disorders .seg-head h2{font-size:21px}
   main:not(.expand-all) #tab-disorders.active #disorders .dsubtoggle{margin:8px 0 10px}
   main:not(.expand-all) #tab-disorders.active .dsub.active{

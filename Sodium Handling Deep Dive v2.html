@@ -92,6 +92,15 @@
   padding-right: 14px;
   max-height: 80vh;
   overflow: hidden;
+  position: relative;            /* anchors the bottom-fade affordance */
+}
+.dxbside::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 14px;
+  height: 28px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(30,41,59,0), var(--surface));
 }
 .dxbfilter {
   width: 100%;
@@ -1512,7 +1521,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 1: PCT Transepithelial NaCl Transport — Brenner Fig. 6.5 ===== -->
+  <!-- ===== DIAGRAM: PCT Transepithelial NaCl Transport — Brenner Fig. 6.5 ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 1 · PCT Transepithelial NaCl Transport — Brenner Fig. 6.5 (Panels A + B)</h4>
 
@@ -1762,7 +1771,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 2: Loop of Henle thin limbs ===== -->
+  <!-- ===== DIAGRAM: Loop of Henle thin limbs ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 2 · Loop of Henle Thin Limbs — passive countercurrent single-effect · Brenner Ch. 6</h4>
     <div id="loh-svgdiag" class="svgdiag-box"></div>
@@ -1920,7 +1929,7 @@
   </div>
   <div class="src" style="font-size:11px;color:#475569;margin-top:8px">Source: Brenner &amp; Rector Ch. 6 + Ch. 10.</div>
 
-  <!-- ===== DIAGRAM 3: Vasa Recta + Medullary Washout ===== -->
+  <!-- ===== DIAGRAM: Vasa Recta + Medullary Washout ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 4 · Vasa Recta &amp; Medullary Washout — the gradient is fragile · Brenner Ch. 6 + 14</h4>
     <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The countercurrent multiplier <em>builds</em> the medullary gradient; the vasa recta <em>preserve</em> it by countercurrent exchange. Because the gradient is held by sluggish flow and ongoing NaCl/urea deposition, several insults wash it out — each to a different ceiling. Toggle to see how high the urine can concentrate.</p>
@@ -2079,7 +2088,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 4: TAL Cellular Map ===== -->
+  <!-- ===== DIAGRAM: TAL Cellular Map ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 5 · TAL Cellular Transporter Map — K⁺ recycling &amp; lumen-positive PD · Brenner Ch. 6</h4>
     <div id="tal-svgdiag" class="svgdiag-box"></div>
@@ -2177,7 +2186,7 @@
     <div class="diag-src">Brenner Ch. 6 (Fig. 6.9–6.11). Dashed = paracellular. Loop diuretics block NKCC2 → collapse lumen-positive PD → no paracellular Ca²⁺/Mg²⁺ → hypercalciuria (use in hypercalcaemia). Furosemide-resistant Bartter: check CaSR activating mutation (type V).</div>
   </div>
 
-  <!-- ===== DIAGRAM 5: Macula Densa + TGF Cascade ===== -->
+  <!-- ===== DIAGRAM: Macula Densa + TGF Cascade ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 6 · Macula Densa &amp; Tubuloglomerular Feedback — the four-beat loop · Brenner Ch. 6 + 11</h4>
     <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The macula densa sits at the end of the cortical TAL and senses tubular [NaCl]. A single rise in distal NaCl throttles the same nephron's own glomerulus — feedback that protects against distal salt loss. Toggle the branch to see the high-salt vs low-salt response.</p>
@@ -2333,7 +2342,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 5: DCT ===== -->
+  <!-- ===== DIAGRAM: DCT ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 7 · DCT Transporter Map — NCC, K⁺-sensing, WNK-SPAK cascade · Brenner Ch. 6 Fig. 6.17</h4>
     <div id="dct-svgdiag" class="svgdiag-box"></div>
@@ -2446,7 +2455,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 6: CD ===== -->
+  <!-- ===== DIAGRAM: CD ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 8 · CNT/CCD Transporter Map — ENaC, aldosterone cascade, lumen-negative PD · Brenner Ch. 6 Fig. 6.21</h4>
     <div id="cd-svgdiag" class="svgdiag-box"></div>
@@ -2704,7 +2713,7 @@
 
   </div>
 
-  <!-- ===== DIAGRAM 5: RAAS Cascade ===== -->
+  <!-- ===== DIAGRAM: RAAS Cascade ===== -->
   <div class="horm-sub">
     <div class="horm-sub-h">Diagram 9 · RAAS Cascade — Brenner Ch. 11</div>
     <div class="horm-sub-desc">Renin-angiotensin-aldosterone system: sequential proteolytic activation leading to pan-nephron Na⁺ retention. Understanding the cascade explains where ACE-i, ARBs, and direct renin inhibitors act — and why they each have distinct side-effect profiles.</div>
@@ -2805,7 +2814,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 6: Aldosterone / MR Signaling ===== -->
+  <!-- ===== DIAGRAM: Aldosterone / MR Signaling ===== -->
   <div class="horm-sub">
     <div class="horm-sub-h">Diagram 10 · Aldosterone / Mineralocorticoid Receptor Signaling — Brenner Ch. 12</div>
     <div class="horm-sub-desc">Aldosterone's genomic pathway takes 30–120 min to fully upregulate ENaC. The key insight: the final effector is NEDD4-2 ubiquitin ligase — when phosphorylated by SGK1, it <em>cannot</em> tag ENaC for degradation, so ENaC accumulates on the membrane. Every disease in this pathway (Liddle, AME, Geller) is a defect in one node of this chain.</div>
@@ -2906,7 +2915,7 @@
     </div>
   </div>
 
-  <!-- ===== DIAGRAM 6b: Aldosterone Escape ===== -->
+  <!-- ===== DIAGRAM: Aldosterone Escape ===== -->
   <div class="diag-block">
     <h4>🔬 Diagram 11 · Aldosterone Escape &amp; Pressure Natriuresis — why primary aldo gives HTN <em>without</em> edema · Brenner Ch. 12–13</h4>
     <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">Sustained aldosterone should, on paper, expand ECF without limit. It doesn't — after a few days the kidney <em>escapes</em>. Step through the phases to see how Na⁺ balance is restored at the cost of a higher blood pressure.</p>
@@ -2944,7 +2953,7 @@
     <div class="diag-src">Brenner Ch. 12 (aldosterone escape) + Ch. 13 (pressure natriuresis, edematous disorders). Escape becomes hemodynamically significant at <b>day 3–5</b>; acute aldosterone gives ~24–48 h of antinatriuresis first. K⁺ secretion does <em>not</em> escape — kaliuresis and hypokalemia persist throughout.</div>
   </div>
 
-  <!-- ===== DIAGRAM 7: AVP / AQP2 Insertion ===== -->
+  <!-- ===== DIAGRAM: AVP / AQP2 Insertion ===== -->
   <div class="horm-sub">
     <div class="horm-sub-h">Diagram 12 · AVP / AQP2 Signaling — Brenner Ch. 14</div>
     <div class="horm-sub-desc">Vasopressin (AVP) links the osmosensor (hypothalamus) to the water channel (AQP2) via a cAMP/PKA cascade. This is the molecular basis of urine concentration — and the target of vaptans in SIADH and nephrogenic DI management.</div>
@@ -3216,7 +3225,7 @@
   </div>
 
   <div class="dsub" id="dsub-eabv">
-  <!-- ===== DIAGRAM 8: EABV Feedback Loop ===== -->
+  <!-- ===== DIAGRAM: EABV Feedback Loop ===== -->
   <div class="diag-block">
     <h4>⚗️ Diagram 15 · Effective Arterial Blood Volume (EABV) Feedback Loop — Brenner Ch. 13</h4>
     <p style="font-size:12px;color:#94a3b8;margin:0 0 12px">The kidney senses <em>effective</em> arterial blood volume — not total ECF. In HF, cirrhosis, and nephrotic syndrome, total ECF is <em>expanded</em> (edema) yet EABV is low, driving maximal Na⁺ retention. Understanding this dissociation explains why these patients retain sodium despite being visibly volume-overloaded.</p>
@@ -5132,6 +5141,19 @@ try{
     var TABS=['tour','walk','reg','disorders'];
     var main=document.querySelector('main');
     var tabbar=document.getElementById('tabbar');
+    /* Sync --navh with the actual topnav height — eliminates the 64px magic
+       number that previously caused a stray page scrollbar when the topnav
+       wrapped or rendered taller (zoom, font-scale, narrower viewport). */
+    function syncNavH(){
+      var nav=document.querySelector('.topnav');
+      if(nav) document.documentElement.style.setProperty('--navh', nav.offsetHeight+'px');
+    }
+    syncNavH();
+    if(window.ResizeObserver){
+      try{ new ResizeObserver(syncNavH).observe(document.querySelector('.topnav')); }catch(_){}
+    } else {
+      window.addEventListener('resize',syncNavH);
+    }
     var expandBtn=document.getElementById('expandBtn');
     var curTab='tour';
     function panel(t){ return document.getElementById('tab-'+t); }
