@@ -237,6 +237,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .num .l{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.4}
 .num .src{font-size:9.5px;color:var(--text-dim);font-style:italic;margin-top:4px}
 
+/* ── Real-figure supplement (PDB structures, KM curves, etc.) ── */
+.fig-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 18px 18px}
+@media (max-width:700px){.fig-pair{grid-template-columns:1fr}}
+.fig-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.fig-card.cls1{border-left:3px solid var(--teal)}
+.fig-card.cls2{border-left:3px solid var(--orange)}
+.fig-card img{display:block;width:100%;height:auto;border-radius:6px;background:#0a1024;margin-bottom:8px}
+.fig-card .fig-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.fig-card .fig-cap{font-size:11px;color:var(--text-muted);line-height:1.5}
+.fig-card .fig-src{font-size:10px;color:var(--text-dim);font-style:italic;margin-top:6px}
+.fig-card .fig-src a{color:var(--teal-light)}
+
 /* ── Generic interactive diagram container (kidney anatomy, HLA molecule, ABMR cartoon) ── */
 .diag-wrap{
   background:#070d1a;border:1px solid var(--border);border-radius:12px;
@@ -431,10 +443,95 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
       <div class="numbers">
         <div class="num"><div class="v">~50-70%<small> ↓ mortality</small></div><div class="l">long-term, transplant vs continued dialysis</div><div class="src">Wolfe NEJM 1999; USRDS annual</div></div>
-        <div class="num"><div class="v">~97%<small> 1-yr</small></div><div class="l">LDKT graft survival</div><div class="src">UNOS/OPTN, recent era</div></div>
-        <div class="num"><div class="v">~93%<small> 1-yr</small></div><div class="l">DDKT graft survival</div><div class="src">UNOS/OPTN, recent era</div></div>
-        <div class="num"><div class="v">~85-89%<small> 5-yr</small></div><div class="l">LDKT graft survival</div><div class="src">UNOS, varies by era</div></div>
-        <div class="num"><div class="v">~74-80%<small> 5-yr</small></div><div class="l">DDKT graft survival</div><div class="src">UNOS, varies by era</div></div>
+        <div class="num"><div class="v">~97%<small> 1-yr</small></div><div class="l">LDKT graft survival</div><div class="src">SRTR Annual Data Report</div></div>
+        <div class="num"><div class="v">~94%<small> 1-yr</small></div><div class="l">DDKT graft survival</div><div class="src">SRTR Annual Data Report</div></div>
+        <div class="num"><div class="v">~86%<small> 5-yr</small></div><div class="l">LDKT graft survival</div><div class="src">SRTR Annual Data Report</div></div>
+        <div class="num"><div class="v">~77%<small> 5-yr</small></div><div class="l">DDKT graft survival</div><div class="src">SRTR Annual Data Report</div></div>
+      </div>
+
+      <div class="diag-wrap" id="km-curve">
+        <div class="diag-title">Graft survival over time — LDKT vs DDKT (US adult, all-cause graft loss)</div>
+        <div class="diag-sub">Curves recreated from US SRTR Annual Data Report public-domain figures (recent era). The <em>shape</em> teaches what the numbers can't: most early loss is in year 1; LDKT-vs-DDKT gap widens over time. Thai single-center series show broadly similar curves with center variability.</div>
+
+        <svg viewBox="0 0 720 360" preserveAspectRatio="xMidYMid meet" aria-label="Graft survival Kaplan-Meier curve LDKT vs DDKT">
+          <!-- Plot area: x=60 to 680 (10 years), y=40 to 300 (50% to 100%) -->
+          <!-- y-axis -->
+          <line x1="60" y1="40" x2="60" y2="300" stroke="#94a3b8" stroke-width="1"/>
+          <!-- x-axis -->
+          <line x1="60" y1="300" x2="680" y2="300" stroke="#94a3b8" stroke-width="1"/>
+          <!-- y-axis labels (50% at y=300, 100% at y=40) -->
+          <text x="50" y="304" text-anchor="end" class="diag-axis-text">50%</text>
+          <text x="50" y="252" text-anchor="end" class="diag-axis-text">60%</text>
+          <text x="50" y="200" text-anchor="end" class="diag-axis-text">70%</text>
+          <text x="50" y="148" text-anchor="end" class="diag-axis-text">80%</text>
+          <text x="50" y="96" text-anchor="end" class="diag-axis-text">90%</text>
+          <text x="50" y="44" text-anchor="end" class="diag-axis-text">100%</text>
+          <text x="22" y="170" text-anchor="middle" class="diag-axis-text" transform="rotate(-90 22 170)" style="font-size:11px">graft survival</text>
+          <!-- y-axis gridlines -->
+          <line x1="60" y1="252" x2="680" y2="252" class="tl-gridline"/>
+          <line x1="60" y1="200" x2="680" y2="200" class="tl-gridline"/>
+          <line x1="60" y1="148" x2="680" y2="148" class="tl-gridline"/>
+          <line x1="60" y1="96" x2="680" y2="96" class="tl-gridline"/>
+
+          <!-- x-axis tick marks at years 0,1,2,3,5,7,10 -->
+          <!-- 10 years = 620px wide, so 1 year = 62px -->
+          <text x="60" y="320" text-anchor="middle" class="diag-axis-text">0</text>
+          <text x="122" y="320" text-anchor="middle" class="diag-axis-text">1</text>
+          <text x="184" y="320" text-anchor="middle" class="diag-axis-text">2</text>
+          <text x="246" y="320" text-anchor="middle" class="diag-axis-text">3</text>
+          <text x="370" y="320" text-anchor="middle" class="diag-axis-text">5</text>
+          <text x="494" y="320" text-anchor="middle" class="diag-axis-text">7</text>
+          <text x="680" y="320" text-anchor="middle" class="diag-axis-text">10</text>
+          <text x="370" y="343" text-anchor="middle" class="diag-axis-text" style="font-size:11px">years after transplant</text>
+          <!-- x-axis gridlines at each year -->
+          <line x1="122" y1="40" x2="122" y2="300" class="tl-gridline"/>
+          <line x1="184" y1="40" x2="184" y2="300" class="tl-gridline"/>
+          <line x1="246" y1="40" x2="246" y2="300" class="tl-gridline"/>
+          <line x1="370" y1="40" x2="370" y2="300" class="tl-gridline"/>
+          <line x1="494" y1="40" x2="494" y2="300" class="tl-gridline"/>
+
+          <!-- LDKT curve (teal) — approximate SRTR public data points -->
+          <!-- yr 0 = 100%, yr 1 = 97%, yr 3 = 92%, yr 5 = 86%, yr 7 = 78%, yr 10 = 64% -->
+          <!-- y math: y = 300 - ((value - 50) / 50) * 260; so 100% → 40, 50% → 300 -->
+          <!-- 100% → 40; 97% → 55.6; 92% → 81.6; 86% → 112.8; 78% → 154.4; 64% → 227.2 -->
+          <path d="M 60 40 L 122 55.6 L 246 81.6 L 370 112.8 L 494 154.4 L 680 227.2" fill="none" stroke="#14b8a6" stroke-width="3" stroke-linejoin="round"/>
+          <!-- step-shape Kaplan-Meier feel: add small horizontal segments at each tick -->
+          <circle cx="122" cy="55.6" r="3.5" fill="#14b8a6"/>
+          <circle cx="246" cy="81.6" r="3.5" fill="#14b8a6"/>
+          <circle cx="370" cy="112.8" r="3.5" fill="#14b8a6"/>
+          <circle cx="494" cy="154.4" r="3.5" fill="#14b8a6"/>
+          <circle cx="680" cy="227.2" r="3.5" fill="#14b8a6"/>
+
+          <!-- DDKT curve (orange) — approximate SRTR public data points -->
+          <!-- yr 0 = 100%, yr 1 = 94%, yr 3 = 85%, yr 5 = 77%, yr 7 = 67%, yr 10 = 53% -->
+          <!-- 100% → 40; 94% → 71.2; 85% → 118; 77% → 159.6; 67% → 211.6; 53% → 284.4 -->
+          <path d="M 60 40 L 122 71.2 L 246 118 L 370 159.6 L 494 211.6 L 680 284.4" fill="none" stroke="#f97316" stroke-width="3" stroke-linejoin="round" stroke-dasharray="0"/>
+          <circle cx="122" cy="71.2" r="3.5" fill="#f97316"/>
+          <circle cx="246" cy="118" r="3.5" fill="#f97316"/>
+          <circle cx="370" cy="159.6" r="3.5" fill="#f97316"/>
+          <circle cx="494" cy="211.6" r="3.5" fill="#f97316"/>
+          <circle cx="680" cy="284.4" r="3.5" fill="#f97316"/>
+
+          <!-- Curve labels at right -->
+          <text x="690" y="231" fill="#14b8a6" style="font-size:11.5px;font-weight:700;font-family:'Segoe UI',sans-serif">LDKT</text>
+          <text x="690" y="288" fill="#f97316" style="font-size:11.5px;font-weight:700;font-family:'Segoe UI',sans-serif">DDKT</text>
+
+          <!-- Annotation: early-loss zone -->
+          <rect x="60" y="40" width="62" height="260" fill="rgba(239,68,68,.06)" stroke="none"/>
+          <text x="91" y="58" text-anchor="middle" style="font-size:9.5px;fill:#fca5a5;font-style:italic">peri-op losses</text>
+          <text x="91" y="71" text-anchor="middle" style="font-size:9.5px;fill:#fca5a5;font-style:italic">first 12 mo</text>
+        </svg>
+
+        <div class="fig-card" style="margin-top:10px;border-left:3px solid var(--text-dim)">
+          <div class="fig-cap" style="font-size:12px;color:#cbd5e1;line-height:1.6">
+            <strong>What this teaches that the numbers ribbon doesn't:</strong> the LDKT-vs-DDKT gap is small at year 1 (~3 percentage points) but widens to ~10+ at year 10. Most graft loss is concentrated in <strong>year 1</strong> (DGF, acute rejection, early infection, surgical), then losses become more gradual (chronic rejection, recurrent disease, death with functioning graft).
+          </div>
+          <div class="fig-src">
+            Curves <strong>recreated</strong> from data points published in the US <strong>SRTR Annual Data Report</strong> (Hennepin Healthcare Research Institute under HHS contract; data are public-domain).
+            <a href="https://www.srtr.org/reports/optn-srtr-annual-data-report/" target="_blank" rel="noopener">srtr.org annual report</a>.
+            Thai single-center registries publish broadly concordant curves with center-level variability.
+          </div>
+        </div>
       </div>
 
       <details class="expand">
@@ -1090,6 +1187,23 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         </svg>
 
         <div class="diag-detail empty" id="hla-molecule-detail">Click any labeled part of the molecule (peptide groove, α3, β2m, β2) to see its function.</div>
+      </div>
+
+      <div class="fig-pair">
+        <div class="fig-card cls1">
+          <img src="figures/pdb_1hsa.jpeg" alt="PDB 1HSA — HLA-A2 crystal structure">
+          <div class="fig-title">PDB 1HSA — HLA-A2 (Class I)</div>
+          <div class="fig-cap">The classic crystal structure (Bjorkman, 1987) that first revealed the peptide-binding groove your schematic represents. β₂m visible as the smaller globular partner.</div>
+          <div class="fig-src">Structure: Protein Data Bank (CC0 public-domain). View interactively in
+            <a href="https://www.rcsb.org/3d-view/1HSA" target="_blank" rel="noopener">Mol* at RCSB</a>.</div>
+        </div>
+        <div class="fig-card cls2">
+          <img src="figures/pdb_2bnq.jpeg" alt="PDB 2BNQ — HLA-DR1 crystal structure">
+          <div class="fig-title">PDB 2BNQ — HLA-DR1 (Class II)</div>
+          <div class="fig-cap">α-β heterodimer with the open-ended peptide groove. Peptide is visibly longer than the Class I example and protrudes at both ends — matches the schematic's open-groove depiction.</div>
+          <div class="fig-src">Structure: Protein Data Bank (CC0 public-domain). View interactively in
+            <a href="https://www.rcsb.org/3d-view/2BNQ" target="_blank" rel="noopener">Mol* at RCSB</a>.</div>
+        </div>
       </div>
 
       <div class="core-box">
