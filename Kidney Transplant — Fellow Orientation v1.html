@@ -213,6 +213,30 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .tl-legend .lg-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--text-muted)}
 .tl-legend .lg-sw{width:10px;height:10px;border-radius:2px}
 
+/* ── Compare/cheat table ── */
+.cmp-wrap{margin:0 0 18px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.cmp{width:100%;border-collapse:collapse;font-size:12.5px}
+.cmp th,.cmp td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-dim);vertical-align:top;line-height:1.5;color:#cbd5e1}
+.cmp thead th{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-dim);font-weight:700;background:var(--surface3)}
+.cmp tbody tr:hover td{background:rgba(255,255,255,.025)}
+.cmp tbody tr:last-child td{border-bottom:none}
+.cmp td strong, .cmp th strong{color:var(--text)}
+.cmp td.drug-name{font-weight:700;color:var(--text);font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.2px;white-space:nowrap}
+.cmp .pill{font-size:9.5px;padding:2px 7px;border-radius:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;display:inline-block;font-family:'JetBrains Mono',Menlo,monospace}
+.cmp .pill.ind{background:var(--cyan-dim);color:#67e8f9}
+.cmp .pill.cni{background:var(--purple-dim);color:#c4b5fd}
+.cmp .pill.anti{background:var(--orange-dim);color:#fdba74}
+.cmp .pill.ster{background:var(--yellow-dim);color:#fde047}
+.cmp .pill.prop{background:var(--green-dim);color:#86efac}
+
+/* ── Numbers ribbon (for stat-heavy sections) ── */
+.numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0 0 18px 18px}
+.num{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative;border-top:3px solid var(--teal-light)}
+.num .v{font-size:21px;font-weight:700;color:var(--teal-light);letter-spacing:-.3px;line-height:1.1;font-family:'JetBrains Mono',Menlo,monospace}
+.num .v small{font-size:12px;color:var(--text-muted);font-weight:500;margin-left:2px;font-family:'Segoe UI',sans-serif}
+.num .l{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.4}
+.num .src{font-size:9.5px;color:var(--text-dim);font-style:italic;margin-top:4px}
+
 /* ── Placeholder card ── */
 .stub{
   background:repeating-linear-gradient(45deg,var(--surface) 0 10px,var(--surface2) 10px 20px);
@@ -287,9 +311,54 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <h2>Why transplant beats dialysis</h2>
       </div>
       <p class="sec-intro">
-        The single most important fact for a new fellow: <strong>kidney transplantation extends life and improves it</strong> compared to staying on dialysis. The rest of this guide is operational detail on how to deliver that outcome safely.
+        The single most important fact for a new fellow: <strong>kidney transplantation extends life and improves it</strong> compared to staying on dialysis. Everything else in this guide is operational detail on how to deliver that outcome safely.
       </p>
-      <div class="stub">Content authored in Ship #2 (Overview fill pass).</div>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          For a comparable ESRD patient, <strong>transplantation reduces long-term mortality by ~50-70%</strong> vs. remaining on the dialysis waitlist (Wolfe et al, NEJM 1999 — landmark; USRDS reports confirm year-on-year). Quality of life is higher across virtually every domain. In most healthcare systems, transplant becomes <strong>cost-saving vs. dialysis by year 2-3</strong>.
+        </div>
+      </div>
+
+      <div class="numbers">
+        <div class="num"><div class="v">~50-70%<small> ↓ mortality</small></div><div class="l">long-term, transplant vs continued dialysis</div><div class="src">Wolfe NEJM 1999; USRDS annual</div></div>
+        <div class="num"><div class="v">~97%<small> 1-yr</small></div><div class="l">LDKT graft survival</div><div class="src">UNOS/OPTN, recent era</div></div>
+        <div class="num"><div class="v">~93%<small> 1-yr</small></div><div class="l">DDKT graft survival</div><div class="src">UNOS/OPTN, recent era</div></div>
+        <div class="num"><div class="v">~85-89%<small> 5-yr</small></div><div class="l">LDKT graft survival</div><div class="src">UNOS, varies by era</div></div>
+        <div class="num"><div class="v">~74-80%<small> 5-yr</small></div><div class="l">DDKT graft survival</div><div class="src">UNOS, varies by era</div></div>
+      </div>
+
+      <details class="expand">
+        <summary>Why the mortality benefit — the survival-time argument</summary>
+        <div class="expand-body">
+          <p>The landmark Wolfe 1999 analysis compared <strong>three matched groups</strong> within the USRDS: (1) patients on the deceased-donor waitlist who never received a transplant, (2) those who were transplanted, (3) those who could have been listed but weren't. After accounting for selection, the transplanted group had <strong>~68% lower long-term mortality</strong> than the matched waitlist patients. The benefit accrued over years, not months — and the early post-tx period (first ~3-6 months) actually carries <strong>higher</strong> mortality than dialysis due to surgical and infection risk. The curves cross around month 3-6 post-tx.</p>
+          <p><strong>Practical message:</strong> the patient earns the survival benefit by surviving the early peri-operative period. Picking the right candidate (KDIGO 2020 evaluation) and managing the first 6 months tightly is how that benefit gets realized.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>QoL and return-to-function</summary>
+        <div class="expand-body">
+          <p>Transplant recipients report higher SF-36 scores, fewer functional limitations, fewer hospitalizations, and are far more likely to <strong>return to work</strong> than dialysis-dependent patients. The dietary and fluid liberalization alone is transformative for many. Sexual function, cognitive function, and sleep quality all improve. The flip side: lifelong immunosuppression, surveillance burden, and the psychological weight of graft loss risk.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai context</div>
+          The Thai Transplantation Society explicitly frames KT as the <strong>preferred treatment for ESRD</strong> and emphasizes <strong>pre-emptive living-donor transplantation</strong> as the highest-yield strategy (TTC 2/3). Reason: <em>"the problem of kidney and organ shortage is a major issue in Thailand... although there are many brain-death cases from accidents, the number of organ donors remains low"</em> (Prof. Kriang Tantiwongse, TTC 2). The fellow's job often starts with identifying candidates early enough for a living-donor evaluation.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>A 58-year-old on hemodialysis asks "Why bother with transplant — won't the surgery and rejection drugs just trade one set of problems for another?" What's the 30-second answer?</summary>
+          <div class="ans">"In the first 3-6 months after transplant your risk of dying is actually <strong>slightly higher</strong> than if you stayed on dialysis — that's the surgery and the first wave of infections. But after that, your survival curve crosses dialysis and stays better — roughly <strong>half the long-term mortality</strong>. You'll feel better, eat and drink more freely, and most patients return to work. The trade is real but the math favors transplant unless you're a very high surgical risk or have active cancer/infection."</div>
+        </details>
+      </div>
     </section>
 
     <!-- ──────────────────────────────────────────────────────── -->
@@ -299,9 +368,62 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <h2>Donor types — who can give a kidney</h2>
       </div>
       <p class="sec-intro">
-        Two big buckets: <strong>deceased donors</strong> (DDKT) and <strong>living donors</strong> (LDKT). Within each, sub-categories matter for outcome expectations and surveillance intensity.
+        Two big buckets: <strong>deceased donors</strong> (DDKT) and <strong>living donors</strong> (LDKT). Sub-categories within each matter for outcome expectations, surveillance intensity, and (in Thailand) legal eligibility.
       </p>
-      <div class="stub">Content authored in Ship #2 (Overview fill pass) — DDKT (SCD/ECD/DCD), LDKT (related/unrelated/paired exchange/ABO-incompatible), Thai donor pool specifics from TTC 2.</div>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          <strong>Living donor (LDKT) &gt; Deceased donor (DDKT)</strong> for graft survival and patient survival, at every time point. Living donor kidneys also have <strong>shorter cold ischemia</strong>, <strong>less delayed graft function</strong>, and the ability to <strong>transplant pre-emptively</strong> (before dialysis is needed) — the highest-survival path of all. In Thailand, the deceased-donor pool is small (TTC explicitly cites this as a national bottleneck), so LDKT carries an even larger share of the program than in US/EU.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Deceased donor sub-types — SCD vs ECD vs DCD</summary>
+        <div class="expand-body">
+          <p><strong>SCD — Standard Criteria Donor.</strong> &lt;60 years old, no major comorbidities, donation after brain death (DBD). Default expectation; ~75-80% 5-yr graft survival.</p>
+          <p><strong>ECD — Extended Criteria Donor</strong> (Port et al, <em>Transplantation</em> 2002;74:1281). &gt;60 years OR 50-59 years with ≥2 of: hypertension, terminal creatinine &gt;1.5 mg/dL, CVA as cause of death. Higher risk of delayed graft function and shorter graft half-life vs SCD — but still better than waiting on dialysis for many candidates. Often allocated to older recipients (age-matching).</p>
+          <p><strong>DCD — Donation after Circulatory Death</strong> (formerly "non-heart-beating donation"). Donor declared dead by circulatory criteria after planned withdrawal of life-sustaining treatment. Warm ischemia time is the critical variable. <strong>Higher DGF rate</strong> (~2× DBD) but <strong>comparable 1- and 5-year graft survival in experienced centers</strong>. Uncommon in Thailand (cultural/regulatory factors).</p>
+          <p>OPTN replaced the binary SCD/ECD classification with <strong>KDPI (Kidney Donor Profile Index)</strong> in 2014 — a 0-100% continuous scale combining donor age, history, and function. KDPI 0-20% = highest quality; &gt;85% = highest risk. ECD nomenclature remains in widespread clinical use.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Living donor categories</summary>
+        <div class="expand-body">
+          <p><strong>Genetically related</strong> — sibling, parent, child, niece/nephew, cousin. HLA matching is statistically better; emotional motivation is usually clear.</p>
+          <p><strong>Emotionally related (unrelated)</strong> — spouse, partner, close friend. HLA matching is typically poorer but outcomes remain excellent in the modern IS era (the old "HLA-matching matters above all" view has weakened).</p>
+          <p><strong>Paired kidney exchange (PKE / KPD)</strong> — when a willing donor is HLA- or ABO-incompatible with their intended recipient, they "swap" with another such pair so both pairs get compatible transplants. Programs include simple 2-way swaps up to multi-pair chains (sometimes triggered by an altruistic donor).</p>
+          <p><strong>ABO-incompatible (ABO-i) LDKT</strong> — performed with desensitization (PLEX + IVIG ± rituximab) to lower isohaemagglutinin titres. Outcomes approach ABO-compatible LDKT in experienced centers; rare in Thailand outside major centers.</p>
+          <p><strong>Altruistic / non-directed</strong> — anonymous donor with no specific recipient. Common starting point for paired-exchange chains in the US/UK; legally restricted in Thailand (donor-recipient relationship required).</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 2)</div>
+          <p style="margin:0 0 8px">Eligible Thai living donors fall into specific legal categories (Medical Council 2010 + Thai Red Cross Organ Donation Centre):</p>
+          <ul style="margin:4px 0 8px 18px;line-height:1.55">
+            <li><strong>Genetic relatives</strong> — parents, children, siblings, half-siblings, uncles/aunts, nephews/nieces, cousins (DNA/HLA proof required for extended relatives; TTC 2 p.11 does not explicitly restrict the cousin degree — confirm second-cousin cases with your center's TTC liaison).</li>
+            <li><strong>Legal spouses</strong> — marriage certificate + <strong>≥3 years of marriage</strong>, waived if biological children together.</li>
+            <li><strong>Foreign nationals</strong> — embassy / MFA certification of relationship; DNA/HLA verification at Thai state institution.</li>
+          </ul>
+          <p style="margin:0">Altruistic and unrelated-non-spousal donation is <strong>not permitted</strong> in routine Thai practice — to prevent commercialization. Paired exchange exists but is uncommon.</p>
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Your patient's 64-year-old cousin volunteers as a donor. eGFR 75 mL/min/1.73 m² by CKD-EPI 2009. Per TTC 2, can they donate?</summary>
+          <div class="ans"><strong>Maybe — borderline.</strong> Two issues: (1) <strong>Cousin relationship</strong> is eligible (extended genetic relative) but requires <strong>DNA or HLA proof of relationship</strong>. (2) <strong>eGFR 75</strong> is in the TTC "70-89" window — requires detailed risk-benefit discussion, consideration of age + comorbidities + willingness to follow long-term monitoring. Many programs proceed to <strong>measured GFR</strong> (Iohexol or 99mTc-DTPA) to confirm before clearing.</div>
+        </details>
+        <details>
+          <summary>Why does Thailand have proportionally more LDKT than the US?</summary>
+          <div class="ans">The Thai deceased-donor pool is small. TTC explicitly cites that "although there are many brain-death cases from accidents, the number of organ donors remains low" — driven by cultural/religious factors, family consent dynamics, and lower hospital-based donor identification rates. The living-donor program (TTC 2) is the operational response.</div>
+        </details>
+      </div>
     </section>
 
     <!-- ──────────────────────────────────────────────────────── -->
@@ -412,7 +534,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
           <rect class="tl-band" x="60"  y="375" width="960" height="14" rx="3" fill="#22c55e"
                 data-title="Cardiovascular disease" data-cat="cv" data-window="Continuous, drives mortality with functioning graft"
-                data-body="#1 cause of death with functioning graft. Hypertension (90%+ post-tx, partly CNI-driven), dyslipidemia (CNI + steroids + mTOR), accelerated atherosclerosis. Aggressive BP control (target ≤130/80), statin (KDIGO recommends regardless of LDL in adult KT recipients), aspirin per usual indications, weight + glucose."
+                data-body="#1 cause of death with functioning graft. Hypertension (90%+ post-tx, partly CNI-driven), dyslipidemia (CNI + steroids + mTOR), accelerated atherosclerosis. Aggressive BP control (target ≤130/80), statin (KDIGO Lipid 2013 rec. 2.1.1, grade 2B — adult KT recipients regardless of cholesterol), aspirin per usual indications, weight + glucose."
                 data-jump="Detailed in Round 2 (Long-term)."/>
           <text class="tl-band-label" x="68" y="386" style="font-size:9.5px">Cardiovascular disease (continuous; #1 cause of death with functioning graft)</text>
         </svg>
@@ -450,9 +572,46 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <h2>Immunology in 30 seconds</h2>
       </div>
       <p class="sec-intro">
-        Three sentences to carry into rounds tomorrow. Detail in the HLA and Immunosuppression deep-dive tabs.
+        Three sentences to carry into rounds tomorrow. Detail in the <a href="#hla">HLA</a> and <a href="#is">Immunosuppression</a> deep-dive tabs.
       </p>
-      <div class="stub">Content authored in Ship #2 — HLA recognition → T-cell activation → B-cell DSA in one paragraph each.</div>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible) — the 30-second immunology</div>
+        <div class="core-body">
+          <strong>① Recognition.</strong> The donor kidney expresses <strong>HLA</strong> molecules that look "non-self" to recipient T-cells. T-cells recognize the foreign HLA (directly, on donor APCs) or indirectly (peptides from donor HLA presented by recipient APCs).<br><br>
+          <strong>② Activation.</strong> T-cell activation requires <strong>three signals</strong>: TCR-HLA engagement (signal 1), co-stimulation via CD28-CD80/86 (signal 2), and cytokines IL-2/IL-15 (signal 3). Every maintenance immunosuppressant blocks one of these signals — that's why "triple therapy" works.<br><br>
+          <strong>③ Antibody arm.</strong> B-cells make <strong>donor-specific antibodies (DSA)</strong> — a distinct attack mode. T-cell-mediated rejection (TCMR) is more common and responds well to steroids/rATG. Antibody-mediated rejection (ABMR) is harder to treat and drives most <em>late</em> graft loss.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>How the 3 signals map to the drugs</summary>
+        <div class="expand-body">
+          <ul>
+            <li><strong>Signal 1 (TCR-HLA):</strong> No direct blocker in routine use. <strong>rATG</strong> and <strong>alemtuzumab</strong> deplete T-cells outright, removing the cells that would generate signal 1.</li>
+            <li><strong>Signal 2 (co-stimulation):</strong> Blocked by <strong>belatacept</strong> (CTLA4-Ig fusion → blocks CD28-CD80/86). Without signal 2, signal 1 alone causes T-cell anergy.</li>
+            <li><strong>Signal 3 (IL-2):</strong>
+              <ul>
+                <li><strong>Calcineurin inhibitors (Tac, CsA)</strong> — block IL-2 <em>production</em> upstream by inhibiting NFAT.</li>
+                <li><strong>Basiliximab</strong> — blocks IL-2 <em>receptor</em> (CD25) on already-activated T-cells.</li>
+                <li><strong>mTOR inhibitors (sirolimus, everolimus)</strong> — block IL-2 <em>downstream signaling</em>.</li>
+              </ul>
+            </li>
+            <li><strong>Proliferation (cell-cycle):</strong> <strong>MMF / azathioprine</strong> block lymphocyte DNA synthesis (purine pathway).</li>
+            <li><strong>Generalized:</strong> <strong>Steroids</strong> — broad anti-inflammatory + lymphocyte effects.</li>
+            <li><strong>B-cell / antibody:</strong> <strong>Rituximab</strong> (CD20+ B-cells), <strong>plasmapheresis</strong> (removes circulating Ab), <strong>IVIG</strong> (modulates), <strong>bortezomib</strong> (plasma cell), <strong>eculizumab</strong> (terminal complement).</li>
+          </ul>
+          <p>The deep dive on each drug lives in the <a href="#is">Immunosuppression tab</a> with a shared T-cell signaling diagram that highlights where each drug blocks.</p>
+        </div>
+      </details>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Why does standard maintenance use THREE drugs (tacrolimus + MMF + prednisone) instead of one strong one?</summary>
+          <div class="ans">Because T-cell activation requires <strong>multiple sequential signals</strong>, and a single drug blocking one signal can be overridden by the others or by drug-level dips. Hitting <strong>three different points</strong> (CNI = signal 3 production; MMF = proliferation; steroid = broad) lets each drug be used at a lower dose with fewer side effects, and provides redundancy. Same principle as combination antiretrovirals or combination chemotherapy.</div>
+        </details>
+      </div>
     </section>
 
     <!-- ──────────────────────────────────────────────────────── -->
@@ -462,9 +621,101 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <h2>Drug cheat sheet</h2>
       </div>
       <p class="sec-intro">
-        Every transplant patient's medication list looks roughly the same. Here's the 30-second version; full drug detail in the Immunosuppression tab.
+        Every standard-risk transplant patient's medication list looks roughly like the table below. Use this as the "what is this patient on?" reference; full mechanism + dosing detail is in the <a href="#is">Immunosuppression</a> tab.
       </p>
-      <div class="stub">Content authored in Ship #2 — one-line table for Tac/MMF/Pred + induction agents + prophylaxis.</div>
+
+      <div class="core-box">
+        <div class="core-label">The default modern regimen</div>
+        <div class="core-body">
+          <strong>Induction</strong> (one-time, perioperative) + <strong>triple maintenance</strong> (Tac + MMF + steroid) + <strong>prophylaxis</strong> (CMV + PJP + thrush) for the first months. Tweaks for sensitized / high-immunologic-risk patients (rATG instead of basiliximab; tighter Tac trough; longer prophylaxis) and for older / lower-risk patients (often steroid-minimization protocols).
+        </div>
+      </div>
+
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead>
+            <tr><th>Drug</th><th>Class</th><th>Typical dose</th><th>Duration</th><th>Watch for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="drug-name">Basiliximab</td>
+              <td><span class="pill ind">Induction</span></td>
+              <td>20 mg IV, day 0 &amp; day 4</td>
+              <td>2 doses only</td>
+              <td>Usually well tolerated; non-depleting</td>
+            </tr>
+            <tr>
+              <td class="drug-name">rATG (Thymoglobulin)</td>
+              <td><span class="pill ind">Induction</span></td>
+              <td>1.5 mg/kg/day × 3-7 days (cumulative ~3-6 mg/kg)</td>
+              <td>3-7 day course</td>
+              <td>Cytokine release (premedicate steroid+APAP+antihistamine); leukopenia; thrombocytopenia</td>
+            </tr>
+            <tr>
+              <td class="drug-name">Tacrolimus</td>
+              <td><span class="pill cni">CNI (maintenance)</span></td>
+              <td>0.05-0.1 mg/kg PO q12h (≈0.1-0.2 mg/kg/day total), titrate to trough 8-12 (m0-3), then 5-8 ng/mL</td>
+              <td>Lifelong</td>
+              <td>Nephrotoxicity, NODAT, tremor, hyperK, ↓Mg; CYP3A4 interactions</td>
+            </tr>
+            <tr>
+              <td class="drug-name">Mycophenolate (MMF)</td>
+              <td><span class="pill anti">Antimetabolite</span></td>
+              <td>1000 mg PO BID (lower if GI/leukopenia)</td>
+              <td>Lifelong</td>
+              <td>GI (diarrhea), leukopenia; teratogenic (avoid in pregnancy)</td>
+            </tr>
+            <tr>
+              <td class="drug-name">Prednisone</td>
+              <td><span class="pill ster">Steroid</span></td>
+              <td>IV methylpred 125-250 mg intra-op (250-500 mg if high immunologic risk) → taper to 20 mg by week 1 → 5 mg by month 3-6</td>
+              <td>Lifelong (some programs steroid-withdraw at ~3 mo)</td>
+              <td>NODAT, weight, bone, infection, mood</td>
+            </tr>
+            <tr>
+              <td class="drug-name">Valganciclovir</td>
+              <td><span class="pill prop">CMV prophylaxis</span></td>
+              <td>900 mg qd (CrCl ≥60) → 450 mg qd (40-59) → 450 mg qod (25-39) → 450 mg twice wk (10-24)</td>
+              <td>3-6 months (D+/R− gets longer)</td>
+              <td>Leukopenia, neutropenia; renal adjust mandatory</td>
+            </tr>
+            <tr>
+              <td class="drug-name">TMP-SMX</td>
+              <td><span class="pill prop">PJP prophylaxis</span></td>
+              <td>SS daily (or DS thrice weekly)</td>
+              <td>6-12 months</td>
+              <td>Hyperkalaemia, marrow, rash; also covers nocardia + some UTIs</td>
+            </tr>
+            <tr>
+              <td class="drug-name">Nystatin / fluconazole</td>
+              <td><span class="pill prop">Thrush prophylaxis</span></td>
+              <td>Nystatin S&amp;S QID — or fluconazole 200 mg PO daily</td>
+              <td>1-3 months</td>
+              <td>Fluconazole ↑↑ Tac levels (avoid if possible; or pre-empt with Tac dose reduction)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 4 / typical Siriraj protocol)</div>
+          Most Thai centers default to <strong>basiliximab induction</strong> + <strong>tacrolimus + MMF + prednisone</strong> maintenance, reserving rATG for sensitized / high-immunologic-risk recipients (cost + leukopenia risk). <strong>Belatacept is not widely available</strong> in Thailand. CMV/PJP prophylaxis durations follow KDIGO with center-specific tweaks. <em>Exact TTC 4 dosing tables will be quoted verbatim in the Immunosuppression deep dive (Ship #4).</em>
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>A KT patient at month 4 has trough Tac 9, MMF 1g BID, pred 5 mg daily, valganciclovir 450 mg daily, TMP-SMX SS daily. Anything unusual?</summary>
+          <div class="ans"><strong>Nothing unusual — this is the standard regimen.</strong> Valganciclovir is being renal-adjusted (450 mg suggests eGFR ~40-60). Tac trough is at-target for month 4 (target 5-8 long-term; 8-12 early; 9 is just above the steady-state target — would consider dose-down slightly if stable). Watch for cumulative TMP-SMX hyperK and valganciclovir-induced leukopenia at follow-up.</div>
+        </details>
+        <details>
+          <summary>The patient is admitted with sinusitis and the ENT team wants to start clarithromycin. Your response?</summary>
+          <div class="ans"><strong>Don't.</strong> Clarithromycin is a strong CYP3A4 inhibitor — it will <strong>spike Tac levels</strong> within 2-3 days, risking acute nephrotoxicity. Suggest <strong>azithromycin</strong> instead (negligible CYP3A4 effect) or a non-macrolide. If the macrolide is essential, hold/reduce Tac and check a trough in 3-5 days.</div>
+        </details>
+      </div>
     </section>
 
   </section>

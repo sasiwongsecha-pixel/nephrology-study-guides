@@ -8,6 +8,26 @@
 
 ## Where we are
 
+**BATCH 3 — Ship #2 Overview fill + critic ✅ complete**
+
+### Ship #2 delivered
+- All 4 Overview stubs filled (Why / Donors / Immuno-in-30s / Drug cheat sheet)
+- Added cheat-table CSS + numbers-ribbon CSS to the style block
+- Drug cheat sheet: 8-row table (basiliximab, rATG, Tac, MMF, pred, valganciclovir, TMP-SMX, antifungal) with class pills, doses, durations, side effects
+- Numbers ribbon in Why-transplant section (5 graft/patient survival stats)
+- 7 critic findings applied:
+  - "First cousins" → hedged to "cousins" per TTC 2 actual wording
+  - ECD definition → added Port 2002 citation + KDPI 2014 supersession note
+  - Tacrolimus dose → unambiguous "0.05-0.1 mg/kg q12h (≈0.1-0.2 mg/kg/day total)" — was previously ambiguous
+  - Valganciclovir → renal dosing ladder added (900 qd → 450 qd → 450 qod → 450 twice wk by CrCl)
+  - Methylpred intra-op → range corrected (125-250 mg standard, 250-500 mg high-risk)
+  - Belatacept signal 1 attribution → corrected (purely signal 2)
+  - DCD outcomes → hedged with "higher DGF rate (~2× DBD), comparable graft survival"
+  - KDIGO Lipid → added year/grade (2013, 2B)
+- 3 nit findings deferred (SRTR 2023 attribution, Sharif NODAT citation, "1-yr UNOS recent era" label)
+
+---
+
 **BATCH 2 — NotebookLM briefings + Ship #1 skeleton ✅ complete**
 
 ### Ship #1 delivered
