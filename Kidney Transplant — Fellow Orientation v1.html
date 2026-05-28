@@ -132,17 +132,31 @@ section.tab-section + section.tab-section{margin-top:8px}
 details.expand{
   background:var(--surface);border:1px solid var(--border);border-radius:0 10px 10px 0;
   padding:0;margin:0 0 8px 18px;border-left:3px solid var(--border);
-  transition:border-color .15s;
+  transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
 }
-details.expand[open]{border-left-color:var(--teal)}
+details.expand[open]{
+  border-left-color:var(--teal);
+  background-color: rgba(20,184,166,0.05);
+}
 details.expand > summary{
   list-style:none;cursor:pointer;padding:11px 18px;font-size:11.5px;color:var(--text-muted);
   letter-spacing:.4px;font-weight:600;display:flex;align-items:center;gap:8px;user-select:none;
+  transition: color .2s ease-in-out;
 }
 details.expand > summary::-webkit-details-marker{display:none}
-details.expand > summary::before{content:"▸";color:var(--text-dim);transition:transform .15s;display:inline-block}
+details.expand > summary::before{
+  content:"▸";color:var(--text-dim);
+  transition: transform .2s ease-in-out, color .2s ease-in-out;
+  display:inline-block;
+}
 details.expand[open] > summary::before{transform:rotate(90deg);color:var(--teal-light)}
+details.expand[open] > summary{color:var(--text)}
 details.expand > summary:hover{color:var(--text)}
+@media (prefers-reduced-motion: reduce){
+  details.expand,
+  details.expand > summary,
+  details.expand > summary::before{ transition: none; }
+}
 details.expand .expand-body{padding:0 18px 16px;font-size:13.5px;color:#cbd5e1;line-height:1.65}
 details.expand .expand-body p{margin-bottom:10px}
 details.expand .expand-body strong{color:var(--text)}
@@ -159,7 +173,24 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .thai-callout .flag{font-size:18px;flex-shrink:0;line-height:1}
 .thai-callout .tc-body{font-size:13px;color:#cbd5e1;line-height:1.6}
 .thai-callout .tc-body strong{color:#fca5a5;font-weight:700}
-.thai-callout .tc-label{font-size:9.5px;color:#fca5a5;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.thai-callout .tc-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:9.5px;color:#fca5a5;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;
+  margin-bottom:6px;
+  padding:3px 10px 3px 4px;
+  background:rgba(239,68,68,.12);
+  border:1px solid rgba(239,68,68,.4);
+  border-radius:11px;
+}
+.thai-callout .tc-label::before{
+  content:"TH";
+  font-family:'JetBrains Mono','SF Mono',Menlo,monospace;
+  font-size:8.5px;font-weight:800;letter-spacing:.6px;
+  color:#fecaca;
+  background:rgba(239,68,68,.3);
+  padding:1.5px 5px;
+  border-radius:6px;
+}
 
 /* ── "Check yourself" Q+A ── */
 .check{
@@ -294,6 +325,30 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .diag-hotspot{cursor:pointer;transition:opacity .15s,filter .15s}
 .diag-hotspot:hover{filter:brightness(1.3) drop-shadow(0 0 5px currentColor)}
 .diag-hotspot.active{filter:brightness(1.45) drop-shadow(0 0 6px currentColor)}
+
+/* ── U1+2: pulse marker on anatomy anastomosis indicators ── */
+@keyframes hotspot-pulse{
+  0%,100%{ opacity:.6; transform:scale(1); transform-origin:center; }
+  50%    { opacity:1;  transform:scale(1.15); transform-origin:center; }
+}
+.hotspot-marker{
+  animation: hotspot-pulse 2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce){
+  .hotspot-marker{ animation: none; }
+}
+
+/* ── U1+2: timeline row-hover spotlight ── */
+.timeline-wrap svg:hover .tl-band{ opacity:.35; transition: opacity .2s ease-out; }
+.timeline-wrap svg:hover .tl-band:hover{ opacity:1; filter: brightness(1.35) drop-shadow(0 0 6px currentColor); }
+.timeline-wrap svg:hover .tl-band-label{ opacity:.35; transition: opacity .2s ease-out; }
+@media (prefers-reduced-motion: reduce){
+  .timeline-wrap svg:hover .tl-band,
+  .timeline-wrap svg:hover .tl-band-label{ transition:none; }
+}
 
 .diag-label{font-size:10.5px;font-weight:600;pointer-events:none;fill:var(--text-muted)}
 .diag-label.dark{fill:#0a1024}
@@ -576,6 +631,15 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
       </details>
 
       <details class="expand">
+        <summary>Modern era — has the survival benefit shifted since 1999?</summary>
+        <div class="expand-body">
+          <p>The Wolfe analysis used early-to-mid 1990s data — before <strong>routine induction</strong> with anti-IL-2R antibodies or rATG, before <strong>universal CMV prophylaxis</strong> (valganciclovir era), before <strong>routine PJP prophylaxis</strong>, and before <strong>tacrolimus replaced cyclosporine</strong> as the default CNI. The early peri-operative mortality penalty in modern series is substantially smaller. Recent registry analyses (USRDS / SRTR Annual Data Reports, Hariharan and others) show that <strong>the survival crossover point — where transplanted patients gain a mortality advantage over comparable waitlist patients — has shifted earlier</strong>, from approximately <strong>3-6 months</strong> in the Wolfe cohort toward <strong>weeks-to-3 months</strong> in contemporary recipients.</p>
+          <p>That doesn't mean transplantation is risk-free in the perioperative window — surgical complications, DGF, induction-related cytopenias, and early opportunistic infections still drive measurable mortality in the first weeks. It means the absolute risk of early loss is lower, and recipients who survive the first weeks accrue the survival benefit sooner. Practically: the case for living-donor transplantation (and pre-emptive transplantation, before dialysis is initiated) is stronger than ever, because the earliest losses have been pushed down.</p>
+          <p><em>Caveat: the modern-vs-Wolfe comparison is based on different cohorts at different eras with different practices; direct head-to-head data don't exist. The directional conclusion is robust; the exact "weeks-to-3 months" figure is approximate.</em></p>
+        </div>
+      </details>
+
+      <details class="expand">
         <summary>QoL and return-to-function</summary>
         <div class="expand-body">
           <p>Transplant recipients report higher SF-36 scores, fewer functional limitations, fewer hospitalizations, and are far more likely to <strong>return to work</strong> than dialysis-dependent patients. The dietary and fluid liberalization alone is transformative for many. Sexual function, cognitive function, and sleep quality all improve. The flip side: lifelong immunosuppression, surveillance burden, and the psychological weight of graft loss risk.</p>
@@ -652,7 +716,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
           <!-- Renal artery anastomosis (red to red) -->
           <path d="M 408 280 Q 425 285 450 290" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="429" cy="287" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
+          <circle class="hotspot-marker" cx="429" cy="287" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
           <text x="380" y="295" text-anchor="end" class="diag-axis-text">art. anastomosis</text>
           <rect class="diag-hotspot" x="415" y="270" width="36" height="32" rx="6" fill="transparent" stroke="transparent"
             data-id="artery"
@@ -662,7 +726,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
           <!-- Renal vein anastomosis -->
           <path d="M 426 282 Q 442 290 450 295" fill="none" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="438" cy="289" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
+          <circle class="hotspot-marker" cx="438" cy="289" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
           <rect class="diag-hotspot" x="430" y="278" width="32" height="28" rx="6" fill="transparent" stroke="transparent"
             data-id="vein"
             data-title="Renal vein anastomosis — end-to-side to external iliac vein"
@@ -678,7 +742,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <text x="350" y="430" text-anchor="middle" fill="#dbeafe" class="diag-label dark" style="font-size:10px">bladder</text>
 
           <!-- Ureteric reimplantation (Lich-Gregoir) -->
-          <circle cx="406" cy="423" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
+          <circle class="hotspot-marker" cx="406" cy="423" r="9" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="3 2"/>
           <rect class="diag-hotspot" x="395" y="412" width="26" height="24" rx="6" fill="transparent" stroke="transparent"
             data-id="ureter"
             data-title="Ureteric reimplantation (Lich-Gregoir / Politano-Leadbetter)"
