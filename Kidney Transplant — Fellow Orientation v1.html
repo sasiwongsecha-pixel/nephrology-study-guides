@@ -237,6 +237,39 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .num .l{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.4}
 .num .src{font-size:9.5px;color:var(--text-dim);font-style:italic;margin-top:4px}
 
+/* ── T-cell signaling widget (IS tab signature) ── */
+.tsig-wrap{background:#070d1a;border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:6px 0 18px 18px}
+.tsig-wrap .ts-title{font-size:11px;color:var(--text-muted);letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.tsig-wrap .ts-sub{font-size:12px;color:var(--text-dim);margin-bottom:14px}
+.tsig-wrap svg{display:block;width:100%;height:auto}
+
+.drug-toggles{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 10px}
+.drug-tog{
+  font-size:11.5px;color:var(--text-muted);padding:6px 12px;border-radius:14px;
+  cursor:pointer;border:1px solid var(--border);background:var(--surface);
+  font-weight:700;font-family:'JetBrains Mono','SF Mono',Menlo,monospace;letter-spacing:.3px;
+  transition:.12s;
+}
+.drug-tog:hover{color:var(--text);background:var(--surface2)}
+.drug-tog.active{color:var(--bg);background:var(--purple);border-color:var(--purple)}
+.drug-tog.active.cni{background:#a78bfa;border-color:#a78bfa}
+.drug-tog.active.ind{background:#06b6d4;border-color:#06b6d4}
+.drug-tog.active.mtor{background:#22c55e;border-color:#22c55e}
+.drug-tog.active.anti{background:#f97316;border-color:#f97316}
+.drug-tog.active.ster{background:#eab308;border-color:#eab308}
+.drug-tog.active.bela{background:#ef4444;border-color:#ef4444}
+
+.tsig-blockade{display:none}
+.tsig-blockade.active{display:inline}
+
+.tsig-explain{
+  margin-top:10px;background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:14px 18px;min-height:60px;
+  border-left:3px solid var(--text-dim);transition:border-color .15s;font-size:13px;color:#cbd5e1;line-height:1.6;
+}
+.tsig-explain strong{color:var(--text)}
+.tsig-explain .ts-drug{font-weight:700;color:var(--text);font-family:'JetBrains Mono',Menlo,monospace}
+
 /* ── Real-figure supplement (PDB structures, KM curves, etc.) ── */
 .fig-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 18px 18px}
 @media (max-width:700px){.fig-pair{grid-template-columns:1fr}}
@@ -1758,14 +1791,253 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
     <section id="is-induction" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 01</span><h2>Induction — basiliximab, rATG, alemtuzumab</h2></div>
-      <p class="sec-intro">Authored in Ship #4.</p>
-      <div class="stub">Content: when each is preferred, mechanism, dosing, side effects, 🇹🇭 Thai practice (basiliximab default; rATG for sensitized).</div>
+      <p class="sec-intro">
+        One short course of an antibody given peri-operatively to push T-cell signaling further down before the maintenance triple kicks in. The choice between <strong>non-depleting</strong> (basiliximab) and <strong>depleting</strong> (rATG, alemtuzumab) is driven by immunologic risk.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          <strong>Standard-risk recipient → Basiliximab</strong> (2 doses, no cytokine release, simple). <strong>High-risk recipient (sensitized, repeat tx, ABO-incompatible, DGF-prone) → rATG</strong> (depletion, lower acute rejection rate, more infection/leukopenia). Alemtuzumab is used selectively at some US centers — uncommon in Thailand.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Basiliximab — mechanism, dose, side effects</summary>
+        <div class="expand-body">
+          <p><strong>Mechanism:</strong> chimeric mAb against <strong>CD25 (IL-2Rα chain)</strong>. Blocks IL-2 binding to already-activated T-cells — interrupts signal 3 at the receptor. Non-depleting.</p>
+          <p><strong>Dose:</strong> 20 mg IV at day 0 (before reperfusion) and day 4. That's it.</p>
+          <p><strong>Side effects:</strong> remarkably few. No cytokine release. Anaphylaxis rare. Some increased risk of infection by year 1 vs no-induction.</p>
+          <p><strong>When you'd avoid:</strong> the high-risk situations where you really want T-cell depletion instead — sensitized cPRA &gt; 20-30%, repeat tx, ABO-i, anticipated DGF.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>rATG (Thymoglobulin) — mechanism, dose, side effects</summary>
+        <div class="expand-body">
+          <p><strong>Mechanism:</strong> polyclonal rabbit antibody against multiple human T-cell surface antigens. Causes <strong>profound, prolonged T-cell depletion</strong> (months to a year). Also depletes some B-cells and monocytes.</p>
+          <p><strong>Dose:</strong> 1.5 mg/kg IV daily × 3-7 days. Cumulative target <strong>3-6 mg/kg</strong> (some programs go higher for very high-risk). Adjust for body weight (lean / ideal) — over-dosing common in obesity.</p>
+          <p><strong>Premedicate first dose:</strong> IV steroid (often methylpred 100-250 mg), acetaminophen, diphenhydramine. Prevents <strong>cytokine release syndrome</strong> — fevers, chills, hypotension, dyspnea on first infusion.</p>
+          <p><strong>Side effects:</strong> cytokine release first dose; leukopenia and thrombocytopenia (monitor CBC daily during course); serum sickness rare. Late: increased infection risk (especially CMV — give 6 mo valganciclovir), PTLD risk increased modestly.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Alemtuzumab — mechanism, dose, side effects</summary>
+        <div class="expand-body">
+          <p><strong>Mechanism:</strong> humanized mAb against <strong>CD52</strong> — expressed on T-cells, B-cells, NK, monocytes, dendritic cells. Profound, prolonged depletion of all of them.</p>
+          <p><strong>Dose:</strong> single 30 mg IV (or 2 × 15 mg) at induction. Some centers use multiple smaller doses.</p>
+          <p><strong>Side effects:</strong> prolonged lymphopenia (often &gt; 6 months) → increased opportunistic infection risk. Used selectively in the US; off-label for KT in many countries; rare in Thai practice.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 4)</div>
+          <strong>Basiliximab is the default</strong> induction agent in Thailand for standard-risk recipients (cost-effective, no peri-operative complications, no leukopenia issues for the post-tx CMV/BK monitoring). <strong>rATG</strong> is reserved for sensitized patients, repeat transplants, ABO-incompatible recipients, and centers with high DGF rates. Alemtuzumab is rarely used. Most Thai centers premedicate rATG with IV steroid + paracetamol + chlorpheniramine.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Sensitized patient (cPRA 80%) receiving DDKT. Surgeon asks which induction. Why rATG over basiliximab?</summary>
+          <div class="ans">rATG <strong>depletes</strong> the T-cells (and partially B-cells) that would drive both T-cell-mediated and antibody-mediated rejection in the early post-tx period — the highest-risk window for a sensitized recipient. Basiliximab only blocks IL-2R reception; it doesn't address pre-formed alloreactive T-cells or the heightened risk of early ABMR. Trade-off: more leukopenia, longer CMV/PJP prophylaxis, slightly higher PTLD risk — accepted for the rejection-prevention benefit.</div>
+        </details>
+      </div>
     </section>
 
     <section id="is-maintenance" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 02</span><h2>Maintenance — the "triple therapy" rationale</h2></div>
-      <p class="sec-intro">Authored in Ship #4 (signature widget — T-cell signaling diagram with each drug's blockade highlighted).</p>
-      <div class="stub">Widget + content authored in Ship #4.</div>
+      <p class="sec-intro">
+        Why three drugs instead of one strong one? Because T-cell activation needs <strong>three sequential signals</strong>, and blocking three different points lets each drug be used at a lower dose with fewer side effects — plus redundancy if a level dips. The widget below shows where each maintenance class blocks.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          <strong>Standard modern maintenance = CNI (tacrolimus) + antimetabolite (MMF) + corticosteroid (prednisone).</strong> Each blocks a different step in T-cell activation. Substitutions are made for specific situations: <strong>cyclosporine</strong> instead of tac (for tac-intolerance, cost), <strong>azathioprine</strong> instead of MMF (pregnancy), <strong>mTOR inhibitor</strong> in place of CNI (CNI-sparing for nephrotoxicity, post-skin-cancer), <strong>belatacept</strong> in place of CNI (US programs, limited availability in Thailand). Steroid withdrawal is common at month 3-6 in low-immunologic-risk patients.
+        </div>
+      </div>
+
+      <div class="tsig-wrap" id="tsig-widget">
+        <div class="ts-title">Click a drug → see where it blocks the T-cell activation pathway</div>
+        <div class="ts-sub">Three signals are required to activate a T-cell. Each maintenance class hits a different point. Depleting agents (rATG, alemtuzumab) remove T-cells entirely instead of blocking signals.</div>
+
+        <svg viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet" aria-label="T-cell signaling pathway with drug blockade points">
+          <!-- APC on left -->
+          <rect x="60" y="100" width="200" height="280" rx="40" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+          <text x="160" y="92" text-anchor="middle" style="font-size:12px;fill:#60a5fa;font-weight:700">APC (dendritic cell)</text>
+
+          <!-- HLA-peptide on APC right edge -->
+          <rect x="245" y="150" width="20" height="35" rx="4" fill="#0d9488"/>
+          <line x1="248" y1="150" x2="262" y2="150" stroke="#fbbf24" stroke-width="3"/>
+          <text x="225" y="175" text-anchor="end" style="font-size:10px;fill:#67e8f9">HLA+peptide</text>
+
+          <!-- CD80/86 on APC right edge -->
+          <rect x="245" y="220" width="20" height="35" rx="4" fill="#c2410c"/>
+          <text x="225" y="245" text-anchor="end" style="font-size:10px;fill:#fdba74">CD80/86</text>
+
+          <!-- T-cell on right -->
+          <rect x="540" y="80" width="220" height="320" rx="50" fill="#1a2540" stroke="#94a3b8" stroke-width="2"/>
+          <text x="650" y="72" text-anchor="middle" style="font-size:12px;fill:#cbd5e1;font-weight:700">T-cell (recipient)</text>
+
+          <!-- TCR on T-cell left edge -->
+          <rect x="535" y="150" width="20" height="35" rx="4" fill="#a855f7"/>
+          <text x="565" y="175" style="font-size:10px;fill:#c4b5fd">TCR/CD3</text>
+
+          <!-- CD28 on T-cell left edge -->
+          <rect x="535" y="220" width="20" height="35" rx="4" fill="#fde047"/>
+          <text x="565" y="245" style="font-size:10px;fill:#fbbf24">CD28</text>
+
+          <!-- CD25 (IL-2R) on T-cell left edge -->
+          <rect x="535" y="290" width="20" height="35" rx="4" fill="#22c55e"/>
+          <text x="565" y="315" style="font-size:10px;fill:#86efac">CD25 (IL-2R)</text>
+
+          <!-- Signal 1 arrow: HLA+peptide ↔ TCR -->
+          <line x1="265" y1="167" x2="535" y2="167" stroke="#67e8f9" stroke-width="2.5" stroke-dasharray="6 3"/>
+          <text x="400" y="158" text-anchor="middle" style="font-size:11px;fill:#67e8f9;font-weight:700">Signal 1 (TCR engagement)</text>
+
+          <!-- Signal 2 arrow: CD80/86 ↔ CD28 -->
+          <line x1="265" y1="237" x2="535" y2="237" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="6 3"/>
+          <text x="400" y="228" text-anchor="middle" style="font-size:11px;fill:#fbbf24;font-weight:700">Signal 2 (co-stimulation)</text>
+
+          <!-- Signal 3 arrow: IL-2 autocrine loop -->
+          <path d="M 580 290 Q 540 380 600 380 L 660 380 Q 720 380 720 320 Q 720 290 690 290" fill="none" stroke="#86efac" stroke-width="2.5" stroke-dasharray="6 3"/>
+          <text x="660" y="395" text-anchor="middle" style="font-size:11px;fill:#86efac;font-weight:700">Signal 3 (IL-2 autocrine)</text>
+
+          <!-- Intracellular cascade in T-cell -->
+          <!-- Calcineurin (target of Tac/CsA) -->
+          <rect x="585" y="175" width="60" height="22" rx="4" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="615" y="190" text-anchor="middle" style="font-size:10px;fill:#c4b5fd;font-weight:700">calcineurin</text>
+          <line x1="615" y1="180" x2="615" y2="167" stroke="#94a3b8" stroke-width="1"/>
+
+          <!-- NFAT -->
+          <line x1="615" y1="197" x2="615" y2="210" stroke="#94a3b8" stroke-width="1"/>
+          <rect x="595" y="210" width="40" height="18" rx="3" fill="#1e293b" stroke="#94a3b8" stroke-width="1"/>
+          <text x="615" y="222" text-anchor="middle" style="font-size:9px;fill:#cbd5e1;font-weight:700">NFAT</text>
+
+          <!-- mTOR (target of sirolimus/everolimus) -->
+          <line x1="720" y1="297" x2="720" y2="265" stroke="#94a3b8" stroke-width="1"/>
+          <rect x="690" y="245" width="60" height="22" rx="4" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+          <text x="720" y="259" text-anchor="middle" style="font-size:10px;fill:#86efac;font-weight:700">mTOR</text>
+
+          <!-- Nucleus (DNA synthesis — target of MMF/AZA) -->
+          <ellipse cx="650" cy="350" rx="55" ry="22" fill="#0f1d33" stroke="#fb923c" stroke-width="1.5"/>
+          <text x="650" y="354" text-anchor="middle" style="font-size:10px;fill:#fdba74;font-weight:700">nucleus / DNA</text>
+
+          <!-- Arrow from NFAT to nucleus -->
+          <line x1="615" y1="228" x2="630" y2="328" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="595" y="280" style="font-size:9px;fill:#94a3b8">→ IL-2 mRNA</text>
+
+          <!-- Arrow from mTOR to proliferation -->
+          <line x1="720" y1="267" x2="700" y2="333" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="705" y="300" style="font-size:9px;fill:#94a3b8">→ proliferation</text>
+
+          <!-- ═════════════ BLOCKADE MARKERS ═════════════ -->
+          <!-- Tacrolimus / Cyclosporine → calcineurin -->
+          <g class="tsig-blockade" data-drug="tac">
+            <circle cx="615" cy="186" r="14" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="605" y1="176" x2="625" y2="196" stroke="#ef4444" stroke-width="3"/>
+            <line x1="605" y1="196" x2="625" y2="176" stroke="#ef4444" stroke-width="3"/>
+          </g>
+          <g class="tsig-blockade" data-drug="csa">
+            <circle cx="615" cy="186" r="14" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="605" y1="176" x2="625" y2="196" stroke="#ef4444" stroke-width="3"/>
+            <line x1="605" y1="196" x2="625" y2="176" stroke="#ef4444" stroke-width="3"/>
+          </g>
+
+          <!-- Basiliximab → CD25 (IL-2R) -->
+          <g class="tsig-blockade" data-drug="bas">
+            <circle cx="545" cy="307" r="14" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="535" y1="297" x2="555" y2="317" stroke="#ef4444" stroke-width="3"/>
+            <line x1="535" y1="317" x2="555" y2="297" stroke="#ef4444" stroke-width="3"/>
+          </g>
+
+          <!-- mTOR inhibitors -->
+          <g class="tsig-blockade" data-drug="mtor">
+            <circle cx="720" cy="256" r="14" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="710" y1="246" x2="730" y2="266" stroke="#ef4444" stroke-width="3"/>
+            <line x1="710" y1="266" x2="730" y2="246" stroke="#ef4444" stroke-width="3"/>
+          </g>
+
+          <!-- MMF / AZA → nucleus / DNA -->
+          <g class="tsig-blockade" data-drug="mmf">
+            <circle cx="650" cy="350" r="16" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="638" y1="338" x2="662" y2="362" stroke="#ef4444" stroke-width="3"/>
+            <line x1="638" y1="362" x2="662" y2="338" stroke="#ef4444" stroke-width="3"/>
+          </g>
+          <g class="tsig-blockade" data-drug="aza">
+            <circle cx="650" cy="350" r="16" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="638" y1="338" x2="662" y2="362" stroke="#ef4444" stroke-width="3"/>
+            <line x1="638" y1="362" x2="662" y2="338" stroke="#ef4444" stroke-width="3"/>
+          </g>
+
+          <!-- Belatacept → CD80/86 (signal 2) -->
+          <g class="tsig-blockade" data-drug="bela">
+            <circle cx="255" cy="237" r="16" fill="none" stroke="#ef4444" stroke-width="3"/>
+            <line x1="243" y1="225" x2="267" y2="249" stroke="#ef4444" stroke-width="3"/>
+            <line x1="243" y1="249" x2="267" y2="225" stroke="#ef4444" stroke-width="3"/>
+          </g>
+
+          <!-- Steroids → broad (NFAT + nucleus) -->
+          <g class="tsig-blockade" data-drug="ster">
+            <circle cx="615" cy="220" r="13" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3 2"/>
+            <circle cx="650" cy="350" r="16" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3 2"/>
+            <circle cx="720" cy="256" r="13" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3 2"/>
+          </g>
+
+          <!-- rATG → entire T-cell depletion -->
+          <g class="tsig-blockade" data-drug="atg">
+            <rect x="535" y="80" width="225" height="320" rx="50" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="6 4"/>
+            <text x="650" y="220" text-anchor="middle" style="font-size:18px;fill:#ef4444;font-weight:800">DEPLETED</text>
+          </g>
+          <g class="tsig-blockade" data-drug="alem">
+            <rect x="535" y="80" width="225" height="320" rx="50" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="6 4"/>
+            <text x="650" y="220" text-anchor="middle" style="font-size:14px;fill:#ef4444;font-weight:800">CD52-depleted</text>
+            <text x="650" y="240" text-anchor="middle" style="font-size:11px;fill:#fca5a5">(also B-cells, monocytes)</text>
+          </g>
+        </svg>
+
+        <div class="drug-toggles" id="drug-toggles">
+          <button class="drug-tog cni" data-drug="tac">Tac</button>
+          <button class="drug-tog cni" data-drug="csa">CsA</button>
+          <button class="drug-tog ind" data-drug="bas">Basiliximab</button>
+          <button class="drug-tog mtor" data-drug="mtor">mTORi</button>
+          <button class="drug-tog anti" data-drug="mmf">MMF</button>
+          <button class="drug-tog anti" data-drug="aza">AZA</button>
+          <button class="drug-tog ster" data-drug="ster">Steroids</button>
+          <button class="drug-tog bela" data-drug="bela">Belatacept</button>
+          <button class="drug-tog ind" data-drug="atg">rATG</button>
+          <button class="drug-tog ind" data-drug="alem">Alemtuzumab</button>
+        </div>
+
+        <div class="tsig-explain" id="tsig-explain">
+          Click any drug button above to see where it blocks the signaling pathway. <em>Notice that "triple therapy" (CNI + antimetabolite + steroid) hits three independent points — that's why combination works.</em>
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Why combination &gt; monotherapy at the same total dose</summary>
+        <div class="expand-body">
+          <p>Three reasons, in roughly decreasing order of importance:</p>
+          <ul>
+            <li><strong>Independent failure modes.</strong> When tacrolimus trough dips because the patient skipped a dose, MMF and prednisone are still on board. Hitting one pathway lets that pathway's mutational/redundancy escape (e.g., calcineurin-independent T-cell activation) drive rejection.</li>
+            <li><strong>Dose-sparing per drug.</strong> Tacrolimus at trough 8 + MMF 1 g BID + prednisone 5 mg has fewer side effects than tacrolimus at trough 15 alone — even if total "immunosuppressive load" is similar.</li>
+            <li><strong>Different cell targets.</strong> CNI is T-cell-selective (signal 3 production). MMF/AZA hit dividing lymphocytes broadly (B + T). Steroids are anti-inflammatory + broad. The constellation covers more of the immune response than any one drug.</li>
+          </ul>
+          <p>This is the same principle behind combination antiretroviral therapy and combination chemotherapy — different drugs at moderate doses outperform one drug at high dose.</p>
+        </div>
+      </details>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Patient on Tac + MMF + pred at standard doses develops severe diarrhea. You suspect MMF GI toxicity and reduce MMF by 50%. What's the immunologic risk and how do you mitigate?</summary>
+          <div class="ans">Halving MMF removes one of the three signal blockers (proliferation arm). Mitigation: <strong>(1)</strong> consider switching MMF to enteric-coated mycophenolic acid (Myfortic) — often better tolerated. <strong>(2)</strong> If MMF must stay low, <strong>tighten Tac trough</strong> (target upper end of range, e.g., 10-12 instead of 6-8) to compensate. <strong>(3)</strong> Avoid steroid wean during this period. <strong>(4)</strong> Watch for rejection — protocol biopsy if dose reduction persists &gt; weeks.</div>
+        </details>
+      </div>
     </section>
 
     <!-- ★ ONE EXAMPLE DRUG CARD (full 3-layer pattern, Tacrolimus) ★ -->
@@ -1840,11 +2112,31 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         </div>
       </details>
 
+      <div class="core-box" style="margin-top:18px">
+        <div class="core-label">Cyclosporine (CsA) — Core (always visible)</div>
+        <div class="core-body">
+          Older CNI, largely displaced by Tac. Same calcineurin target via a different immunophilin (<strong>cyclophilin</strong>, not FKBP12). Trough goal varies by assay — typically <strong>C₀ 200-300 ng/mL months 0-3</strong>, tapering. <strong>C₂ monitoring</strong> (2-hour post-dose) is more reproducible and used at some centers. Same toxicities as Tac but with notable differences: <strong>gum hyperplasia</strong>, <strong>hirsutism</strong> (vs Tac alopecia), <strong>more hypertension and dyslipidemia</strong>, <strong>less NODAT</strong>, less neurotoxicity.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>When to pick CsA over Tac</summary>
+        <div class="expand-body">
+          <ul>
+            <li><strong>Pre-existing diabetes</strong> or strong NODAT risk — CsA is less diabetogenic.</li>
+            <li><strong>Severe Tac neurotoxicity</strong> (intolerable tremor, PRES) — switch CsA.</li>
+            <li><strong>Cost-constrained settings</strong> — generic CsA cheaper than generic Tac in some markets.</li>
+            <li><strong>Refractory Tac-induced TMA</strong> — switching to CsA is one option (CsA also causes TMA but in some patients better tolerated).</li>
+          </ul>
+          <p>Generally avoid CsA when: patient already has hirsutism issues (women) or significant gingival concerns. Avoid in moderate-to-severe dyslipidemia where Tac would be cleaner.</p>
+        </div>
+      </details>
+
       <div class="thai-callout">
         <span class="flag">🇹🇭</span>
         <div class="tc-body">
-          <div class="tc-label">Thai practice (placeholder — verified in Ship #4 critic pass)</div>
-          TTC 4 (2025) is the operative Thai source on IS dosing. <em>Will quote the exact Thai trough targets and any divergence from the KDIGO numbers above in Ship #4.</em> Cost note: generic Tac is available in Thailand; some programs use CsA-based regimens for cost-sensitive cases.
+          <div class="tc-label">Thai practice (TTC 4 / typical Siriraj protocol)</div>
+          <strong>Tacrolimus is the default CNI</strong> in modern Thai practice; generic Tac is widely available and affordable. <strong>CsA-based regimens</strong> still see use in cost-sensitive cases and for patients intolerant to Tac. TTC 4 trough targets broadly follow KDIGO. Beware brand-to-generic substitution mid-treatment for Tac — repeat a trough 1-2 weeks after any switch.
         </div>
       </div>
 
@@ -1863,26 +2155,275 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
     <section id="is-anti" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 04</span><h2>Antimetabolites — MMF &amp; AZA</h2></div>
-      <p class="sec-intro">Authored in Ship #4.</p>
-      <div class="stub">Content: mechanism (IMPDH vs purine synthesis), dosing, GI side effects, marrow toxicity, AZA + allopurinol interaction.</div>
+      <p class="sec-intro">
+        The "proliferation block" in the triple-therapy stool. Modern KT defaults to <strong>mycophenolate</strong>; azathioprine still has niches (pregnancy, cost, allopurinol-naïve patients with refractory MMF GI intolerance).
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Mycophenolate (MMF) — Core</div>
+        <div class="core-body">
+          MPA inhibits <strong>inosine monophosphate dehydrogenase (IMPDH)</strong> → blocks de novo guanine synthesis. <strong>Lymphocytes uniquely depend on the de novo pathway</strong> (no salvage), so the effect is preferential to lymphocytes. Dose: <strong>1000 mg PO BID</strong> standard (range 500-1500 mg BID, dose-adjust for GI/marrow toxicity). Top toxicities: <strong>diarrhea + GI upset</strong>, <strong>leukopenia</strong>, <strong>anaemia</strong>. <strong>Teratogenic — never in pregnancy</strong>; women of childbearing age need contraception counseling.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>MMF vs MPA (Myfortic) — when to switch</summary>
+        <div class="expand-body">
+          <p>MMF (CellCept) is the prodrug; MPA (Myfortic, enteric-coated mycophenolic acid) is the active form delivered with delayed release. Pharmacologically equivalent in efficacy; switch is purely about tolerability.</p>
+          <p><strong>Indication to switch:</strong> persistent MMF-induced diarrhea despite dose reduction. Conversion: 1000 mg MMF ≈ 720 mg Myfortic. Many patients improve; some don't (then the GI is from something else — CMV colitis, C. diff, post-tx microbiome shifts).</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Therapeutic monitoring — should you check MPA levels?</summary>
+        <div class="expand-body">
+          <p>Most programs <strong>don't routinely measure MPA AUC</strong> — it's lab-intensive (multi-point), expensive, and the standard fixed dose works for most patients. Reasons to check: refractory rejection on apparently-adequate dose, refractory leukopenia, suspected non-adherence. Target AUC₀₋₁₂ typically 30-60 mg·h/L.</p>
+          <p><strong>Clinical signal &gt; lab number</strong>: if the patient is rejecting on MMF 1g BID, prioritize CNI optimization and adherence check before chasing AUC.</p>
+        </div>
+      </details>
+
+      <div class="core-box" style="margin-top:18px">
+        <div class="core-label">Azathioprine (AZA) — Core</div>
+        <div class="core-body">
+          Prodrug → <strong>6-mercaptopurine</strong> → <strong>6-thioguanine nucleotides</strong> incorporated into DNA → blocks DNA synthesis in dividing lymphocytes. Dose: <strong>1-2 mg/kg/day</strong>. Largely replaced by MMF (which is more lymphocyte-selective and has less marrow toxicity) but still used in pregnancy (safer than MMF), cost-constrained settings, and for MMF intolerance.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>AZA + allopurinol — the interaction every fellow must know</summary>
+        <div class="expand-body">
+          <p>AZA is metabolized in part by <strong>xanthine oxidase</strong>. Allopurinol blocks xanthine oxidase → 6-MP accumulates → <strong>severe, sometimes fatal marrow suppression</strong>.</p>
+          <p><strong>Rule:</strong> if a KT patient on AZA needs gout therapy, either (a) switch AZA to MMF and use allopurinol, or (b) <strong>reduce AZA dose by 50-75%</strong> and start allopurinol at very low dose with weekly CBC monitoring. Febuxostat has the same interaction. <strong>Probenecid is safer</strong> (different mechanism).</p>
+          <p><strong>TPMT status:</strong> patients with TPMT deficiency (genetic) get severe AZA toxicity at standard doses. Some centers test TPMT before AZA initiation; others rely on dose escalation with CBC monitoring.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 4)</div>
+          <strong>MMF is the standard antimetabolite</strong> in modern Thai protocols. <strong>AZA</strong> retains a niche in pregnancy (the only antimetabolite considered safe), occasional cost-constrained protocols, and in some pediatric programs. TPMT testing is not routine in most Thai centers — escalate AZA dose with CBC monitoring instead. Reduce/stop antimetabolite first when treating BK viraemia (before lowering CNI trough).
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Patient on Tac + MMF + Pred develops acute gout. ER calls — they want to start allopurinol. KT patient on which antimetabolite is this dangerous for?</summary>
+          <div class="ans"><strong>AZA</strong>. Allopurinol + AZA → marrow disaster via blocked xanthine oxidase. MMF has no xanthine oxidase pathway — allopurinol is safe. So: this patient is on <strong>MMF, so allopurinol is fine</strong>. Always confirm which antimetabolite — Thai programs sometimes use AZA in pregnancy or cost-constrained protocols.</div>
+        </details>
+        <details>
+          <summary>Patient at month 6 has BK viraemia 10⁵ copies/mL. Cr is 1.4 (baseline 1.2). What's the first IS adjustment?</summary>
+          <div class="ans"><strong>Reduce the antimetabolite (MMF) by 50%, then lower CNI trough by ~20%</strong> if needed. Antimetabolite reduction is the most-immunosuppression-sparing first move — preserves CNI exposure for rejection prevention while lowering total IS load. Recheck BK PCR + Cr in 2 weeks. Repeat reductions stepwise. No effective antiviral for BK; IS reduction <em>is</em> the treatment.</div>
+        </details>
+      </div>
     </section>
 
     <section id="is-mtor" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 05</span><h2>mTOR inhibitors — sirolimus, everolimus</h2></div>
-      <p class="sec-intro">Authored in Ship #4.</p>
-      <div class="stub">Content: when used (CNI-sparing, post-skin-cancer), wound healing, proteinuria, pneumonitis, oral ulcers.</div>
+      <p class="sec-intro">
+        The CNI-sparing option. Same FKBP12 binding partner as Tac but blocks <strong>mTOR</strong> instead of calcineurin → blocks T-cell proliferation downstream of IL-2R rather than IL-2 production upstream.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          Used as <strong>CNI-replacement</strong> (CNI-free or CNI-minimized protocols) or in <strong>antiproliferative</strong> contexts (after skin cancer, with chronic CNI nephrotoxicity). Trough target <strong>sirolimus 4-12 ng/mL</strong>; <strong>everolimus 3-8 ng/mL</strong>. Distinctive toxicities: <strong>impaired wound healing</strong> (don't start until wound is fully sealed), <strong>proteinuria</strong>, <strong>oral aphthous ulcers</strong>, <strong>hyperlipidaemia</strong>, <strong>pneumonitis</strong>, <strong>cytopenias</strong>.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>When mTORi makes sense — and when it doesn't</summary>
+        <div class="expand-body">
+          <p><strong>Good candidates:</strong></p>
+          <ul>
+            <li>Chronic CNI nephrotoxicity (IFTA accumulating, falling GFR on Tac) — convert to mTORi-based regimen.</li>
+            <li>Post-skin-cancer recipient — mTORi's antiproliferative effect lowers recurrence vs Tac (Euvrard NEJM 2012 family of data).</li>
+            <li>Selected paediatric or specialized regimens (e.g., Kaposi sarcoma).</li>
+          </ul>
+          <p><strong>Avoid in:</strong></p>
+          <ul>
+            <li><strong>Active wound healing</strong> — wait until incisions fully sealed (often ≥ 3 months) before initiation.</li>
+            <li><strong>Significant proteinuria</strong> (&gt; 800 mg-1 g/day) — mTORi worsens it.</li>
+            <li><strong>Severe hyperlipidaemia</strong> — mTORi will make it worse despite statins.</li>
+            <li><strong>Active pulmonary disease</strong> — pneumonitis risk.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>The trade-offs that make mTORi a niche drug</summary>
+        <div class="expand-body">
+          <p>Why isn't mTORi standard if it spares the kidney from CNI nephrotoxicity? Because the toxicity profile is meaningful and varied — multiple patients stop the drug within months due to ulcers, edema, or rash. Plus rejection rates trend higher with CNI-free mTORi maintenance than with low-dose CNI. The risk-benefit favors CNI-based maintenance for most patients; mTORi earns its place when there's a specific clinical reason (cancer recurrence prevention, chronic IFTA, intolerable CNI side effects).</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 4)</div>
+          mTOR inhibitors are <strong>available but not first-line</strong> in Thailand. Cost is substantial. Sirolimus more commonly used than everolimus in Thai centers. Typical use cases: post-skin-cancer recipient, chronic CNI nephrotoxicity with falling GFR, salvage for selected refractory cases. Most Thai programs do not initiate mTORi before month 3-6 (wound healing concerns).
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Day 30 post-tx patient still has a non-healed surgical wound + culture-negative drainage. Plan included switching from Tac to sirolimus this week. Your call?</summary>
+          <div class="ans"><strong>Defer the sirolimus switch.</strong> mTORi profoundly impairs wound healing — starting it while the incision isn't sealed risks dehiscence and conversion of a manageable wound issue into a surgical emergency. Stay on Tac, focus on wound care + culture + considering MMF reduction if MMF is contributing. Reconsider sirolimus once the wound is fully epithelialized (often ≥ 3 months).</div>
+        </details>
+      </div>
     </section>
 
     <section id="is-steroid" class="tab-section">
-      <div class="sec-head"><span class="num-tag">§ 06</span><h2>Steroids · belatacept</h2></div>
-      <p class="sec-intro">Authored in Ship #4.</p>
-      <div class="stub">Content: pred dosing/taper, steroid-sparing protocols, belatacept indication (limited availability in Thailand).</div>
+      <div class="sec-head"><span class="num-tag">§ 06</span><h2>Corticosteroids and belatacept</h2></div>
+      <p class="sec-intro">
+        Steroids are the oldest part of the triple-therapy backbone — and the one most programs try to wean. Belatacept is the modern signal-2 blocker — clean immunologically but cost-limited.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Corticosteroids — Core</div>
+        <div class="core-body">
+          Multiple mechanisms (IκB induction → NFκB sequestration; broad anti-inflammatory effect on macrophages, T-cells, B-cells; lymphocyte redistribution). <strong>Induction dose: IV methylpred 125-250 mg intra-op</strong> (higher in high-immunologic-risk protocols). Taper to <strong>~20 mg pred daily by end of week 1</strong>, then <strong>5 mg by month 3-6</strong>. Long-term low-dose vs full withdrawal depends on immunologic risk. Toxicity drives the withdrawal effort: <strong>NODAT, weight gain, bone loss, cataract, infection risk, mood, skin fragility</strong>.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Steroid withdrawal protocols — when and how</summary>
+        <div class="expand-body">
+          <p>Two approaches:</p>
+          <ul>
+            <li><strong>Early withdrawal</strong> (within first week post-tx) — used at some US centers with rATG induction + CNI + MMF maintenance. Rejection rates similar to steroid-maintained in low-risk recipients.</li>
+            <li><strong>Late withdrawal</strong> (months 3-6, after stable graft function) — more conservative; lower de novo DSA rates than early withdrawal in some series.</li>
+          </ul>
+          <p><strong>Don't withdraw in:</strong> sensitized recipients, repeat transplants, prior rejection history, patients on basiliximab induction only, kids (some pediatric programs prefer steroid maintenance).</p>
+          <p>When weaning works: NODAT often improves, weight stabilizes, cataract progression slows. When it doesn't (subclinical rejection, de novo DSA), revert to baseline pred and accept the trade-off.</p>
+        </div>
+      </details>
+
+      <div class="core-box" style="margin-top:18px">
+        <div class="core-label">Belatacept — Core</div>
+        <div class="core-body">
+          <strong>CTLA4-Ig fusion protein</strong> — soluble decoy that binds CD80/86 on APCs → blocks CD28 engagement on T-cells → no signal 2 → T-cell anergy. Given as IV infusion (monthly maintenance after induction phase). Replaces CNI in maintenance, sparing nephrotoxicity. <strong>EBV D+/R−: contraindicated</strong> (PTLD risk). Used at selected US centers; <strong>limited availability in Thailand</strong> due to cost.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Belatacept — efficacy, infusion schedule, key cautions</summary>
+        <div class="expand-body">
+          <p><strong>Schedule:</strong> 10 mg/kg IV days 1, 5, end of weeks 2/4/8/12; then 5 mg/kg every 4 weeks indefinitely. No drug levels; the dose is fixed per body weight.</p>
+          <p><strong>Efficacy:</strong> BENEFIT trial (Vincenti, NEJM 2010 and long-term follow-up) showed similar patient/graft survival vs CsA at 7-year follow-up with better GFR (less nephrotoxicity) — at the cost of <strong>more early rejection</strong>, especially in EBV-naïve recipients (PTLD risk drove the EBV-naïve contraindication).</p>
+          <p><strong>Practical advantages:</strong> no troughs to monitor; no CYP3A4 interactions; no NODAT; better lipid profile; better long-term GFR vs CNI maintenance.</p>
+          <p><strong>Practical disadvantages:</strong> monthly infusion burden (vs daily PO Tac); higher early rejection rate; the EBV D+/R− absolute contraindication; cost.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice</div>
+          <strong>Steroid taper</strong> follows the standard pattern at most Thai centers: high-dose intra-op methylpred → quick taper through week 1 → maintenance pred 5-10 mg long-term, with some programs withdrawing at month 6 in low-risk recipients. <strong>Belatacept is rare in Thailand</strong> — cost and infusion infrastructure are barriers. Most Thai fellows will encounter belatacept only on subspecialty rotations abroad or in published case series, not in routine practice.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>EBV D+/R− recipient. Transplant team discussing CNI-free maintenance with belatacept to spare nephrotoxicity. Your concern?</summary>
+          <div class="ans"><strong>Absolute contraindication.</strong> EBV D+/R− recipients on belatacept have significantly increased <strong>PTLD risk</strong> (the BENEFIT trial signaled this clearly). The EBV-naive recipient meets EBV antigen for the first time without intact T-cell costimulation = uncontrolled EBV-driven B-cell proliferation. Use CNI-based maintenance instead, even at the cost of nephrotoxicity. Belatacept is reserved for EBV R+ (anamnestic immunity).</div>
+        </details>
+      </div>
     </section>
 
     <section id="is-interactions" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 07</span><h2>Cross-cutting — interactions, NODAT, pregnancy</h2></div>
-      <p class="sec-intro">Authored in Ship #4.</p>
-      <div class="stub">Content: master interaction table, NODAT prevention, IS in pregnancy (safe: pred/AZA/CNI; avoid: MMF/mTORi).</div>
+      <p class="sec-intro">
+        Three topics that span every IS class. A fellow gets pimped on all three on day-1 rounds.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">CYP3A4 / P-gp interactions — the safety topic</div>
+        <div class="core-body">
+          <strong>Tac, CsA, sirolimus, everolimus all share CYP3A4 + P-gp metabolism.</strong> Any new med that inhibits or induces CYP3A4 changes their levels — sometimes 5-10× within days. The cheat-sheet table below is the day-1 must-know.
+        </div>
+      </div>
+
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead>
+            <tr><th>Direction</th><th>Class</th><th>Examples (common)</th><th>Effect on Tac/CsA/mTORi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>↑↑ Level</td><td>Azoles</td><td>Fluconazole, itraconazole, voriconazole, posaconazole</td><td>Major. Drop dose 50% with azole start; check trough in 3-5 d</td></tr>
+            <tr><td>↑↑ Level</td><td>Non-DHP Ca-blockers</td><td>Diltiazem, verapamil</td><td>Common in HTN management; reduce dose if starting</td></tr>
+            <tr><td>↑↑ Level</td><td>Macrolides (not all)</td><td>Erythromycin, clarithromycin</td><td>Strong. <strong>Azithromycin is safe</strong></td></tr>
+            <tr><td>↑↑ Level</td><td>Protease inhibitors</td><td>Ritonavir, paritaprevir (HCV/HIV)</td><td>Massive. Coordinate with ID/hepatology</td></tr>
+            <tr><td>↑↑ Level</td><td>Food</td><td>Grapefruit, pomelo, Seville orange</td><td>Counsel at every clinic visit</td></tr>
+            <tr><td>↓↓ Level</td><td>Anti-TB</td><td>Rifampin, rifabutin</td><td>Massive inducer. Often need 3-5× Tac dose; problematic for KT</td></tr>
+            <tr><td>↓↓ Level</td><td>Anti-seizure</td><td>Phenytoin, carbamazepine, phenobarbital</td><td>Major. Levetiracetam preferred for new seizure dx</td></tr>
+            <tr><td>↓↓ Level</td><td>Herbal</td><td>St. John's wort</td><td>Patients don't always disclose — ask explicitly</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="core-box" style="margin-top:18px">
+        <div class="core-label">NODAT (new-onset diabetes after transplant) — Core</div>
+        <div class="core-body">
+          <strong>Cumulative incidence ~10-30% by year 1.</strong> Drivers: <strong>tacrolimus (more diabetogenic than CsA)</strong>, <strong>steroids</strong>, Asian / Hispanic / African-American ancestry, BMI, family history of DM, HCV. Diagnosis: same criteria as type 2 DM (FBG ≥ 126 mg/dL × 2, or HbA1c ≥ 6.5%, or symptomatic random glucose ≥ 200). Screen <strong>fasting glucose weekly × 4 weeks, then monthly × 3, then quarterly</strong> in the first year.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>NODAT management — what's different from type 2 DM</summary>
+        <div class="expand-body">
+          <p><strong>First-line: lifestyle + metformin</strong> (if eGFR allows — modern KDIGO accepts metformin down to eGFR 30 with dose reduction). <strong>SGLT2 inhibitors are increasingly first-line</strong> in KT NODAT (cardiorenal protection; modest BP benefit; some signal for graft preservation in observational data).</p>
+          <p><strong>IS adjustments:</strong></p>
+          <ul>
+            <li>Steroid weaning if not already done (lower dose or full withdrawal).</li>
+            <li>Consider <strong>Tac → CsA switch</strong> in severe / refractory cases (less diabetogenic). Trade-off: more hypertension, dyslipidaemia.</li>
+            <li>Tac trough at lower end of acceptable range (don't run high).</li>
+          </ul>
+          <p><strong>Avoid:</strong> sulfonylureas in patients with frequent infections / variable nutrition. Pioglitazone — fluid retention is problematic in KT patients with existing CV risk.</p>
+        </div>
+      </details>
+
+      <div class="core-box" style="margin-top:18px">
+        <div class="core-label">IS in pregnancy — Core</div>
+        <div class="core-body">
+          KDIGO and most programs counsel <strong>2-year wait</strong> from transplant before pregnancy; stable graft function; BP control; no active rejection or proteinuria.<br><br>
+          <strong>Safe / preferred:</strong> Prednisone · Tacrolimus · Cyclosporine · Azathioprine.<br>
+          <strong>Avoid:</strong> <strong>MMF (teratogenic, oral cleft/microtia)</strong> · <strong>mTOR inhibitors (animal teratogenicity, lack of human data)</strong> · <strong>Belatacept (insufficient data)</strong>.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Switching MMF → AZA preconception — the timeline</summary>
+        <div class="expand-body">
+          <p>Standard protocol: switch MMF to AZA <strong>≥ 6 weeks before attempting conception</strong> (some programs use 12 weeks to allow tissue MPA washout). Confirm stable graft function on AZA before discontinuing contraception. Monitor MPA-free for several weeks before unprotected intercourse.</p>
+          <p>Inadvertent pregnancy on MMF: counsel about teratogenicity risk (~25% major malformation rate vs ~3% population baseline). Multidisciplinary discussion with OB/MFM about continuation. Switch to AZA immediately regardless of decision.</p>
+          <p><strong>Tac/CsA in pregnancy:</strong> levels can shift significantly; monitor troughs every 2-4 weeks. CNI exposure can be associated with preterm delivery and gestational hypertension/pre-eclampsia, but discontinuation isn't safer (rejection risk).</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 4)</div>
+          Standard Thai practice mirrors KDIGO for pregnancy timing and IS substitutions. <strong>AZA is the antimetabolite of choice</strong> in Thai pregnant KT recipients (where MMF is otherwise the default). Counsel women of childbearing age about MMF teratogenicity at every visit — Thai social context sometimes delays the conversation. Local centers (Siriraj, Ramathibodi) have transplant pregnancy clinics; refer early for planning.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>30-year-old KT patient on Tac 8 / MMF 1g BID / Pred 5 mg is 18 months post-tx with stable graft. She's planning pregnancy in 6 months. Next step?</summary>
+          <div class="ans">(1) Counsel about <strong>2-year wait recommendation</strong> from transplant — would push planned conception to month 24. (2) <strong>Switch MMF to AZA 6-12 weeks before conception</strong> attempts. (3) Confirm stable graft function + no DSA + BP control + minimal proteinuria. (4) Multidisciplinary discussion with high-risk OB. (5) Reinforce <strong>effective contraception</strong> while MMF is still on board. (6) Update Tac and pred trough targets for pregnancy (close monitoring throughout).</div>
+        </details>
+        <details>
+          <summary>KT patient with active gout admitted to ED. Pharmacy proposes starting colchicine + prednisone. KT-specific concerns?</summary>
+          <div class="ans"><strong>Colchicine</strong> is a P-gp substrate and CYP3A4 substrate — with Tac/CsA on board, levels rise significantly with risk of <strong>colchicine toxicity</strong> (cytopenias, neuropathy, rhabdo). Reduce dose by 50% or use a single-dose regimen. <strong>Prednisone:</strong> patient is already on chronic low-dose pred — short pulse for acute gout is fine. Avoid NSAIDs (graft + interactions). Allopurinol is fine on MMF; problematic on AZA — confirm which antimetabolite.</div>
+        </details>
+      </div>
     </section>
   </section>
 
@@ -2306,6 +2847,35 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
       detail.innerHTML = '<div class="dd-title">' + c.title + '</div><div class="dd-body">' + c.body + '</div>';
     }
     stepBtns.forEach(b => b.addEventListener('click', () => showStep(b.dataset.step)));
+  })();
+
+  /* ── T-cell signaling drug-toggle widget ── */
+  (function(){
+    const togs = document.querySelectorAll('#drug-toggles .drug-tog');
+    const explain = document.getElementById('tsig-explain');
+    const blockades = document.querySelectorAll('.tsig-blockade');
+    if (!togs.length || !explain) return;
+    const drugInfo = {
+      tac: {name: 'Tacrolimus (Tac)', cls: 'CNI', color: '#a78bfa', body: 'Binds <strong>FKBP12</strong> → inhibits <strong>calcineurin</strong> → NFAT stays phosphorylated → no nuclear translocation → no IL-2 transcription. <strong>Signal 3 production blocked at the source.</strong> Same downstream effect as CsA, different binding partner.'},
+      csa: {name: 'Cyclosporine (CsA)', cls: 'CNI', color: '#a78bfa', body: 'Binds <strong>cyclophilin</strong> → inhibits <strong>calcineurin</strong> (same target as Tac via different immunophilin). Slightly weaker IS than Tac at standard troughs; different toxicity profile (gum hyperplasia, hirsutism, more hypertension).'},
+      bas: {name: 'Basiliximab', cls: 'Induction (non-depleting)', color: '#06b6d4', body: 'Monoclonal antibody against <strong>CD25 (IL-2Rα chain)</strong>. Blocks IL-2 from activating already-stimulated T-cells (signal 3 reception). <strong>Non-depleting</strong> — no cytokine release syndrome. 2 doses peri-op (day 0 + day 4).'},
+      mtor: {name: 'mTOR inhibitors (sirolimus, everolimus)', cls: 'CNI-sparing maintenance', color: '#22c55e', body: 'Bind <strong>FKBP12</strong> (like Tac) but inhibit <strong>mTOR</strong> instead of calcineurin → block proliferation downstream of IL-2R. Used to spare CNI nephrotoxicity (CNI-free or CNI-minimized protocols) and after skin cancer (anti-proliferative).'},
+      mmf: {name: 'Mycophenolate (MMF)', cls: 'Antimetabolite', color: '#f97316', body: 'MPA inhibits <strong>IMPDH</strong> → blocks de novo guanosine synthesis. Lymphocytes lack a salvage pathway and depend on de novo synthesis → <strong>lymphocyte-selective antiproliferative</strong> effect. GI + marrow toxicity are dose-limiting. <strong>Teratogenic</strong> — never in pregnancy.'},
+      aza: {name: 'Azathioprine (AZA)', cls: 'Antimetabolite', color: '#f97316', body: 'Prodrug → 6-mercaptopurine → 6-thioguanine nucleotides incorporated into DNA → blocks DNA synthesis. Largely supplanted by MMF in modern KT but still used in pregnancy and cost-constrained settings. <strong>Allopurinol interaction</strong> (xanthine oxidase block) → marrow toxicity.'},
+      ster: {name: 'Corticosteroids', cls: 'Broad anti-inflammatory', color: '#eab308', body: 'Multiple mechanisms — induce <strong>IκB</strong> (sequesters NFκB), inhibit AP-1, modulate cytokine transcription (↓ IL-1, IL-2, IL-6, TNFα), redistribute lymphocytes. Hit T-cells, B-cells, macrophages — broad. Backbone of induction (intra-op methylpred) + maintenance (low-dose pred or steroid-free protocols at month 3+).'},
+      bela: {name: 'Belatacept', cls: 'Signal-2 blocker', color: '#ef4444', body: '<strong>CTLA4-Ig fusion protein</strong> — binds CD80/86 on APC → blocks CD28 engagement on T-cell → no signal 2 → T-cell anergy. CNI-free maintenance option. <strong>EBV D+/R− contraindicated</strong> (PTLD risk). Limited availability in Thailand (cost).'},
+      atg: {name: 'rATG (Thymoglobulin)', cls: 'Induction (depleting)', color: '#06b6d4', body: 'Polyclonal rabbit anti-T-cell antibody → <strong>depletes T-cells</strong> (and partially B-cells, monocytes). Used for high-immunologic-risk induction (sensitized, repeat tx, ABO-i) and steroid-resistant TCMR rescue. Cytokine release with first dose — premedicate (steroid + APAP + antihistamine). Cumulative dose ~3-6 mg/kg.'},
+      alem: {name: 'Alemtuzumab', cls: 'Induction (depleting)', color: '#06b6d4', body: 'Monoclonal anti-<strong>CD52</strong> → depletes T-cells, B-cells, monocytes, NK cells. Profound lymphopenia for months. Used selectively (some US centers, sensitized recipients). Increases late opportunistic infection risk. Off-label for KT in many regions.'}
+    };
+    function setDrug(d){
+      togs.forEach(b => b.classList.toggle('active', b.dataset.drug === d));
+      blockades.forEach(g => g.classList.toggle('active', g.dataset.drug === d));
+      const info = drugInfo[d];
+      if (!info) return;
+      explain.style.borderLeftColor = info.color;
+      explain.innerHTML = '<strong class="ts-drug" style="color:' + info.color + '">' + info.name + '</strong> &middot; <em>' + info.cls + '</em><br><br>' + info.body;
+    }
+    togs.forEach(b => b.addEventListener('click', () => setDrug(b.dataset.drug)));
   })();
 
   /* ── Restore tab from URL hash on load ── */
