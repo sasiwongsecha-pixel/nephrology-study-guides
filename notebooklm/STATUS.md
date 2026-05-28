@@ -8,6 +8,25 @@
 
 ## Where we are
 
+**BATCH 4 — Ship #3 HLA tab + signature widget + critic ✅ complete**
+
+### Ship #3 delivered
+- All 5 HLA stub sections filled (Basics / DSA & MFI / Crossmatch + widget / ABO-i + paired / Desensitization). PRA section unchanged from Ship #1.
+- ★ Signature widget: **HLA Compatibility Lab** — interactive 2-side allele grid (recipient + donor) at HLA-A/B/DR, click any allele to cycle through 8 preset alleles per locus. 3 toggleable recipient antibodies (anti-A11 / anti-B44 / anti-DR7). 5 quick-scenario buttons (Half-haplo · Identical sib · Random DDKT · Sensitized · Weak DSA). Live mismatch count + CDC/FCXM/VXM verdicts + GO/CAUTION/STOP decision with rationale text.
+- Verified all 5 scenarios produce clinically-correct verdicts: sensitized → all 3 XMs positive, STOP; weak DSA → VXM only, CAUTION; identical → 0/6, GO; random 6/6 no DSA → all neg, GO.
+- 9 critic fixes applied (3 blockers + 4 majors + 2 minors):
+  - **CDC threshold** — added "simulation" disclaimer (MFI is an imperfect surrogate; titre + IgG subclass + antigen density matter); updated rationale text per Tambur AJT 2018 consensus.
+  - **ABO hyperacute timing** — "within minutes" → "within minutes to hours of revascularization."
+  - **TTC 2 §17 attribution** — "within 14 days" → "within 2 weeks before surgery (TTC 2 §17)"; KDIGO/TTC requirement split.
+  - **Anti-DQ7 row removed** from widget — DQ not in the donor panel, can't fire VXM logic, was pedagogically misleading.
+  - **MFI threshold note** — added Tambur 2018 disclaimer to MFI cutoffs.
+  - **ABO-i titre attribution** — split between Japanese/Stockholm (≤1:8) and Hopkins (≤1:16).
+  - **Orandi NEJM 2016** citation added for desensitized HLA-i graft survival data.
+  - **PIRCHE-II vs HLAMatchmaker** — corrected (HLAMatchmaker = eplet; PIRCHE-II = T-cell epitope prediction).
+- 3 nits deferred (KDIGO 2009 vs TTC 2 wording, pre-formed DSA + anamnesis caveat, splenectomy historical context).
+
+---
+
 **BATCH 3 — Ship #2 Overview fill + critic ✅ complete**
 
 ### Ship #2 delivered

@@ -237,6 +237,76 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .num .l{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.4}
 .num .src{font-size:9.5px;color:var(--text-dim);font-style:italic;margin-top:4px}
 
+/* ── HLA Compatibility Lab widget (HLA tab signature) ── */
+.hla-lab{background:#070d1a;border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:6px 0 18px 18px}
+.hla-lab .hl-title{font-size:11px;color:var(--text-muted);letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.hla-lab .hl-sub{font-size:12px;color:var(--text-dim);margin-bottom:14px}
+
+.scenarios{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.scen-btn{
+  font-size:11.5px;color:var(--text-muted);padding:6px 12px;border-radius:14px;
+  cursor:pointer;border:1px solid var(--border);background:var(--surface);
+  font-weight:600;font-family:inherit;transition:.15s;
+}
+.scen-btn:hover{color:var(--text);background:var(--surface2)}
+.scen-btn.active{color:var(--bg);background:var(--teal-light);border-color:var(--teal-light)}
+
+.hla-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media (max-width:700px){.hla-grid{grid-template-columns:1fr}}
+.hla-side{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.hla-side.donor{border-left:3px solid var(--orange)}
+.hla-side.recipient{border-left:3px solid var(--teal)}
+.hla-side .side-label{font-size:10px;color:var(--text-dim);letter-spacing:1.4px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.hla-side.donor .side-label{color:var(--orange)}
+.hla-side.recipient .side-label{color:var(--teal-light)}
+.hla-locus-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.hla-locus-row:last-child{margin-bottom:0}
+.hla-locus-row .locus-name{font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-size:11px;font-weight:700;color:var(--text-muted);min-width:56px}
+.hla-allele{
+  font-family:'JetBrains Mono',Menlo,monospace;font-size:12px;font-weight:700;
+  padding:5px 12px;border-radius:6px;cursor:pointer;
+  background:var(--surface3);border:1px solid var(--border);color:var(--text);
+  transition:.12s;user-select:none;min-width:62px;text-align:center;
+}
+.hla-allele:hover{background:var(--surface2);border-color:var(--teal-light)}
+.hla-allele.mismatched{background:rgba(249,115,22,.16);color:#fdba74;border-color:rgba(249,115,22,.4)}
+.hla-allele.matched{background:rgba(34,197,94,.14);color:#86efac;border-color:rgba(34,197,94,.3)}
+.hla-allele.dsa-target{box-shadow:0 0 0 2px var(--red) inset;background:rgba(239,68,68,.22);color:#fca5a5;border-color:var(--red)}
+
+.mismatch-readout{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.mismatch-readout .mm-count{font-size:24px;font-weight:800;color:var(--teal-light);font-family:'JetBrains Mono',Menlo,monospace;letter-spacing:-.5px}
+.mismatch-readout .mm-count .total{color:var(--text-dim);font-weight:500}
+.mismatch-readout .mm-label{font-size:11px;color:var(--text-dim);letter-spacing:1.3px;text-transform:uppercase;font-weight:700}
+.mismatch-readout .mm-detail{font-size:12.5px;color:var(--text-muted);flex:1;min-width:160px}
+
+.dsa-list{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:14px}
+.dsa-list .dsa-head{font-size:10px;color:var(--text-dim);letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.dsa-row{display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer;font-size:13px;color:#cbd5e1}
+.dsa-row:hover{color:var(--text)}
+.dsa-row input[type=checkbox]{accent-color:var(--red);width:14px;height:14px;cursor:pointer;flex-shrink:0}
+.dsa-row .dsa-name{font-family:'JetBrains Mono',Menlo,monospace;font-weight:700;color:var(--text);min-width:64px}
+.dsa-row .dsa-mfi{font-family:'JetBrains Mono',Menlo,monospace;font-size:11px;color:var(--text-muted);min-width:72px}
+.dsa-row .dsa-note{font-size:11.5px;color:var(--text-dim);font-style:italic}
+.dsa-row.active .dsa-name{color:#fca5a5}
+
+.xm-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.xm-panel .xm-head{font-size:10px;color:var(--text-dim);letter-spacing:1.4px;text-transform:uppercase;font-weight:700;padding:10px 16px 6px;background:var(--surface3)}
+.xm-result{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--border-dim);font-size:13px}
+.xm-result .xm-name{font-weight:700;color:var(--text);min-width:50px;font-family:'JetBrains Mono',Menlo,monospace;font-size:12px}
+.xm-result .xm-verdict{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:2px 9px;border-radius:10px;font-family:'JetBrains Mono',Menlo,monospace}
+.xm-result .xm-verdict.neg{color:#86efac;background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.3)}
+.xm-result .xm-verdict.pos{color:#fca5a5;background:rgba(239,68,68,.22);border:1px solid rgba(239,68,68,.4)}
+.xm-result .xm-rationale{color:var(--text-muted);font-size:12px;line-height:1.4;flex:1}
+
+.xm-decision{padding:12px 16px;border-top:1px solid var(--border);font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:10px}
+.xm-decision.go{color:#86efac;background:rgba(34,197,94,.08)}
+.xm-decision.caution{color:#fde047;background:rgba(234,179,8,.08)}
+.xm-decision.stop{color:#fca5a5;background:rgba(239,68,68,.10)}
+.xm-decision .dec-icon{font-size:18px}
+
 /* ── Placeholder card ── */
 .stub{
   background:repeating-linear-gradient(45deg,var(--surface) 0 10px,var(--surface2) 10px 20px);
@@ -740,8 +810,55 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <span class="num-tag">§ 01</span>
         <h2>HLA basics — what the loci do</h2>
       </div>
-      <p class="sec-intro">Authored in Ship #3.</p>
-      <div class="stub">Content: HLA class I (A/B/C) vs II (DR/DQ/DP), structure, role in alloimmunity, which loci matter most for KT outcomes.</div>
+      <p class="sec-intro">
+        Before crossmatch and DSA make sense, the fellow needs to know what the HLA molecules <em>are</em> — what loci, what class, on what cells.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          <strong>HLA Class I</strong> = HLA-<strong>A</strong>, <strong>B</strong>, <strong>C</strong>. Expressed on <strong>almost all nucleated cells</strong> (incl. donor kidney endothelium + tubular cells). Present endogenous peptides to <strong>CD8 T-cells</strong>.<br><br>
+          <strong>HLA Class II</strong> = HLA-<strong>DR</strong>, <strong>DQ</strong>, <strong>DP</strong>. Expressed on <strong>APCs</strong> (dendritic cells, B-cells, macrophages, and — under inflammation — endothelium and tubular cells). Present exogenous peptides to <strong>CD4 T-cells</strong>.<br><br>
+          For KT, the "<strong>big three</strong>" historically tracked at matching are <strong>A · B · DR</strong> (6 antigens, 0-6 mismatch). <strong>DQ</strong> is now recognized as a major driver of <strong>de novo DSA</strong> and is increasingly typed and reported.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Polymorphism — why mismatch is the default, not the exception</summary>
+        <div class="expand-body">
+          <p>The HLA loci are the most polymorphic genes in the human genome. The IPD-IMGT/HLA database lists <strong>tens of thousands of alleles</strong>. A randomly selected unrelated pair almost never matches at all 6 antigens; even siblings have only a 25% chance of being a "perfect" 6/6 match (one in four chance per sibling pair, with the other haplotype possibilities 50% half-haplo, 25% zero-haplo).</p>
+          <p><strong>For a fellow on rounds:</strong></p>
+          <ul>
+            <li><strong>HLA-identical sibling</strong> — best graft survival, lowest immunosuppression need (some programs use minimal IS).</li>
+            <li><strong>Half-haplotype sibling / parent → child / child → parent</strong> — typical living-related; expect ~3/6 mismatch.</li>
+            <li><strong>Spouse / unrelated donor</strong> — usually 4-6/6 mismatch but outcomes excellent in modern IS era. Old "matching matters above all" view has weakened.</li>
+            <li><strong>Random DDKT</strong> — most are 4-6/6 mismatch; allocation algorithms incorporate mismatch but rarely require 0-mismatch.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Which loci matter most for KT outcomes</summary>
+        <div class="expand-body">
+          <p>Hierarchy (rough, based on de novo DSA risk + long-term graft survival data):</p>
+          <ul>
+            <li><strong>HLA-DR</strong> — historically the strongest predictor of acute rejection and graft survival. 0-DR mismatch = better outcomes.</li>
+            <li><strong>HLA-DQ</strong> — the emerging villain. De novo DQ DSA is the most common late DSA and the strongest predictor of chronic active ABMR. Programs increasingly report DQ mismatches.</li>
+            <li><strong>HLA-B</strong> — meaningful for both acute rejection and de novo DSA.</li>
+            <li><strong>HLA-A</strong> — matters less than B or DR in modern series but still contributes.</li>
+            <li><strong>HLA-C, DP</strong> — minor; usually reported but rarely decision-driving.</li>
+          </ul>
+          <p>Two emerging concepts: <strong>eplet mismatch</strong> (HLAMatchmaker) counts specific amino-acid surface patches; <strong>T-cell epitope prediction</strong> (PIRCHE-II) models which donor peptides would be presented. Both predict de novo DSA risk better than antigen-level mismatch alone. Not yet routine in Thai practice but appearing in research protocols.</p>
+        </div>
+      </details>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>The transplant report says "1A, 1B, 0DR mismatch" between donor and recipient. What does that mean?</summary>
+          <div class="ans">Donor brings <strong>1 HLA-A allele</strong> the recipient doesn't have, <strong>1 HLA-B allele</strong> the recipient doesn't have, and <strong>shares both DR alleles</strong>. Total <strong>2/6 mismatch</strong> at A/B/DR. The 0-DR mismatch is historically a favorable feature for graft survival. (Note: this counting convention shows mismatches at each donor antigen vs recipient — not all centers report it identically; some report mismatches per locus, some per allele.)</div>
+        </details>
+      </div>
     </section>
 
     <!-- ★ ONE EXAMPLE COLLAPSIBLE CARD (full 3-layer pattern) ★ -->
@@ -801,26 +918,302 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
     <section id="hla-dsa" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 03</span><h2>Donor-specific antibodies &amp; MFI interpretation</h2></div>
-      <p class="sec-intro">Authored in Ship #3.</p>
-      <div class="stub">Content: class I vs II DSA, MFI cutoffs, complement-binding vs non-binding (C1q/C3d), de novo DSA monitoring.</div>
+      <p class="sec-intro">
+        DSA = anti-HLA antibody whose target is on the <em>donor</em>. Distinct from generic anti-HLA antibodies (which contribute to cPRA but only matter for a specific donor if that donor carries the target).
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          DSA is detected by <strong>solid-phase Luminex single-antigen beads (SAB)</strong>. Each bead carries one HLA antigen; the assay reports a <strong>Mean Fluorescence Intensity (MFI)</strong> for each antibody specificity. <strong>MFI is semi-quantitative</strong> — useful for trends, comparison-sensitive across labs, not a true antibody titre.<br><br>
+          Common practical cutoffs (lab-dependent — confirm with your HLA lab):<br>
+          <strong>MFI &gt; 1,000</strong> = bead positive · <strong>&gt; 3,000</strong> = clinically meaningful in many programs · <strong>&gt; 10,000</strong> = strong DSA, avoid the donor without desensitization. <em style="color:var(--text-dim);font-size:12px">These are illustrative — Tambur et al. (<em>AJT</em> 2018, Sensitization in Transplantation consensus) discourages cross-lab MFI thresholds; always confirm with your HLA lab.</em>
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>Class I vs Class II DSA — different risks</summary>
+        <div class="expand-body">
+          <p><strong>Class I DSA</strong> (anti-A, -B, -C) — targets antigens on endothelium and most graft cells. Historically associated with hyperacute rejection if present pre-transplant; now caught by virtual crossmatch. Pre-formed Class I DSA is the classic sensitized-patient scenario.</p>
+          <p><strong>Class II DSA</strong> (anti-DR, -DQ, -DP) — targets antigens primarily on APCs and inflamed endothelium. <strong>De novo DQ DSA</strong> is now recognized as the dominant driver of <strong>chronic active ABMR</strong> and late graft loss. Risk factors for de novo DSA: non-adherence, sub-therapeutic IS levels, prior rejection, DR/DQ mismatch.</p>
+          <p>Practical: a stable patient who develops de novo Class II DSA at year 3 is a red flag — check tacrolimus trough, check medication adherence, consider protocol biopsy, monitor MFI.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Complement-binding DSA — C1q / C3d</summary>
+        <div class="expand-body">
+          <p>Some DSAs activate complement (C1q+), some don't. <strong>C1q+ DSA</strong> is more strongly associated with active ABMR, severe histology, and worse outcomes. The standard SAB only tells you the antibody is there; supplementary <strong>C1q assays</strong> (or C3d) report whether it's complement-fixing.</p>
+          <p>Caveat: <strong>high-MFI Class I DSA</strong> is almost always C1q+ regardless of which test is used — at high titre the strength alone predicts complement activation. C1q testing adds the most information for <strong>moderate-MFI</strong> antibodies (3000-10000) where the clinical significance is uncertain.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>De novo DSA — what triggers monitoring</summary>
+        <div class="expand-body">
+          <p><strong>KDIGO 2009</strong> suggests DSA testing at minimum at the time of acute rejection or unexplained graft dysfunction. Many programs now do <strong>protocol DSA screening</strong>: every 3 months in the first year, then annually if negative. High-risk recipients (sensitized, repeat tx, prior rejection) get more frequent monitoring.</p>
+          <p>When de novo DSA appears:</p>
+          <ul>
+            <li>Confirm with a repeat test 2-4 weeks later (rule out lab noise).</li>
+            <li>Check tacrolimus trough and adherence.</li>
+            <li>Consider <strong>protocol biopsy</strong> to look for subclinical ABMR (g + ptc).</li>
+            <li>If active ABMR: treat. If sub-clinical with normal histology: optimize IS + monitor.</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice</div>
+          DSA testing availability is concentrated in major Thai centers (Siriraj, Ramathibodi, Chulalongkorn, KCMH). Cost is a real constraint — protocol monitoring intensity often less aggressive than US/EU programs. SAB Luminex is the standard where available; C1q is research-grade in most Thai centers.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>At month 18 post-tx, your stable patient develops a new DQ7 antibody at MFI 5,500. Donor was DQ7+. Cr is 1.2 (stable). What now?</summary>
+          <div class="ans"><strong>De novo Class II DSA against the donor</strong> — clinically meaningful (above the 3,000 threshold) but not yet causing dysfunction. Steps: (1) confirm with repeat in 2-4 weeks, (2) check Tac trough (often sub-therapeutic in this scenario — patient skipping doses or pharmacy gap), (3) ask about adherence directly, (4) consider protocol biopsy to rule out subclinical ABMR (g/ptc). If biopsy active ABMR: treat. If quiet: optimize IS to ensure adequate exposure, monitor MFI every 1-3 months.</div>
+        </details>
+      </div>
     </section>
 
     <section id="hla-xm" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 04</span><h2>Crossmatch — CDC vs Flow vs Virtual</h2></div>
-      <p class="sec-intro">Authored in Ship #3 (signature widget for this tab — interactive HLA visualizer + crossmatch comparison).</p>
-      <div class="stub">Widget + content authored in Ship #3 — donor/recipient HLA visualizer, side panel with what each XM detects + false-positive sources.</div>
+      <p class="sec-intro">
+        The signature widget for this tab. <strong>Change the alleles + antibodies</strong>; the mismatch count and the three crossmatch results recompute live. Use the scenario buttons for quick teaching cases.
+      </p>
+
+      <!-- ★ HLA COMPATIBILITY LAB — interactive widget ★ -->
+      <div class="hla-lab" id="hla-lab">
+        <div class="hl-title">HLA compatibility lab</div>
+        <div class="hl-sub">Click any allele to cycle through preset HLA types · Toggle antibodies in the recipient's panel · The three crossmatch results below recompute live</div>
+
+        <div class="scenarios">
+          <button class="scen-btn active" data-scenario="haplo">Half-haplo sibling (3/6, no DSA)</button>
+          <button class="scen-btn" data-scenario="identical">HLA-identical sib (0/6)</button>
+          <button class="scen-btn" data-scenario="random">Random DDKT (6/6, no DSA)</button>
+          <button class="scen-btn" data-scenario="sensitized">Sensitized recipient (4/6 + strong DSA)</button>
+          <button class="scen-btn" data-scenario="weak">Weak DSA (3/6 + MFI 2,500)</button>
+        </div>
+
+        <div class="hla-grid">
+          <div class="hla-side recipient">
+            <div class="side-label">Recipient</div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-A</span>
+              <span class="hla-allele" data-side="r" data-locus="A" data-idx="0">A2</span>
+              <span class="hla-allele" data-side="r" data-locus="A" data-idx="1">A24</span>
+            </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-B</span>
+              <span class="hla-allele" data-side="r" data-locus="B" data-idx="0">B7</span>
+              <span class="hla-allele" data-side="r" data-locus="B" data-idx="1">B46</span>
+            </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-DR</span>
+              <span class="hla-allele" data-side="r" data-locus="DR" data-idx="0">DR4</span>
+              <span class="hla-allele" data-side="r" data-locus="DR" data-idx="1">DR15</span>
+            </div>
+          </div>
+
+          <div class="hla-side donor">
+            <div class="side-label">Donor</div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-A</span>
+              <span class="hla-allele" data-side="d" data-locus="A" data-idx="0">A2</span>
+              <span class="hla-allele" data-side="d" data-locus="A" data-idx="1">A11</span>
+            </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-B</span>
+              <span class="hla-allele" data-side="d" data-locus="B" data-idx="0">B7</span>
+              <span class="hla-allele" data-side="d" data-locus="B" data-idx="1">B44</span>
+            </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-DR</span>
+              <span class="hla-allele" data-side="d" data-locus="DR" data-idx="0">DR4</span>
+              <span class="hla-allele" data-side="d" data-locus="DR" data-idx="1">DR7</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mismatch-readout">
+          <span class="mm-count"><span id="mm-num">3</span><span class="total">/6</span></span>
+          <div>
+            <div class="mm-label">A · B · DR mismatch</div>
+            <div class="mm-detail" id="mm-detail">Donor brings A11, B44, DR7 not present in recipient.</div>
+          </div>
+        </div>
+
+        <div class="dsa-list">
+          <div class="dsa-head">Recipient anti-HLA antibodies (toggle to add/remove)</div>
+          <label class="dsa-row" data-ab="A11"><input type="checkbox" data-ab="A11"> <span class="dsa-name">Anti-A11</span> <span class="dsa-mfi">MFI 2,500</span> <span class="dsa-note">moderate — Class I</span></label>
+          <label class="dsa-row" data-ab="B44"><input type="checkbox" data-ab="B44"> <span class="dsa-name">Anti-B44</span> <span class="dsa-mfi">MFI 12,000</span> <span class="dsa-note">strong — Class I, often C1q+</span></label>
+          <label class="dsa-row" data-ab="DR7"><input type="checkbox" data-ab="DR7"> <span class="dsa-name">Anti-DR7</span> <span class="dsa-mfi">MFI 800</span> <span class="dsa-note">below threshold (positive bead but not clinically meaningful)</span></label>
+        </div>
+
+        <div class="xm-panel" id="xm-panel">
+          <div class="xm-head">Crossmatch interpretation <span style="font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;color:var(--text-dim);font-style:italic;margin-left:8px">Simulation: MFI used as a teaching surrogate. Real CDC/FCXM also depend on titre, IgG subclass, antigen density — Tambur, AJT 2018.</span></div>
+          <div class="xm-result"><span class="xm-name">CDC</span><span class="xm-verdict neg" id="xm-cdc-v">Negative</span><span class="xm-rationale" id="xm-cdc-r">No DSA above the CDC threshold (~8,000 MFI, Class I + complement-fixing).</span></div>
+          <div class="xm-result"><span class="xm-name">FCXM</span><span class="xm-verdict neg" id="xm-fcxm-v">Negative</span><span class="xm-rationale" id="xm-fcxm-r">No DSA above the flow-cytometry threshold (~3,000 MFI).</span></div>
+          <div class="xm-result"><span class="xm-name">Virtual</span><span class="xm-verdict neg" id="xm-vxm-v">Negative</span><span class="xm-rationale" id="xm-vxm-r">No detected antibodies map to a donor HLA antigen.</span></div>
+          <div class="xm-decision go" id="xm-decision"><span class="dec-icon">✓</span><span id="xm-decision-text">Proceed — no immunologic barrier detected at this mismatch level.</span></div>
+        </div>
+      </div>
+
+      <!-- Reference content below the widget -->
+      <div class="core-box">
+        <div class="core-label">Core (always visible) — what each test actually detects</div>
+        <div class="core-body">
+          <strong>CDC (Complement-Dependent Cytotoxicity)</strong> — the original 1960s test. Recipient serum + donor lymphocytes + complement → if recipient has high-titre complement-fixing DSA, donor cells lyse. Cheap, low sensitivity, can be confounded by autoantibodies or rituximab.<br><br>
+          <strong>FCXM (Flow Crossmatch)</strong> — recipient serum + donor cells + fluorescent secondary antibody → flow cytometry detects bound IgG. ~10× more sensitive than CDC. Doesn't require complement fixation.<br><br>
+          <strong>Virtual Crossmatch (VXM)</strong> — compares the recipient's Luminex SAB antibody profile (specificities + MFI) against the <em>typed</em> donor HLA. No donor cells needed. Used to pre-screen waitlist offers; complements (not replaces) cellular crossmatch.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>False positives + when each test misleads</summary>
+        <div class="expand-body">
+          <ul>
+            <li><strong>CDC false-positive</strong> — IgM autoantibodies (treat with DTT to reduce), rituximab (binds CD20 → kills donor B cells in the test). Distinguish T-cell vs B-cell CDC.</li>
+            <li><strong>FCXM false-positive</strong> — IVIG (recently administered), high background autoantibodies, rituximab on B-cell flow.</li>
+            <li><strong>Virtual XM false-negative</strong> — antibodies against antigens not on the donor; antibodies present at low MFI; rare HLA alleles not on the SAB panel.</li>
+            <li><strong>Virtual XM false-positive</strong> — denatured HLA on beads can detect antibodies that wouldn't bind native HLA on real cells (the "denatured DSA" problem; especially Class I single-antigen beads).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>When to use which — modern practice</summary>
+        <div class="expand-body">
+          <p><strong>Pre-listing:</strong> SAB Luminex defines the antibody profile → cPRA → unacceptable antigen list. VXM done against every offered donor.</p>
+          <p><strong>Pre-transplant final check:</strong> CDC + FCXM against actual donor cells (cellular crossmatch). KDIGO 2009 recommends a final pre-transplant crossmatch; TTC 2 §17 specifies a 2-week pre-op window.</p>
+          <p><strong>Highly sensitized patient:</strong> Some programs are now moving to <strong>virtual-crossmatch-only</strong> protocols when the SAB profile is well-characterized and the donor HLA is known — saves time, allows long-distance allocation. Still uncommon in Thailand outside major centers.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice (TTC 2 §16-17)</div>
+          The TTC framework requires <strong>early ABO + HLA sensitization triage within 2-4 weeks</strong> of donor referral to avoid wasting evaluation cost on incompatible pairs. The <strong>"final crossmatch" must be performed within 2 weeks before surgery</strong> (TTC 2 §17) — any blood transfusion or sensitizing event in the interim mandates a repeat.
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Try this in the widget above: pick "Sensitized recipient" scenario. Why is the virtual XM positive but you might still hesitate to call CDC positive?</summary>
+          <div class="ans">VXM is positive because the recipient has anti-B44 at MFI 12,000 and the donor is B44+ — that's a clear DSA. CDC at 12,000 MFI for a Class I antibody is likely positive (high-titre Class I usually fixes complement), but CDC sensitivity is lower than flow — a borderline-strength antibody might miss CDC and only show on FCXM. In practice you'd treat the patient as immunologically positive (high-MFI Class I DSA) regardless of which test reads "positive" — the widget defaults reflect the most likely real-world readings, not a guarantee.</div>
+        </details>
+        <details>
+          <summary>Patient on rituximab 2 weeks ago has a positive B-cell CDC against the donor. Real or artifact?</summary>
+          <div class="ans"><strong>Likely artifact.</strong> Rituximab kills the donor B cells in the CDC test, mimicking complement-mediated lysis → false-positive B-cell CDC. Distinguish by: (1) checking T-cell CDC (should be negative if it's just the rituximab artifact), (2) repeating with rituximab-pretreated cells or extra washes, (3) cross-referencing with FCXM and VXM. Don't refuse the donor on B-cell CDC alone if SAB shows no DSA.</div>
+        </details>
+      </div>
     </section>
 
     <section id="hla-abo" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 05</span><h2>ABO-incompatible &amp; paired exchange</h2></div>
-      <p class="sec-intro">Authored in Ship #3.</p>
-      <div class="stub">Content: isohaemagglutinin titre thresholds, paired exchange concept, Thai paired exchange availability per TTS.</div>
+      <p class="sec-intro">
+        ABO compatibility is the <em>other</em> immunologic gate — separate from HLA. The natural anti-A / anti-B isohaemagglutinins are pre-formed and would cause hyperacute rejection of an ABO-incompatible graft without intervention.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          The ABO blood group <strong>A and B antigens are expressed on the donor's endothelium</strong>. A recipient with anti-A (group B or O) receiving a Group A kidney would have <strong>hyperacute rejection within minutes to hours of revascularization</strong> — classically as the surgeon releases the vascular clamps. Mechanism: IgM/IgG natural antibodies + complement → endothelial necrosis + thrombosis.<br><br>
+          Two ways around an ABO-incompatible willing donor:<br>
+          <strong>① ABO-i transplant with desensitization</strong> — lower the recipient's anti-A/B titre to a center-defined threshold (commonly <strong>≤1:8 IgG</strong> per Japanese/Stockholm protocols, <strong>≤1:16 IgG</strong> historically at Hopkins) with PLEX + IVIG ± rituximab pre-op, then transplant. Outcomes approach ABO-compatible in experienced centers.<br>
+          <strong>② Paired Kidney Exchange (PKE)</strong> — swap with another incompatible pair so both recipients get an ABO-compatible donor. No desensitization burden.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>ABO compatibility matrix + the "universal donor" point</summary>
+        <div class="expand-body">
+          <p>Same as transfusion compatibility (not Rh-relevant for kidneys — RhD is on RBCs, not endothelium):</p>
+          <ul>
+            <li><strong>O</strong> recipient → can only receive from <strong>O</strong> donor (anti-A and anti-B).</li>
+            <li><strong>A</strong> recipient → from <strong>A or O</strong>.</li>
+            <li><strong>B</strong> recipient → from <strong>B or O</strong>.</li>
+            <li><strong>AB</strong> recipient → from any (no natural anti-A/B).</li>
+          </ul>
+          <p><strong>Group O recipients face the longest waits</strong> in deceased-donor allocation because they can only take O kidneys but O kidneys can go to anyone — net flow goes away from group O. Some allocation algorithms partly correct for this.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Paired kidney exchange — how the chain works</summary>
+        <div class="expand-body">
+          <p>Simplest case: <strong>2-way swap</strong>. Pair 1 (donor type A, recipient type B) and Pair 2 (donor type B, recipient type A) swap donors so each recipient gets a compatible organ. Surgery for both pairs is scheduled the same day to prevent withdrawal.</p>
+          <p><strong>Chains:</strong> An altruistic (non-directed) donor triggers a chain — gives to a sensitized/incompatible pair's recipient; that pair's donor gives to another pair; etc. Chains can be very long (the longest published &gt;30 transplants).</p>
+          <p><strong>In Thailand:</strong> the Medical Council restricts donation to family members or 3+ year spouses, which limits non-directed altruistic donation. PKE within family-related pairs is technically possible but uncommon.</p>
+        </div>
+      </details>
+
+      <div class="thai-callout">
+        <span class="flag">🇹🇭</span>
+        <div class="tc-body">
+          <div class="tc-label">Thai practice</div>
+          ABO-incompatible KT and paired exchange are <strong>concentrated in major Thai centers</strong> (Siriraj, Ramathibodi, Chulalongkorn) and remain uncommon nationally. Most ABO-incompatible willing pairs in Thailand are either declined or referred for desensitization at a high-volume center; PKE programs exist but are small. <em>Specific TTC 2/4 protocols on titre thresholds and desensitization regimens to be verified verbatim in Ship #4 critic.</em>
+        </div>
+      </div>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Group O recipient with a willing Group A spouse-donor. Three pathways forward?</summary>
+          <div class="ans"><strong>(1) ABO-incompatible KT with desensitization</strong> — PLEX + IVIG ± rituximab to lower the recipient's anti-A titre below the center threshold (~1:8 IgG), then transplant. Lifelong augmented IS not required after the early accommodation period in most series. <strong>(2) Paired exchange</strong> — register the pair with the national PKE program if one exists; swap with another incompatible pair. <strong>(3) Wait for a deceased-donor offer</strong> (group O only, longest wait). The choice depends on center expertise, recipient sensitization, and family flexibility.</div>
+        </details>
+      </div>
     </section>
 
     <section id="hla-desens" class="tab-section">
       <div class="sec-head"><span class="num-tag">§ 06</span><h2>Desensitization — IVIG, rituximab, PLEX</h2></div>
-      <p class="sec-intro">Authored in Ship #3.</p>
-      <div class="stub">Content: when to desensitize, regimens, outcomes vs paired exchange.</div>
+      <p class="sec-intro">
+        For the sensitized patient (high cPRA, DSA against the only available donor) or the ABO-incompatible pair, desensitization lowers the antibody barrier enough to transplant. Burden is real; outcomes are experienced-center-dependent.
+      </p>
+
+      <div class="core-box">
+        <div class="core-label">Core (always visible)</div>
+        <div class="core-body">
+          Three mainstays, used in combination:<br>
+          <strong>① Plasmapheresis (PLEX)</strong> — physically removes circulating antibody. Each session ~1-1.5 plasma volume, replacement with FFP or albumin. Typically <strong>5-10 sessions</strong> pre-op + on-demand post-op.<br>
+          <strong>② IVIG</strong> — modulates immunity (saturates Fc receptors, neutralizes circulating antibody, anti-idiotypic effects). Dosed <strong>1-2 g/kg</strong> over 1-2 days, often paired with PLEX (a "PLEX → IVIG sandwich" each cycle).<br>
+          <strong>③ Rituximab</strong> — anti-CD20, depletes B-cells, reduces ongoing antibody production. Single dose <strong>375 mg/m²</strong> (or fixed 500 mg) pre-op in many protocols.<br><br>
+          <strong>Bortezomib</strong> (proteasome inhibitor, hits plasma cells) and <strong>eculizumab</strong> (terminal complement) are reserved for refractory cases.
+        </div>
+      </div>
+
+      <details class="expand">
+        <summary>When to desensitize vs paired-exchange</summary>
+        <div class="expand-body">
+          <p>Desensitization is <strong>resource- and risk-heavy</strong>. Major centers prefer paired exchange first when feasible, reserving desensitization for:</p>
+          <ul>
+            <li>Highly sensitized recipients (cPRA &gt;95%) with no realistic PKE match.</li>
+            <li>ABO-incompatible pairs where no swap is available.</li>
+            <li>Center-specific protocols favoring desensitization (varies by program).</li>
+          </ul>
+          <p>Outcomes: in experienced US/EU centers, desensitized HLA-incompatible KT has <strong>graft and patient survival advantage over remaining on the waitlist</strong> (Orandi et al, <em>NEJM</em> 2016;374:940), though acute ABMR rates (~15-20%) and chronic active ABMR rates remain elevated vs. standard HLA-compatible KT (&lt;5%). ABO-incompatible KT outcomes are generally better than HLA-incompatible — the ABO barrier is more "accommodatable" than the HLA barrier.</p>
+        </div>
+      </details>
+
+      <details class="expand">
+        <summary>Practical regimen — typical sequence</summary>
+        <div class="expand-body">
+          <ol style="margin-left:18px">
+            <li><strong>Week -4 to -2:</strong> Rituximab 375 mg/m² once. Confirms B-cell depletion (CD19/CD20 count).</li>
+            <li><strong>Week -2 to OR:</strong> PLEX every other day, 5-10 sessions, with IVIG 100 mg/kg after each PLEX. Larger IVIG dose (1-2 g/kg) on the last day if regimen calls for it. Monitor DSA MFI or anti-A/B titre weekly.</li>
+            <li><strong>OR day:</strong> Confirm crossmatch / titre below threshold. Standard induction (basiliximab or rATG).</li>
+            <li><strong>Post-op:</strong> Standard maintenance (Tac + MMF + steroid). PLEX on demand if early ABMR markers (Cr rise, DSA rebound, biopsy g/ptc/C4d).</li>
+          </ol>
+          <p><strong>Splenectomy</strong> (largely historical) and <strong>bortezomib + carfilzomib</strong> are 2nd-line in refractory cases.</p>
+        </div>
+      </details>
+
+      <div class="check">
+        <div class="check-label">✓ Check yourself</div>
+        <details>
+          <summary>Sensitized recipient with anti-B44 MFI 11,000; donor is B44+. Pre-op regimen?</summary>
+          <div class="ans">Likely <strong>rituximab 375 mg/m² ×1</strong> (week -3 or -4), then <strong>5-7 sessions of PLEX</strong> every other day in the 2 weeks before surgery, each followed by <strong>IVIG 100 mg/kg</strong>; a final <strong>IVIG 1-2 g/kg</strong> may be given on the last day. Goal: pre-op FCXM negative or anti-B44 MFI &lt;3,000. Induction with <strong>rATG</strong> (high-immunologic-risk regimen). Post-op DSA monitoring weekly with PLEX on rebound. Refer to a high-volume center if your program isn't routinely doing this.</div>
+        </details>
+      </div>
     </section>
   </section>
 
@@ -1145,6 +1538,185 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         + '<div class="td-jump">→ ' + band.dataset.jump + '</div>';
     });
   });
+
+  /* ── HLA Compatibility Lab widget ── */
+  const HLA = {
+    A:  ['A1','A2','A3','A11','A24','A26','A30','A33'],
+    B:  ['B7','B8','B27','B35','B44','B46','B51','B62'],
+    DR: ['DR1','DR3','DR4','DR7','DR11','DR13','DR15','DR17']
+  };
+  /* Antibody library — fixed MFI per teaching antibody. Class I = A/B; Class II = DR/DQ. */
+  const ABS = {
+    'A11': {mfi: 2500, classI: true,  label: 'Anti-A11'},
+    'B44': {mfi: 12000, classI: true, label: 'Anti-B44'},
+    'DR7': {mfi: 800,  classI: false, label: 'Anti-DR7'},
+    'DQ7': {mfi: 5500, classI: false, label: 'Anti-DQ7'}
+  };
+  /* Thresholds (lab-typical, not absolute). */
+  const TH = {VXM: 1000, FCXM: 3000, CDC: 8000};
+
+  const lab = document.getElementById('hla-lab');
+  if (!lab) return;
+  const alleles = lab.querySelectorAll('.hla-allele');
+  const dsaChecks = lab.querySelectorAll('.dsa-row input[type=checkbox]');
+
+  function getAllele(side, locus, idx){
+    return lab.querySelector(`.hla-allele[data-side="${side}"][data-locus="${locus}"][data-idx="${idx}"]`);
+  }
+  function readState(){
+    const state = {r: {}, d: {}, abs: {}};
+    ['A','B','DR'].forEach(loc => {
+      state.r[loc] = [getAllele('r',loc,0).textContent.trim(), getAllele('r',loc,1).textContent.trim()];
+      state.d[loc] = [getAllele('d',loc,0).textContent.trim(), getAllele('d',loc,1).textContent.trim()];
+    });
+    dsaChecks.forEach(cb => { state.abs[cb.dataset.ab] = cb.checked; });
+    return state;
+  }
+  function updateView(){
+    const s = readState();
+    // Mismatch + visual marking
+    let mismatch = 0;
+    const missingDonorAlleles = [];
+    ['A','B','DR'].forEach(loc => {
+      s.d[loc].forEach((all, i) => {
+        const inRecipient = s.r[loc].includes(all);
+        const cell = getAllele('d', loc, i);
+        cell.classList.remove('matched','mismatched','dsa-target');
+        if (inRecipient) {
+          cell.classList.add('matched');
+        } else {
+          cell.classList.add('mismatched');
+          mismatch++;
+          missingDonorAlleles.push(all);
+        }
+      });
+      s.r[loc].forEach((all, i) => {
+        const cell = getAllele('r', loc, i);
+        cell.classList.remove('matched','mismatched','dsa-target');
+      });
+    });
+    document.getElementById('mm-num').textContent = mismatch;
+    document.getElementById('mm-detail').textContent = mismatch === 0
+      ? 'Donor and recipient share both alleles at every A/B/DR locus — HLA-identical.'
+      : `Donor brings ${missingDonorAlleles.join(', ')} not present in recipient.`;
+
+    // Active DSA = checked + targeting a donor allele present in the donor
+    const donorAlleles = new Set([...s.d.A, ...s.d.B, ...s.d.DR]);
+    const activeDSAs = [];
+    Object.keys(s.abs).forEach(ab => {
+      const row = lab.querySelector(`.dsa-row[data-ab="${ab}"]`);
+      const targetsADonorAllele = donorAlleles.has(ab);
+      if (s.abs[ab]) {
+        row.classList.add('active');
+        if (targetsADonorAllele) {
+          activeDSAs.push({ab, ...ABS[ab]});
+          // Mark the donor allele with the dsa-target style
+          ['A','B','DR'].forEach(loc => {
+            s.d[loc].forEach((all, i) => {
+              if (all === ab) getAllele('d', loc, i).classList.add('dsa-target');
+            });
+          });
+        }
+      } else {
+        row.classList.remove('active');
+      }
+    });
+
+    // Crossmatch interpretation
+    const maxClassI = Math.max(0, ...activeDSAs.filter(d => d.classI).map(d => d.mfi));
+    const maxAny    = Math.max(0, ...activeDSAs.map(d => d.mfi));
+
+    const cdcPos  = maxClassI >= TH.CDC;
+    const fcxmPos = maxAny    >= TH.FCXM;
+    const vxmPos  = activeDSAs.length > 0 && maxAny >= TH.VXM;
+
+    function setResult(prefix, pos, rationale){
+      const v = document.getElementById(`xm-${prefix}-v`);
+      const r = document.getElementById(`xm-${prefix}-r`);
+      v.textContent = pos ? 'Positive' : 'Negative';
+      v.classList.toggle('pos', pos);
+      v.classList.toggle('neg', !pos);
+      r.textContent = rationale;
+    }
+    setResult('cdc',  cdcPos,
+      cdcPos
+        ? `High-titre Class I DSA present (max MFI ${maxClassI.toLocaleString()}) — usually fixes complement and shows on CDC. (Simulation: MFI is an imperfect surrogate; titre + IgG subclass + antigen density determine the actual lab CDC result.)`
+        : (maxClassI > 0
+            ? `Class I DSA present but at lower titre (max MFI ${maxClassI.toLocaleString()}) — CDC often misses these; FCXM more sensitive.`
+            : 'No Class I DSA likely to be C-fixing in CDC. (Simulation uses high-MFI Class I as a surrogate.)'));
+    setResult('fcxm', fcxmPos,
+      fcxmPos
+        ? `DSA present at MFI ${maxAny.toLocaleString()} — above flow threshold (~${TH.FCXM.toLocaleString()}).`
+        : (maxAny > 0
+            ? `DSA present at MFI ${maxAny.toLocaleString()} but below flow threshold (~${TH.FCXM.toLocaleString()}).`
+            : 'No DSA above the flow-cytometry threshold (~3,000 MFI).'));
+    setResult('vxm',  vxmPos,
+      vxmPos
+        ? `Detected antibody (${activeDSAs.map(d => d.label).join(', ')}) targets a donor HLA — virtual XM positive.`
+        : (Object.values(s.abs).some(Boolean)
+            ? 'Antibodies present but none target the typed donor HLA — virtual XM negative.'
+            : 'No detected antibodies map to a donor HLA antigen.'));
+
+    // Decision
+    const decision = document.getElementById('xm-decision');
+    const text = document.getElementById('xm-decision-text');
+    decision.classList.remove('go','caution','stop');
+    if (cdcPos) {
+      decision.classList.add('stop');
+      decision.querySelector('.dec-icon').textContent = '✗';
+      text.textContent = 'Do NOT proceed without desensitization. Strong Class I DSA likely to drive hyperacute / accelerated rejection.';
+    } else if (fcxmPos || vxmPos) {
+      decision.classList.add('caution');
+      decision.querySelector('.dec-icon').textContent = '⚠';
+      text.textContent = 'Proceed only with high-risk protocol (rATG induction, IS optimization, close monitoring) — clinically meaningful DSA against donor present.';
+    } else {
+      decision.classList.add('go');
+      decision.querySelector('.dec-icon').textContent = '✓';
+      text.textContent = mismatch >= 5
+        ? 'Proceed — no DSA barrier despite high mismatch. Standard immunologic risk.'
+        : 'Proceed — no immunologic barrier detected at this mismatch level.';
+    }
+  }
+
+  // Click to cycle allele
+  alleles.forEach(cell => {
+    cell.addEventListener('click', () => {
+      const loc = cell.dataset.locus;
+      const list = HLA[loc];
+      const cur = cell.textContent.trim();
+      const i = list.indexOf(cur);
+      cell.textContent = list[(i + 1) % list.length];
+      updateView();
+    });
+  });
+
+  dsaChecks.forEach(cb => cb.addEventListener('change', updateView));
+
+  // Scenario presets
+  const scenarios = {
+    haplo:      {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{}},
+    identical:  {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, abs:{}},
+    random:     {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A1','A11'],B:['B27','B44'],DR:['DR3','DR7']}, abs:{}},
+    sensitized: {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{B44:true}},
+    weak:       {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{A11:true}}
+  };
+  function applyScenario(name){
+    const s = scenarios[name];
+    if (!s) return;
+    ['A','B','DR'].forEach(loc => {
+      getAllele('r',loc,0).textContent = s.r[loc][0];
+      getAllele('r',loc,1).textContent = s.r[loc][1];
+      getAllele('d',loc,0).textContent = s.d[loc][0];
+      getAllele('d',loc,1).textContent = s.d[loc][1];
+    });
+    dsaChecks.forEach(cb => { cb.checked = !!s.abs[cb.dataset.ab]; });
+    lab.querySelectorAll('.scen-btn').forEach(b => b.classList.toggle('active', b.dataset.scenario === name));
+    updateView();
+  }
+  lab.querySelectorAll('.scen-btn').forEach(b => b.addEventListener('click', () => applyScenario(b.dataset.scenario)));
+
+  // Initial render
+  updateView();
 
   /* ── Restore tab from URL hash on load ── */
   const hash = window.location.hash.replace('#','');
