@@ -27,6 +27,16 @@
 
 ---
 
+**BATCH 5 — Interactive diagrams A + B + C ✅ delivered**
+
+- **A. Kidney placement anatomy** (Overview § 02) — SVG of iliac fossa placement, vascular anastomoses, ureteric reimplantation, native kidneys, lymphatic stumps, wound. 6 clickable hotspots → complication detail (TRAS, renal vein thrombosis, ureteric stricture/leak, lymphocele, wound infection, native-kidney indications for removal)
+- **B. HLA molecule schematic** (HLA § 01) — Class I (α1/α2/α3 + β2m, closed groove, CD8 docking) and Class II (αβ heterodimer, open groove, CD4 docking) side-by-side. 5 hotspots: Class I groove, α3 CD8 site, β2m, Class II groove, β2 CD4 site
+- **C. ABMR mechanism cartoon** (HLA § 03) — 5-step interactive: (1) DSA in serum → (2) binds donor HLA → (3) C1q docks → (4) C4d "tattoo" + MAC pore + neutrophil margination → (5) Banff lesions (C4d-PTC, ptc, g, + DSA = active ABMR)
+- Generic `.diag-wrap` / `.diag-hotspot` / `.diag-detail` / `.step-controls` CSS patterns added for reuse
+
+---
+
+**BATCH 4 — Ship #3 HLA + interactive widget + critic ✅ complete**
 **BATCH 3 — Ship #2 Overview fill + critic ✅ complete**
 
 ### Ship #2 delivered
