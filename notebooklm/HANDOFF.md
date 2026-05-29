@@ -13,18 +13,18 @@
 - **File state:** 233 KB single-file HTML, all CSS + JS inline.
 - **Round 1 status: 9 of 10 batches done. Only Ship #5 (Rejection tab) remains.**
 
-## Two pending user decisions before next work
+## Resolved decisions (BATCH 9, was "pending")
 
-1. **Privacy infrastructure.** The user said *"I will make this page personal."* The repo is currently public (free GitHub plan requires public for Pages). User has not picked between:
-   - **(a)** Public Pages, no new Brenner figures embedded by me (status quo)
-   - **(b)** Upgrade to GitHub Pro → private repo with private Pages
-   - **(c)** Mirror to a different host (Netlify password-protect, personal server)
-   - **(d)** Make repo private, accept that Pages goes dark
-2. **Click-to-zoom interaction** for new figure cards. Inline or lightbox? Defer to user choice when first new figure arrives.
+1. **Privacy infrastructure — DECIDED: Google Apps Script.** Private web-app (`access: MYSELF`), base64-inlined single file. NOT GitHub Pro. The public GitHub repo stays public but figure-free; the figure-embedded build lives only in the private Apps Script deployment. See `appsscript/DEPLOY.md`.
+2. **Click-to-zoom — DECIDED: lightbox overlay.** Reusable `#fig-lightbox` (click any `.brenner-fig` → full-screen; Esc/click dismisses).
 
-## Workflow that's now ACTIVE — user crops figures, I integrate
+## Workflow CHANGE (BATCH 9) — I now run /figure-crop on Brenner myself
 
-User explicitly stated *"I will provided the cropping material"* — they will do all Brenner figure extraction themselves and drop image files into the repo. My role is **placement, captioning, layout HTML, click interactions only — never extraction**.
+⚠️ **The old "user-crops-only, never /figure-crop on Brenner" rule is REVERSED.** The user explicitly directed me to extract Brenner figures with `/figure-crop` and integrate them. This is safe because the figures are kept out of the public repo (see copyright hygiene below) and served only from the private Apps Script build.
+
+**Copyright hygiene (load-bearing):** Brenner image bytes live ONLY in `figures/brenner/` (gitignored) and the generated `appsscript/index.html` (gitignored). The public repo keeps the `.fig-card` markup + captions (original work) but never the image bytes. `build-private.js` inlines base64 at build time. Verify with `git show --stat` that no commit contains image bytes.
+
+### (historical) original figure workflow — superseded by the above
 
 ### Folder convention (proposed; user may rename)
 ```

@@ -6,6 +6,19 @@
 
 ---
 
+## BATCH 9 — Brenner figures + private Apps Script build ✅
+- User **reversed** the old "user-crops-only / no /figure-crop on Brenner" policy → I ran `/figure-crop` on Ch 68/69/70 myself.
+- **7 figures** cropped + integrated as textbook companions to existing interactive diagrams/widgets:
+  - 68.5 HLA structure (HLA §01) · 68.8 crossmatch methods (HLA §04, by the Lab widget) · 68.9 IS-by-signal (IS §02, by T-cell-signaling SVG)
+  - 69.1 transplant anatomy (Overview §02) · 69.7 infection timeline (Overview timeline)
+  - 70.2 KDIGO donor accept/decline + 70.6 donor risk perspectives (Overview donors, as a pair)
+- New reusable **lightbox** (click any `.brenner-fig` → full-screen overlay; Esc/click to close). Graceful `.fig-missing-note` placeholder when image absent (degrades cleanly in the figure-free public repo).
+- **Privacy decision MADE:** private hosting via **Google Apps Script** (`access: MYSELF`), base64-inlined single file. Not GitHub Pro.
+- **Copyright hygiene:** Brenner image bytes live ONLY in `figures/brenner/` (gitignored) + the generated `appsscript/index.html` (gitignored). Public repo stays clean — `.fig-card` markup/captions committed, image bytes never.
+- **Build:** `node build-private.js` inlines the 7 PNGs → `appsscript/index.html` (3.44 MB self-contained). clasp scaffold (`Code.gs`, `appsscript.json`, `DEPLOY.md`) committed; user runs `clasp login`/`push`/deploy.
+- Verified: 7 imgs load, none hit fallback, lightbox open/close works, 0 console errors, artifact standalone (7 data-URIs, 0 relative refs).
+- **Ship #5 (Rejection tab + Banff explorer) still parked** — figures-only session by design.
+
 ## BATCH 8 — U3 HLA Lab v2 ✅ (commit `5cc81ee`)
 - Added HLA-DQ as 4th locus row + anti-DQ7 antibody (MFI 8500)
 - Two threshold-modifier toggles: relaxed MFI (5000 cutoff) + C1q+ assumption

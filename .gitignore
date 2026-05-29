@@ -36,3 +36,14 @@ Sodium Handling Deep Dive.html
 nephrology_v2.html
 brenner_nephrology.html
 diag-preview.html
+
+# ── Copyrighted Brenner figure crops — NEVER commit (personal study only) ──
+# Real image bytes live only on the local machine + the private Apps Script build.
+figures/brenner/
+
+# ── Private Apps Script build: generated artifact with inlined copyrighted figures ──
+# (appsscript/Code.gs + appsscript/appsscript.json ARE committed — they hold no figures)
+appsscript/index.html
+# ── clasp credentials / project id (user-specific, keep private) ──
+.clasp.json
+.clasprc.json

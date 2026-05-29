@@ -313,6 +313,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .fig-card .fig-src{font-size:10px;color:var(--text-dim);font-style:italic;margin-top:6px}
 .fig-card .fig-src a{color:var(--teal-light)}
 
+/* ── Brenner textbook companion figures: click → lightbox; graceful when image absent ── */
+.brenner-fig{cursor:zoom-in;transition:opacity .15s}
+.brenner-fig:hover{opacity:.88}
+.brenner-fig.fig-missing{display:none}
+.fig-missing-note{display:none;font-size:11px;color:var(--text-dim);background:#0a1024;border:1px dashed var(--border);border-radius:6px;padding:14px;margin-bottom:8px;line-height:1.5}
+.brenner-fig.fig-missing + .fig-missing-note{display:block}
+#fig-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(2,6,18,.92);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+#fig-lightbox.open{display:flex}
+#fig-lightbox img{max-width:96vw;max-height:86vh;width:auto;height:auto;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.6);background:#fff}
+#fig-lightbox .lb-close{position:absolute;top:16px;right:24px;font-size:30px;color:#cbd5e1;cursor:pointer;line-height:1;font-family:sans-serif}
+#fig-lightbox .lb-cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#94a3b8;font-size:12px;padding:0 24px}
+
 /* ── Generic interactive diagram container (kidney anatomy, HLA molecule, ABMR cartoon) ── */
 .diag-wrap{
   background:#070d1a;border:1px solid var(--border);border-radius:12px;
@@ -795,6 +807,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <div class="diag-detail empty" id="kidney-anatomy-detail">Click any labeled structure above (anastomoses, ureter, bladder, lymphatic area, wound) for its complication and management.</div>
       </div>
 
+      <div class="fig-pair" style="grid-template-columns:1fr">
+        <div class="fig-card cls2">
+          <img class="brenner-fig" src="figures/brenner/ch69_fig69-1_transplant-anatomy.png"
+               alt="Brenner Fig 69.1 — anatomy of a typical first kidney transplant (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 69.1</strong> — textbook figure shown only in the private study build (copyright).</div>
+          <div class="fig-title">Fig 69.1 · Anatomy of a typical first kidney transplant</div>
+          <div class="fig-cap">The textbook rendering of the same iliac-fossa placement your interactive diagram explores: donor vessels anastomosed to the <strong>(A) external iliac artery</strong> and <strong>(B) external iliac vein</strong>, the <strong>(C) implanted donor ureter</strong> reimplanted into the bladder, with the <strong>(D) native kidney</strong> left in place.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 69.1 — personal study material.</div>
+        </div>
+      </div>
+
       <div class="core-box">
         <div class="core-label">Core (always visible)</div>
         <div class="core-body">
@@ -822,6 +846,27 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <p><strong>Altruistic / non-directed</strong> — anonymous donor with no specific recipient. Common starting point for paired-exchange chains in the US/UK; legally restricted in Thailand (donor-recipient relationship required).</p>
         </div>
       </details>
+
+      <div class="fig-pair">
+        <div class="fig-card cls1">
+          <img class="brenner-fig" src="figures/brenner/ch70_fig70-2_kdigo-donor-framework.png"
+               alt="Brenner Fig 70.2 — KDIGO framework to accept or decline donor candidates (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 70.2</strong> — textbook figure in the private build only (copyright).</div>
+          <div class="fig-title">Fig 70.2 · KDIGO accept/decline framework</div>
+          <div class="fig-cap">A candidate's <strong>projected lifetime risk of kidney failure</strong> = demographic baseline risk + health-characteristic risk + donation-attributable risk. Candidates below the program's acceptable-risk threshold proceed; those above (Candidate C) are declined.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 70.2 — personal study material.</div>
+        </div>
+        <div class="fig-card cls2">
+          <img class="brenner-fig" src="figures/brenner/ch70_fig70-6_donor-risk-perspectives.png"
+               alt="Brenner Fig 70.6 — perspectives of risk in living kidney donation (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 70.6</strong> — textbook figure in the private build only (copyright).</div>
+          <div class="fig-title">Fig 70.6 · Perspectives of risk in living donation</div>
+          <div class="fig-cap">Four complementary framings, each answering a different counselling question: LKD vs general nondonors, LKD vs <em>healthy</em> nondonors (donor-selection criteria), between-donor subgroups, and descriptive event frequencies. "Attributable risk" = postdonation risk − baseline risk.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 70.6 — personal study material.</div>
+        </div>
+      </div>
 
       <div class="thai-callout">
         <span class="flag">🇹🇭</span>
@@ -973,6 +1018,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <div class="lg-item"><span class="lg-sw" style="background:#a855f7"></span>Metabolic (NODAT)</div>
           <div class="lg-item"><span class="lg-sw" style="background:#eab308"></span>Malignancy</div>
           <div class="lg-item"><span class="lg-sw" style="background:#22c55e"></span>Cardiovascular</div>
+        </div>
+      </div>
+
+      <div class="fig-pair" style="grid-template-columns:1fr">
+        <div class="fig-card cls1">
+          <img class="brenner-fig" src="figures/brenner/ch69_fig69-7_infection-timeline.png"
+               alt="Brenner Fig 69.7 — pattern of infection after transplantation by time (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 69.7</strong> — textbook figure shown only in the private study build (copyright).</div>
+          <div class="fig-title">Fig 69.7 · Pattern of infection after transplantation</div>
+          <div class="fig-cap">The three-phase infection timeline underlying the <span style="color:#06b6d4">Infection</span> band above. <strong>&lt;1 month</strong>: nosocomial/surgical + donor-derived infections. <strong>1–6 months</strong>: opportunistic infections (CMV, BK, PJP, <em>etc.</em>), strongly modulated by prophylaxis. <strong>&gt;6 months</strong>: community-acquired infection plus late opportunistic disease in the over-immunosuppressed. Note how each column splits by whether antimicrobial prophylaxis is in place.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 69.7 — personal study material.</div>
         </div>
       </div>
 
@@ -1320,6 +1377,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <div class="fig-cap">α-β heterodimer with the open-ended peptide groove. Peptide is visibly longer than the Class I example and protrudes at both ends — matches the schematic's open-groove depiction.</div>
           <div class="fig-src">Structure: Protein Data Bank (CC0 public-domain). View interactively in
             <a href="https://www.rcsb.org/3d-view/2BNQ" target="_blank" rel="noopener">Mol* at RCSB</a>.</div>
+        </div>
+      </div>
+
+      <div class="fig-pair" style="grid-template-columns:1fr">
+        <div class="fig-card cls1">
+          <img class="brenner-fig" src="figures/brenner/ch68_fig68-5_hla-structure.png"
+               alt="Brenner Fig 68.5 — HLA gene and molecule structure (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 68.5</strong> — textbook figure shown only in the private study build (copyright).</div>
+          <div class="fig-title">Fig 68.5 · Structure of HLA genes and molecules</div>
+          <div class="fig-cap">The canonical textbook view of the same molecules your schematic and the PDB structures depict. <strong>(A) Class I</strong> = polymorphic α-chain (α₁/α₂/α₃) non-covalently paired with invariant β₂-microglobulin, closed peptide groove. <strong>(B) Class II</strong> = α/β heterodimer, open-ended groove. Right-hand panels map the gene exons (L–α₁–α₂–α₃ for Class I; L–α₁/β₁ for Class II) onto the protein domains.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 68.5 — personal study material.</div>
         </div>
       </div>
 
@@ -1721,6 +1790,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
             <span class="warn-text" id="xm-warn-text"></span>
           </div>
           <div class="xm-decision go" id="xm-decision"><span class="dec-icon">✓</span><span id="xm-decision-text">Proceed — no immunologic barrier detected at this mismatch level.</span></div>
+        </div>
+      </div>
+
+      <div class="fig-pair" style="grid-template-columns:1fr">
+        <div class="fig-card cls1">
+          <img class="brenner-fig" src="figures/brenner/ch68_fig68-8_crossmatch-methods.png"
+               alt="Brenner Fig 68.8 — crossmatch methods CDC, AHG-CDC, flow (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 68.8</strong> — textbook figure shown only in the private study build (copyright).</div>
+          <div class="fig-title">Fig 68.8 · Crossmatch methods</div>
+          <div class="fig-cap">The three methods the widget simulates, drawn at the cellular level. <strong>(A) CDC</strong> — donor cells + recipient serum + complement; high-titre complement-fixing DSA → membrane-attack-complex → cell death. <strong>(B) AHG-CDC</strong> — anti-human-globulin amplifies sensitivity for moderate-titre antibody. <strong>(C) Flow crossmatch</strong> — fluorescent AHG detects even low-titre IgG as a shift in fluorescence.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 68.8 — personal study material.</div>
         </div>
       </div>
 
@@ -2127,6 +2208,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 
         <div class="tsig-explain" id="tsig-explain">
           Click any drug button above to see where it blocks the signaling pathway. <em>Notice that "triple therapy" (CNI + antimetabolite + steroid) hits three independent points — that's why combination works.</em>
+        </div>
+      </div>
+
+      <div class="fig-pair" style="grid-template-columns:1fr">
+        <div class="fig-card cls2">
+          <img class="brenner-fig" src="figures/brenner/ch68_fig68-9_is-mechanisms-signals.png"
+               alt="Brenner Fig 68.9 — mechanisms of immunosuppressive agents by T-cell activation signal (click to enlarge)"
+               onerror="this.classList.add('fig-missing')">
+          <div class="fig-missing-note">📕 <strong>Brenner Fig 68.9</strong> — textbook figure shown only in the private study build (copyright).</div>
+          <div class="fig-title">Fig 68.9 · Mechanisms of immunosuppressive agents, by signal</div>
+          <div class="fig-cap">The textbook companion to the interactive pathway above — every agent mapped to the signal it blocks. <strong>Signal 1</strong> (TCR → calcineurin → NFAT): CsA/FK506 + corticosteroids. <strong>Signal 2</strong> (costimulation): belatacept. <strong>Signal 3</strong> (IL-2 → mTOR → cell cycle): basiliximab (IL-2R), mTOR inhibitors (rapamycin), and MMF/AZA at the proliferation step. Depleting agents (ATG, alemtuzumab/anti-CD52) remove T-cells outright.</div>
+          <div class="fig-src">Brenner &amp; Rector's <em>The Kidney</em>, 12e, Fig 68.9 — personal study material.</div>
         </div>
       </div>
 
@@ -3041,6 +3134,28 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
   if (validTabs.includes(hash)) setActiveTab(hash);
 
   onScroll();
+})();
+</script>
+
+<!-- ★ Brenner figure lightbox (click any .brenner-fig to enlarge) ★ -->
+<div id="fig-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <span class="lb-close" aria-hidden="true">&times;</span>
+  <img id="fig-lightbox-img" src="" alt="">
+  <div class="lb-cap" id="fig-lightbox-cap"></div>
+</div>
+<script>
+(function(){
+  var lb = document.getElementById('fig-lightbox');
+  var lbImg = document.getElementById('fig-lightbox-img');
+  var lbCap = document.getElementById('fig-lightbox-cap');
+  function openFig(img){ lbImg.src = img.currentSrc || img.src; lbCap.textContent = img.alt || ''; lb.classList.add('open'); }
+  function closeFig(){ lb.classList.remove('open'); lbImg.src = ''; }
+  document.addEventListener('click', function(e){
+    var img = e.target.closest ? e.target.closest('.brenner-fig') : null;
+    if (img && !img.classList.contains('fig-missing')){ openFig(img); return; }
+    if (lb.classList.contains('open')) closeFig();   // click anywhere on the overlay dismisses
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFig(); });
 })();
 </script>
 </body>
