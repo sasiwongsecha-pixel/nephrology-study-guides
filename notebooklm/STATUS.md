@@ -2,7 +2,29 @@
 
 **Branch:** `claude/sweet-haslett-5b89b3`
 **Plan version:** v2 (locked, scrutinize patches 1-7 applied)
-**Resume instruction:** Read this file + the current ship-point's HTML state. All design decisions are in the conversation; key ones repeated below for cold-start.
+**▶ Resume in a fresh session: read [`HANDOFF.md`](HANDOFF.md) first** — it's a complete cold-start document. This file is the running log.
+
+---
+
+## BATCH 8 — U3 HLA Lab v2 ✅ (commit `5cc81ee`)
+- Added HLA-DQ as 4th locus row + anti-DQ7 antibody (MFI 8500)
+- Two threshold-modifier toggles: relaxed MFI (5000 cutoff) + C1q+ assumption
+- Clinical-risk warning banner fires when toggle flips CDC verdict
+- 6th scenario "De novo DQ DSA (4/8 + anti-DQ7)"
+- All scenarios extended to 8-allele math
+- Live: 233 KB
+
+## BATCH 7 — U1+2 polish + Wolfe sidebar + critic ✅ (commits `33eae95` + `31055f8`)
+- Pulse animation on kidney-anatomy anastomosis indicators
+- Accordion 200ms transitions + teal bg tint on open
+- Timeline row-hover spotlight (others fade to 0.35)
+- 🇹🇭 callout label restyled as inline pill with "TH" mono prefix
+- New Wolfe modern-era expandable in Overview § 01
+- Critic fix: Wolfe crossover corrected from "3-6 mo" to "day 244 (~8 mo) cumulative-survival"
+- Critic fix: "Universal CMV prophylaxis" → "risk-stratified valganciclovir"
+- Critic fix: Pre-emptive-KT rationale anchored to Meier-Kriesche 2002 (not crossover-derived)
+
+---
 
 ---
 
