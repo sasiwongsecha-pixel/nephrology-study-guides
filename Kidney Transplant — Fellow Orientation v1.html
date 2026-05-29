@@ -430,6 +430,25 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
 .dsa-row .dsa-note{font-size:11.5px;color:var(--text-dim);font-style:italic}
 .dsa-row.active .dsa-name{color:#fca5a5}
 
+/* ── U3: Lab modifier toggles + clinical-risk banner ── */
+.xm-mods{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px 12px;margin-bottom:14px}
+.xm-mods .mods-head{font-size:10px;color:var(--text-dim);letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.xm-mod{display:flex;align-items:flex-start;gap:10px;padding:5px 0;cursor:pointer;font-size:12.5px;color:#cbd5e1;line-height:1.45}
+.xm-mod:hover{color:var(--text)}
+.xm-mod input[type=checkbox]{accent-color:var(--yellow);width:14px;height:14px;cursor:pointer;flex-shrink:0;margin-top:3px}
+.xm-mod .mod-name{font-weight:700;color:var(--text);min-width:240px}
+.xm-mod .mod-hint{font-size:11.5px;color:var(--text-dim);font-style:italic;flex:1}
+.xm-mod.active .mod-name{color:#fde047}
+
+.xm-warning{
+  display:none;padding:10px 16px;font-size:12.5px;color:#fde047;
+  background:rgba(234,179,8,.10);border-top:1px solid rgba(234,179,8,.3);
+  border-bottom:1px solid rgba(234,179,8,.3);
+}
+.xm-warning.active{display:flex;align-items:flex-start;gap:10px}
+.xm-warning .warn-icon{font-size:16px;flex-shrink:0;line-height:1;color:#facc15}
+.xm-warning .warn-text strong{color:#fef08a}
+
 .xm-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .xm-panel .xm-head{font-size:10px;color:var(--text-dim);letter-spacing:1.4px;text-transform:uppercase;font-weight:700;padding:10px 16px 6px;background:var(--surface3)}
 .xm-result{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--border-dim);font-size:13px}
@@ -1612,11 +1631,12 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         <div class="hl-sub">Click any allele to cycle through preset HLA types · Toggle antibodies in the recipient's panel · The three crossmatch results below recompute live</div>
 
         <div class="scenarios">
-          <button class="scen-btn active" data-scenario="haplo">Half-haplo sibling (3/6, no DSA)</button>
-          <button class="scen-btn" data-scenario="identical">HLA-identical sib (0/6)</button>
-          <button class="scen-btn" data-scenario="random">Random DDKT (6/6, no DSA)</button>
-          <button class="scen-btn" data-scenario="sensitized">Sensitized recipient (4/6 + strong DSA)</button>
-          <button class="scen-btn" data-scenario="weak">Weak DSA (3/6 + MFI 2,500)</button>
+          <button class="scen-btn active" data-scenario="haplo">Half-haplo sibling (4/8, no DSA)</button>
+          <button class="scen-btn" data-scenario="identical">HLA-identical sib (0/8)</button>
+          <button class="scen-btn" data-scenario="random">Random DDKT (8/8, no DSA)</button>
+          <button class="scen-btn" data-scenario="sensitized">Sensitized recipient (4/8 + strong DSA)</button>
+          <button class="scen-btn" data-scenario="weak">Weak DSA (4/8 + MFI 2,500)</button>
+          <button class="scen-btn" data-scenario="denovoDQ">De novo DQ DSA (4/8 + anti-DQ7)</button>
         </div>
 
         <div class="hla-grid">
@@ -1634,6 +1654,10 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
               <span class="hla-allele" data-side="r" data-locus="DR" data-idx="0">DR4</span>
               <span class="hla-allele" data-side="r" data-locus="DR" data-idx="1">DR15</span>
             </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-DQ</span>
+              <span class="hla-allele" data-side="r" data-locus="DQ" data-idx="0">DQ4</span>
+              <span class="hla-allele" data-side="r" data-locus="DQ" data-idx="1">DQ6</span>
+            </div>
           </div>
 
           <div class="hla-side donor">
@@ -1650,14 +1674,18 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
               <span class="hla-allele" data-side="d" data-locus="DR" data-idx="0">DR4</span>
               <span class="hla-allele" data-side="d" data-locus="DR" data-idx="1">DR7</span>
             </div>
+            <div class="hla-locus-row"><span class="locus-name">HLA-DQ</span>
+              <span class="hla-allele" data-side="d" data-locus="DQ" data-idx="0">DQ4</span>
+              <span class="hla-allele" data-side="d" data-locus="DQ" data-idx="1">DQ7</span>
+            </div>
           </div>
         </div>
 
         <div class="mismatch-readout">
-          <span class="mm-count"><span id="mm-num">3</span><span class="total">/6</span></span>
+          <span class="mm-count"><span id="mm-num">4</span><span class="total">/8</span></span>
           <div>
-            <div class="mm-label">A · B · DR mismatch</div>
-            <div class="mm-detail" id="mm-detail">Donor brings A11, B44, DR7 not present in recipient.</div>
+            <div class="mm-label">A · B · DR · DQ mismatch</div>
+            <div class="mm-detail" id="mm-detail">Donor brings A11, B44, DR7, DQ7 not present in recipient. <strong>DQ7</strong> is a common driver of de novo DSA when mismatched.</div>
           </div>
         </div>
 
@@ -1666,6 +1694,21 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <label class="dsa-row" data-ab="A11"><input type="checkbox" data-ab="A11"> <span class="dsa-name">Anti-A11</span> <span class="dsa-mfi">MFI 2,500</span> <span class="dsa-note">moderate — Class I</span></label>
           <label class="dsa-row" data-ab="B44"><input type="checkbox" data-ab="B44"> <span class="dsa-name">Anti-B44</span> <span class="dsa-mfi">MFI 12,000</span> <span class="dsa-note">strong — Class I, often C1q+</span></label>
           <label class="dsa-row" data-ab="DR7"><input type="checkbox" data-ab="DR7"> <span class="dsa-name">Anti-DR7</span> <span class="dsa-mfi">MFI 800</span> <span class="dsa-note">below threshold (positive bead but not clinically meaningful)</span></label>
+          <label class="dsa-row" data-ab="DQ7"><input type="checkbox" data-ab="DQ7"> <span class="dsa-name">Anti-DQ7</span> <span class="dsa-mfi">MFI 8,500</span> <span class="dsa-note">moderate-strong — Class II, the dominant driver of <em>de novo</em> DSA + chronic active ABMR</span></label>
+        </div>
+
+        <div class="xm-mods" id="xm-mods">
+          <div class="mods-head">Lab modifiers — flip the verdicts</div>
+          <label class="xm-mod" id="mod-mfi-row">
+            <input type="checkbox" id="mod-mfi">
+            <span class="mod-name">MFI threshold: relaxed (&gt; 5,000)</span>
+            <span class="mod-hint">Some labs lower the CDC threshold to 5,000 (default: ~8,000). Toggling relaxes CDC and brings more borderline DSA into "positive" territory.</span>
+          </label>
+          <label class="xm-mod" id="mod-c1q-row">
+            <input type="checkbox" id="mod-c1q">
+            <span class="mod-name">Assume DSA are C1q+</span>
+            <span class="mod-hint">Default treats only high-MFI Class I as complement-fixing. Toggling assumes every active DSA fixes complement — Class II DSA can now drive CDC positive.</span>
+          </label>
         </div>
 
         <div class="xm-panel" id="xm-panel">
@@ -1673,6 +1716,10 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
           <div class="xm-result"><span class="xm-name">CDC</span><span class="xm-verdict neg" id="xm-cdc-v">Negative</span><span class="xm-rationale" id="xm-cdc-r">No DSA above the CDC threshold (~8,000 MFI, Class I + complement-fixing).</span></div>
           <div class="xm-result"><span class="xm-name">FCXM</span><span class="xm-verdict neg" id="xm-fcxm-v">Negative</span><span class="xm-rationale" id="xm-fcxm-r">No DSA above the flow-cytometry threshold (~3,000 MFI).</span></div>
           <div class="xm-result"><span class="xm-name">Virtual</span><span class="xm-verdict neg" id="xm-vxm-v">Negative</span><span class="xm-rationale" id="xm-vxm-r">No detected antibodies map to a donor HLA antigen.</span></div>
+          <div class="xm-warning" id="xm-warning">
+            <span class="warn-icon">⚠</span>
+            <span class="warn-text" id="xm-warn-text"></span>
+          </div>
           <div class="xm-decision go" id="xm-decision"><span class="dec-icon">✓</span><span id="xm-decision-text">Proceed — no immunologic barrier detected at this mismatch level.</span></div>
         </div>
       </div>
@@ -2679,7 +2726,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
     'A11': {mfi: 2500, classI: true,  label: 'Anti-A11'},
     'B44': {mfi: 12000, classI: true, label: 'Anti-B44'},
     'DR7': {mfi: 800,  classI: false, label: 'Anti-DR7'},
-    'DQ7': {mfi: 5500, classI: false, label: 'Anti-DQ7'}
+    'DQ7': {mfi: 8500, classI: false, label: 'Anti-DQ7'}
   };
   /* Thresholds (lab-typical, not absolute). */
   const TH = {VXM: 1000, FCXM: 3000, CDC: 8000};
@@ -2692,13 +2739,16 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
   function getAllele(side, locus, idx){
     return lab.querySelector(`.hla-allele[data-side="${side}"][data-locus="${locus}"][data-idx="${idx}"]`);
   }
+  const LOCI = ['A','B','DR','DQ'];
   function readState(){
     const state = {r: {}, d: {}, abs: {}};
-    ['A','B','DR'].forEach(loc => {
+    LOCI.forEach(loc => {
       state.r[loc] = [getAllele('r',loc,0).textContent.trim(), getAllele('r',loc,1).textContent.trim()];
       state.d[loc] = [getAllele('d',loc,0).textContent.trim(), getAllele('d',loc,1).textContent.trim()];
     });
     dsaChecks.forEach(cb => { state.abs[cb.dataset.ab] = cb.checked; });
+    state.mfiMode = !!document.getElementById('mod-mfi')?.checked;
+    state.c1qMode = !!document.getElementById('mod-c1q')?.checked;
     return state;
   }
   function updateView(){
@@ -2706,7 +2756,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
     // Mismatch + visual marking
     let mismatch = 0;
     const missingDonorAlleles = [];
-    ['A','B','DR'].forEach(loc => {
+    LOCI.forEach(loc => {
       s.d[loc].forEach((all, i) => {
         const inRecipient = s.r[loc].includes(all);
         const cell = getAllele('d', loc, i);
@@ -2725,12 +2775,14 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
       });
     });
     document.getElementById('mm-num').textContent = mismatch;
-    document.getElementById('mm-detail').textContent = mismatch === 0
-      ? 'Donor and recipient share both alleles at every A/B/DR locus — HLA-identical.'
-      : `Donor brings ${missingDonorAlleles.join(', ')} not present in recipient.`;
+    const hasDQMm = missingDonorAlleles.some(a => a.startsWith('DQ'));
+    const dqHint = hasDQMm ? ' <strong>DQ mismatch</strong> — pedagogically the dominant driver of <em>de novo</em> DSA + chronic active ABMR.' : '';
+    document.getElementById('mm-detail').innerHTML = mismatch === 0
+      ? 'Donor and recipient share both alleles at every A/B/DR/DQ locus — HLA-identical.'
+      : `Donor brings ${missingDonorAlleles.join(', ')} not present in recipient.${dqHint}`;
 
     // Active DSA = checked + targeting a donor allele present in the donor
-    const donorAlleles = new Set([...s.d.A, ...s.d.B, ...s.d.DR]);
+    const donorAlleles = new Set([...s.d.A, ...s.d.B, ...s.d.DR, ...s.d.DQ]);
     const activeDSAs = [];
     Object.keys(s.abs).forEach(ab => {
       const row = lab.querySelector(`.dsa-row[data-ab="${ab}"]`);
@@ -2740,7 +2792,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
         if (targetsADonorAllele) {
           activeDSAs.push({ab, ...ABS[ab]});
           // Mark the donor allele with the dsa-target style
-          ['A','B','DR'].forEach(loc => {
+          LOCI.forEach(loc => {
             s.d[loc].forEach((all, i) => {
               if (all === ab) getAllele('d', loc, i).classList.add('dsa-target');
             });
@@ -2751,13 +2803,26 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
       }
     });
 
-    // Crossmatch interpretation
+    // Mark modifier rows
+    document.getElementById('mod-mfi-row').classList.toggle('active', s.mfiMode);
+    document.getElementById('mod-c1q-row').classList.toggle('active', s.c1qMode);
+
+    // Crossmatch interpretation — toggle-modified
     const maxClassI = Math.max(0, ...activeDSAs.filter(d => d.classI).map(d => d.mfi));
     const maxAny    = Math.max(0, ...activeDSAs.map(d => d.mfi));
 
-    const cdcPos  = maxClassI >= TH.CDC;
+    // Threshold modifier: MFI mode lowers CDC threshold from 8000 to 5000
+    const cdcThr = s.mfiMode ? 5000 : TH.CDC;
+    // C1q modifier: assume ALL DSA fix complement → CDC considers maxAny, not just Class I
+    const cdcMfi = s.c1qMode ? maxAny : maxClassI;
+
+    const cdcPos  = cdcMfi >= cdcThr;
     const fcxmPos = maxAny    >= TH.FCXM;
     const vxmPos  = activeDSAs.length > 0 && maxAny >= TH.VXM;
+
+    // Compute "would the verdict have been negative without toggles?" for the warning
+    const cdcPosDefault = maxClassI >= TH.CDC;
+    const toggleFlippedCDC = cdcPos && !cdcPosDefault;
 
     function setResult(prefix, pos, rationale){
       const v = document.getElementById(`xm-${prefix}-v`);
@@ -2767,12 +2832,16 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
       v.classList.toggle('neg', !pos);
       r.textContent = rationale;
     }
-    setResult('cdc',  cdcPos,
-      cdcPos
-        ? `High-titre Class I DSA present (max MFI ${maxClassI.toLocaleString()}) — usually fixes complement and shows on CDC. (Simulation: MFI is an imperfect surrogate; titre + IgG subclass + antigen density determine the actual lab CDC result.)`
-        : (maxClassI > 0
-            ? `Class I DSA present but at lower titre (max MFI ${maxClassI.toLocaleString()}) — CDC often misses these; FCXM more sensitive.`
-            : 'No Class I DSA likely to be C-fixing in CDC. (Simulation uses high-MFI Class I as a surrogate.)'));
+    const cdcRationale = cdcPos
+      ? (s.c1qMode
+          ? `C1q+ assumed → all active DSA treated as complement-fixing. Max MFI ${maxAny.toLocaleString()} ≥ CDC threshold (${cdcThr.toLocaleString()}). Class II DSA now drives CDC positive — clinically the high-risk reading.`
+          : (s.mfiMode
+              ? `Relaxed threshold mode: Class I DSA at MFI ${maxClassI.toLocaleString()} ≥ ${cdcThr.toLocaleString()} (default threshold ${TH.CDC.toLocaleString()}).`
+              : `High-titre Class I DSA present (max MFI ${maxClassI.toLocaleString()}) — usually fixes complement and shows on CDC.`))
+      : (maxClassI > 0
+          ? `Class I DSA present but at lower titre (max MFI ${maxClassI.toLocaleString()}) — CDC often misses these; FCXM more sensitive.`
+          : 'No Class I DSA likely to be C-fixing in CDC.');
+    setResult('cdc', cdcPos, cdcRationale);
     setResult('fcxm', fcxmPos,
       fcxmPos
         ? `DSA present at MFI ${maxAny.toLocaleString()} — above flow threshold (~${TH.FCXM.toLocaleString()}).`
@@ -2793,7 +2862,7 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
     if (cdcPos) {
       decision.classList.add('stop');
       decision.querySelector('.dec-icon').textContent = '✗';
-      text.textContent = 'Do NOT proceed without desensitization. Strong Class I DSA likely to drive hyperacute / accelerated rejection.';
+      text.textContent = 'Do NOT proceed without desensitization. CDC-positive DSA likely to drive hyperacute / accelerated rejection.';
     } else if (fcxmPos || vxmPos) {
       decision.classList.add('caution');
       decision.querySelector('.dec-icon').textContent = '⚠';
@@ -2801,9 +2870,25 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
     } else {
       decision.classList.add('go');
       decision.querySelector('.dec-icon').textContent = '✓';
-      text.textContent = mismatch >= 5
+      text.textContent = mismatch >= 7
         ? 'Proceed — no DSA barrier despite high mismatch. Standard immunologic risk.'
         : 'Proceed — no immunologic barrier detected at this mismatch level.';
+    }
+
+    // Clinical-risk warning banner — fires when a toggle flipped the CDC verdict to positive
+    const warn = document.getElementById('xm-warning');
+    const warnText = document.getElementById('xm-warn-text');
+    if (toggleFlippedCDC) {
+      warn.classList.add('active');
+      const reasons = [];
+      if (s.mfiMode) reasons.push('the relaxed MFI threshold (5,000 vs default 8,000)');
+      if (s.c1qMode) reasons.push('the C1q+ assumption (treating all DSA as complement-fixing — Class II now triggers CDC)');
+      warnText.innerHTML = `<strong>Verdict modified by lab toggle.</strong> Without ${reasons.join(' and ')}, the default CDC verdict would have been <em>negative</em>. ` +
+        (s.c1qMode
+          ? 'Class II DSA does not normally drive CDC positivity unless complement fixation is confirmed (C1q assay). Real-world: confirm with C1q+ test before treating as high-risk.'
+          : 'Real-world: confirm with C1q+ testing or repeat CDC at standard threshold before declaring high-risk.');
+    } else {
+      warn.classList.remove('active');
     }
   }
 
@@ -2820,25 +2905,32 @@ details.expand .expand-body ul{margin:4px 0 10px 18px}
   });
 
   dsaChecks.forEach(cb => cb.addEventListener('change', updateView));
+  document.getElementById('mod-mfi').addEventListener('change', updateView);
+  document.getElementById('mod-c1q').addEventListener('change', updateView);
 
-  // Scenario presets
+  // Scenario presets (4 loci now: A · B · DR · DQ)
+  const R_DEFAULT = {A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15'],DQ:['DQ4','DQ6']};
   const scenarios = {
-    haplo:      {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{}},
-    identical:  {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, abs:{}},
-    random:     {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A1','A11'],B:['B27','B44'],DR:['DR3','DR7']}, abs:{}},
-    sensitized: {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{B44:true}},
-    weak:       {r:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15']}, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7']}, abs:{A11:true}}
+    haplo:      {r:R_DEFAULT, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7'],DQ:['DQ4','DQ7']}, abs:{}},
+    identical:  {r:R_DEFAULT, d:{A:['A2','A24'],B:['B7','B46'],DR:['DR4','DR15'],DQ:['DQ4','DQ6']}, abs:{}},
+    random:     {r:R_DEFAULT, d:{A:['A1','A11'],B:['B27','B44'],DR:['DR3','DR7'],DQ:['DQ5','DQ7']}, abs:{}},
+    sensitized: {r:R_DEFAULT, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7'],DQ:['DQ4','DQ7']}, abs:{B44:true}},
+    weak:       {r:R_DEFAULT, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7'],DQ:['DQ4','DQ7']}, abs:{A11:true}},
+    denovoDQ:   {r:R_DEFAULT, d:{A:['A2','A11'],B:['B7','B44'],DR:['DR4','DR7'],DQ:['DQ4','DQ7']}, abs:{DQ7:true}}
   };
   function applyScenario(name){
     const s = scenarios[name];
     if (!s) return;
-    ['A','B','DR'].forEach(loc => {
+    LOCI.forEach(loc => {
       getAllele('r',loc,0).textContent = s.r[loc][0];
       getAllele('r',loc,1).textContent = s.r[loc][1];
       getAllele('d',loc,0).textContent = s.d[loc][0];
       getAllele('d',loc,1).textContent = s.d[loc][1];
     });
     dsaChecks.forEach(cb => { cb.checked = !!s.abs[cb.dataset.ab]; });
+    // Scenario reset clears toggle modifiers — clean slate for teaching
+    document.getElementById('mod-mfi').checked = false;
+    document.getElementById('mod-c1q').checked = false;
     lab.querySelectorAll('.scen-btn').forEach(b => b.classList.toggle('active', b.dataset.scenario === name));
     updateView();
   }
